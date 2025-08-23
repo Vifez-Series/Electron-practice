@@ -1,4 +1,4 @@
-package io.github.thatkawaiisam.assemble;
+package lol.vifez.electron.util.assemble;
 
 import lombok.Getter;
 

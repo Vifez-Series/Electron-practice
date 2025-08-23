@@ -1,7 +1,7 @@
-package io.github.thatkawaiisam.assemble;
+package lol.vifez.electron.util.assemble;
 
-import io.github.thatkawaiisam.assemble.events.AssembleBoardCreateEvent;
-import io.github.thatkawaiisam.assemble.events.AssembleBoardDestroyEvent;
+import lol.vifez.electron.util.assemble.events.AssembleBoardCreateEvent;
+import lol.vifez.electron.util.assemble.events.AssembleBoardDestroyEvent;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;

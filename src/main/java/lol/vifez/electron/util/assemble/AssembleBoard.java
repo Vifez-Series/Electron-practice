@@ -1,6 +1,6 @@
-package io.github.thatkawaiisam.assemble;
+package lol.vifez.electron.util.assemble;
 
-import io.github.thatkawaiisam.assemble.events.AssembleBoardCreatedEvent;
+import lol.vifez.electron.util.assemble.events.AssembleBoardCreatedEvent;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

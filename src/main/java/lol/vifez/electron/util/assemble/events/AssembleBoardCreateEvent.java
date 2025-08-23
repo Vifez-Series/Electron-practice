@@ -1,4 +1,4 @@
-package io.github.thatkawaiisam.assemble.events;
+package lol.vifez.electron.util.assemble.events;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 @Getter @Setter
-public class AssembleBoardDestroyEvent extends Event implements Cancellable {
+public class AssembleBoardCreateEvent extends Event implements Cancellable {
 
     @Getter public static HandlerList handlerList = new HandlerList();
 
@@ -16,11 +16,11 @@ public class AssembleBoardDestroyEvent extends Event implements Cancellable {
     private boolean cancelled = false;
 
     /**
-     * Assemble Board Destroy Event.
+     * Assemble Board Create Event.
      *
-     * @param player who's board got destroyed.
+     * @param player that the board is being created for.
      */
-    public AssembleBoardDestroyEvent(Player player) {
+    public AssembleBoardCreateEvent(Player player) {
         this.player = player;
     }
 

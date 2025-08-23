@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.LongSerializationPolicy;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
-import io.github.thatkawaiisam.assemble.Assemble;
+import lol.vifez.electron.util.assemble.Assemble;
 import lol.vifez.electron.arena.commands.ArenaCommand;
 import lol.vifez.electron.arena.commands.ArenasCommand;
 import lol.vifez.electron.arena.manager.ArenaManager;
@@ -25,6 +25,7 @@ import lol.vifez.electron.leaderboard.command.LeaderboardCommand;
 import lol.vifez.electron.listener.MatchListener;
 import lol.vifez.electron.listener.SpawnListener;
 import lol.vifez.electron.match.MatchManager;
+import lol.vifez.electron.match.task.MatchTask;
 import lol.vifez.electron.mongo.MongoAPI;
 import lol.vifez.electron.mongo.MongoCredentials;
 import lol.vifez.electron.placeholderapi.ElectronPlaceholders;
@@ -51,6 +52,11 @@ import xyz.refinedev.api.skin.SkinAPI;
 import xyz.refinedev.api.tablist.TablistHandler;
 
 import java.io.File;
+
+/*
+ * Copyright (c) 2025 Vifez. All rights reserved.
+ * Unauthorized use or distribution is prohibited.
+ */
 
 public final class Practice extends JavaPlugin {
 
@@ -94,6 +100,9 @@ public final class Practice extends JavaPlugin {
             }
             Bukkit.getPluginManager().disablePlugin(this);
         }
+
+        this.matchManager = new MatchManager();
+        new MatchTask(matchManager).runTaskTimer(this, 0L, 20L);
 
         sendTitle();
         Hotbar.loadAll();

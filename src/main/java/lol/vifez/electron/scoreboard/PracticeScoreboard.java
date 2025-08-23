@@ -1,6 +1,6 @@
 package lol.vifez.electron.scoreboard;
 
-import io.github.thatkawaiisam.assemble.AssembleAdapter;
+import lol.vifez.electron.util.assemble.AssembleAdapter;
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.kit.Kit;
 import lol.vifez.electron.kit.enums.KitType;
@@ -14,6 +14,11 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+
+/*
+ * Copyright (c) 2025 Vifez. All rights reserved.
+ * Unauthorized use or distribution is prohibited.
+ */
 
 public class PracticeScoreboard implements AssembleAdapter {
 
