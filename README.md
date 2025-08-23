@@ -4,11 +4,6 @@ Lightweight practice core base
 
 Do not expect this to be the worlds best next bolt / frost competetor lol this was a passion project coded mainly for fun with barely any seriousness behind it, but if it works it works most practice cores are jumble logic too
 
-# NEED A SPIGOT??
- GET YOUR SELF A FREE SPORT PAPER FORK WITH OPTIMIZATIONS, CUSTOM KB, POTS, ESSENTIAL COMMANDS, ETC FOR FREE!!!!!!!!!!!
- HERE YOU GO BUDDY: https://github.com/vifezdev/Sternal-Reprised 
- (STAR IT!!!!) :D
-
 # Features
 
 - Queues
