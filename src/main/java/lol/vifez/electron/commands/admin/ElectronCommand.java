@@ -17,12 +17,6 @@ import org.bukkit.command.CommandSender;
 @CommandAlias("electron")
 public class ElectronCommand extends BaseCommand {
 
-    private final Practice plugin;
-
-    public ElectronCommand(Practice plugin) {
-        this.plugin = plugin;
-    }
-
     @Default
     @CommandPermission("electron.admin")
     public void onDefault(CommandSender sender) {
@@ -37,7 +31,7 @@ public class ElectronCommand extends BaseCommand {
     @Subcommand("reload")
     @CommandPermission("electron.admin")
     public void onReload(CommandSender sender) {
-        plugin.reloadConfig(); //config,yml only
+        Practice.getInstance().reloadConfig();
         sender.sendMessage(CC.translate("&aElectron configuration reloaded successfully!"));
     }
 }

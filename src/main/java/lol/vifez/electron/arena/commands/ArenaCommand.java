@@ -2,7 +2,6 @@ package lol.vifez.electron.arena.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
-import lol.vifez.electron.Practice;
 import lol.vifez.electron.arena.Arena;
 import lol.vifez.electron.arena.manager.ArenaManager;
 import lol.vifez.electron.util.CC;
@@ -20,7 +19,7 @@ public class ArenaCommand extends BaseCommand {
 
     private final ArenaManager arenaManager;
 
-    public ArenaCommand(Practice plugin, ArenaManager arenaManager) {
+    public ArenaCommand(ArenaManager arenaManager) {
         this.arenaManager = arenaManager;
     }
 

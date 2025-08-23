@@ -1,13 +1,14 @@
 package lol.vifez.electron.scoreboard;
 
-import lol.vifez.electron.util.assemble.AssembleAdapter;
 import lol.vifez.electron.Practice;
+import lol.vifez.electron.util.assemble.AssembleAdapter;
 import lol.vifez.electron.kit.Kit;
 import lol.vifez.electron.kit.enums.KitType;
 import lol.vifez.electron.match.Match;
 import lol.vifez.electron.elo.EloUtil;
 import lol.vifez.electron.match.enums.MatchState;
 import lol.vifez.electron.profile.Profile;
+import lombok.var;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -22,18 +23,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class PracticeScoreboard implements AssembleAdapter {
 
-    private final Practice instance;
     private final AtomicInteger titleIndex = new AtomicInteger(0);
     private final ScoreboardConfig scoreboardConfig;
 
-    public PracticeScoreboard(Practice instance) {
-        this.instance = instance;
-        this.scoreboardConfig = instance.getScoreboardConfig();
+    public PracticeScoreboard() {
+        this.scoreboardConfig = Practice.getInstance().getScoreboardConfig();
     }
 
     @Override
     public String getTitle(Player player) {
-        Profile profile = instance.getProfileManager().getProfile(player.getUniqueId());
+        Profile profile = Practice.getInstance().getProfileManager().getProfile(player.getUniqueId());
         if (!profile.isScoreboardEnabled() || !scoreboardConfig.getBoolean("scoreboard.enabled")) return "";
         String title = scoreboardConfig.getString("scoreboard.title");
         return title != null ? title : "";
@@ -42,10 +41,11 @@ public class PracticeScoreboard implements AssembleAdapter {
     @Override
     public List<String> getLines(Player player) {
         List<String> list = new ArrayList<>();
-        Profile profile = instance.getProfileManager().getProfile(player.getUniqueId());
+        Practice plugin = Practice.getInstance();
+        Profile profile = plugin.getProfileManager().getProfile(player.getUniqueId());
         if (!profile.isScoreboardEnabled() || !scoreboardConfig.getBoolean("scoreboard.enabled")) return list;
 
-        Match match = instance.getMatchManager().getMatch(profile.getUuid());
+        Match match = plugin.getMatchManager().getMatch(profile.getUuid());
         String globalElo = String.valueOf(EloUtil.getGlobalElo(profile));
         String division = profile.getDivision().getPrettyName();
 
@@ -89,17 +89,18 @@ public class PracticeScoreboard implements AssembleAdapter {
                 }
             }
 
-        } else if (instance.getQueueManager().getQueue(profile.getUuid()) != null) {
+        } else if (plugin.getQueueManager().getQueue(profile.getUuid()) != null) {
             for (String str : scoreboardConfig.getStringList("scoreboard.in-queue.lines")) {
-                Kit queueKit = instance.getQueueManager().getQueue(profile.getUuid()).getKit();
-                boolean isRanked = instance.getQueueManager().getQueue(profile.getUuid()).isRanked();
+                var queue = plugin.getQueueManager().getQueue(profile.getUuid());
+                Kit queueKit = queue.getKit();
+                boolean isRanked = queue.isRanked();
                 String typeTag = isRanked ? "&c[R]" : "&7[UR]";
 
                 list.add(str.replace("<online>", String.valueOf(Bukkit.getOnlinePlayers().size()))
-                        .replace("<in-queue>", String.valueOf(instance.getQueueManager().getAllQueueSize()))
+                        .replace("<in-queue>", String.valueOf(plugin.getQueueManager().getAllQueueSize()))
                         .replace("<kit>", queueKit.getName() + " " + typeTag)
-                        .replace("<time>", instance.getQueueManager().getQueue(profile.getUuid()).getQueueTime(profile.getUuid()))
-                        .replace("<playing>", String.valueOf(instance.getMatchManager().getAllMatchSize()))
+                        .replace("<time>", queue.getQueueTime(profile.getUuid()))
+                        .replace("<playing>", String.valueOf(plugin.getMatchManager().getAllMatchSize()))
                         .replace("<username>", player.getName())
                         .replace("<global-elo>", globalElo)
                         .replace("<division>", division));
@@ -108,8 +109,8 @@ public class PracticeScoreboard implements AssembleAdapter {
         } else {
             for (String str : scoreboardConfig.getStringList("scoreboard.in-lobby.lines")) {
                 list.add(str.replace("<online>", String.valueOf(Bukkit.getOnlinePlayers().size()))
-                        .replace("<in-queue>", String.valueOf(instance.getQueueManager().getAllQueueSize()))
-                        .replace("<playing>", String.valueOf(instance.getMatchManager().getAllMatchSize()))
+                        .replace("<in-queue>", String.valueOf(plugin.getQueueManager().getAllQueueSize()))
+                        .replace("<playing>", String.valueOf(plugin.getMatchManager().getAllMatchSize()))
                         .replace("<ping>", String.valueOf(profile.getPing()))
                         .replace("<username>", player.getName())
                         .replace("<global-elo>", globalElo)

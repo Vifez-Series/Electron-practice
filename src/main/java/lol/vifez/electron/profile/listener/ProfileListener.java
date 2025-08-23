@@ -75,6 +75,10 @@ public class ProfileListener implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
+        if (instance.getSpawnLocation() != null) {
+            player.teleport(instance.getSpawnLocation());
+        }
+
         player.getInventory().setArmorContents(null);
         player.getInventory().setContents(Hotbar.getSpawnItems());
 
@@ -87,19 +91,13 @@ public class ProfileListener implements Listener {
             player.sendTitle(CC.translate(title), CC.translate(subtitle));
         }
 
-        FileConfiguration config = instance.getConfig();
-
-        if (!config.getBoolean("settings.join-message.enabled", true)) {
-            return;
-        }
-
-        List<String> messages = config.getStringList("settings.join-message.messages");
-
-        for (String message : messages) {
-            player.sendMessage(CC.translate(message));
+        if (langConfig.getBoolean("settings.join-message.enabled", true)) {
+            List<String> messages = langConfig.getStringList("settings.join-message.messages");
+            for (String message : messages) {
+                player.sendMessage(CC.translate(message));
+            }
         }
     }
-
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();

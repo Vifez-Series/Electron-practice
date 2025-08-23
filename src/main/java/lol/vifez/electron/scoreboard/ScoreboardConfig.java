@@ -1,7 +1,6 @@
 package lol.vifez.electron.scoreboard;
 
 import lol.vifez.electron.Practice;
-import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -9,18 +8,22 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+/*
+ * Copyright (c) 2025 Vifez. All rights reserved.
+ * Unauthorized use or distribution is prohibited.
+ */
+
 public class ScoreboardConfig {
 
-    @Getter private final Practice plugin;
-    @Getter private FileConfiguration config;
-    @Getter private File configFile;
+    private FileConfiguration config;
+    private File configFile;
 
-    public ScoreboardConfig(Practice plugin) {
-        this.plugin = plugin;
+    public ScoreboardConfig() {
         load();
     }
 
     public void load() {
+        Practice plugin = Practice.getInstance();
         configFile = new File(plugin.getDataFolder(), "scoreboard.yml");
         if (!configFile.exists()) {
             plugin.saveResource("scoreboard.yml", false);

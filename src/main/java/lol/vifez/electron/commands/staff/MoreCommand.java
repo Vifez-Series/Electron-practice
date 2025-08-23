@@ -33,4 +33,3 @@ public class MoreCommand extends BaseCommand {
         player.setItemInHand(itemInHand);
     }
 }
-

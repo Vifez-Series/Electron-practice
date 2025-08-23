@@ -42,6 +42,7 @@ import lol.vifez.electron.util.SerializationUtil;
 import lol.vifez.electron.util.adapter.ItemStackArrayTypeAdapter;
 import lol.vifez.electron.util.menu.MenuAPI;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -66,7 +67,6 @@ public final class Practice extends JavaPlugin {
 
     @Getter private MongoAPI mongoAPI;
     @Getter private Gson gson;
-    @Getter private Location spawnLocation;
     @Getter private FileConfiguration languageConfig;
 
     @Getter private ProfileManager profileManager;
@@ -77,6 +77,7 @@ public final class Practice extends JavaPlugin {
     @Getter private Leaderboard leaderboards;
     @Getter private static Practice instance;
     @Getter private ScoreboardConfig scoreboardConfig;
+    @Getter @Setter private Location spawnLocation;
 
     @Override
     public void onLoad() {
@@ -113,7 +114,7 @@ public final class Practice extends JavaPlugin {
         initDesign();
         initListeners();
 
-        new Assemble(this, new PracticeScoreboard(this));
+        new Assemble(this, new PracticeScoreboard());
     }
 
     private void initListeners() {
@@ -130,23 +131,24 @@ public final class Practice extends JavaPlugin {
             saveResource("scoreboard.yml", false);
         }
 
-        scoreboardConfig = new ScoreboardConfig(this);
+        scoreboardConfig = new ScoreboardConfig();
     }
 
     private void registerCommands() {
         BukkitCommandManager manager = new BukkitCommandManager(this);
-        manager.registerCommand(new ArenaCommand(this, arenaManager));
-        manager.registerCommand(new ArenasCommand(this));
-        manager.registerCommand(new ElectronCommand(this));
+        manager.registerCommand(new ArenaCommand(arenaManager));
+        manager.registerCommand(new ArenasCommand());
+        manager.registerCommand(new ElectronCommand());
         manager.registerCommand(new KitCommands());
         manager.registerCommand(new BuildModeCommand());
-        manager.registerCommand(new KitEditorCommand(this));
+        manager.registerCommand(new KitEditorCommand());
         manager.registerCommand(new LeaderboardCommand());
         manager.registerCommand(new MessageCommand());
         manager.registerCommand(new ReplyCommand());
         manager.registerCommand(new MoreCommand());
         manager.registerCommand(new EloCommand());
         manager.registerCommand(new DuelCommand());
+        manager.registerCommand(new SetSpawnCommand());
     }
 
     private void sendTitle() {
@@ -173,7 +175,7 @@ public final class Practice extends JavaPlugin {
         arenasFile = new ConfigFile(this, "arenas.yml");
         kitsFile = new ConfigFile(this, "kits.yml");
         tabFile = new ConfigFile(this, "tab.yml");
-        this.scoreboardConfig = new ScoreboardConfig(this);
+        this.scoreboardConfig = new ScoreboardConfig();
 
         if (!tabFile.getConfiguration().contains("enabled")) {
             sendMsg("&c[ERROR] tab.yml is missing essential data!");
@@ -216,7 +218,7 @@ public final class Practice extends JavaPlugin {
 
     private void initDesign() {
         if (getConfig().getBoolean("scoreboard.enabled")) {
-            new Assemble(this, new PracticeScoreboard(this));
+            new Assemble(this, new PracticeScoreboard());
         }
 
         if (tabFile.getBoolean("enabled")) {

@@ -9,20 +9,9 @@ import lol.vifez.electron.arena.menu.ArenasMenu;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
- */
-
 @CommandAlias("arenas")
 @CommandPermission("electron.arena.list")
 public class ArenasCommand extends BaseCommand {
-
-    private final Practice plugin;
-
-    public ArenasCommand(Practice plugin) {
-        this.plugin = plugin;
-    }
 
     @Default
     public void onArenasCommand(CommandSender sender) {
@@ -32,6 +21,6 @@ public class ArenasCommand extends BaseCommand {
         }
 
         Player player = (Player) sender;
-        new ArenasMenu(plugin.getArenaManager()).openMenu(player);
+        new ArenasMenu(Practice.getInstance().getArenaManager()).openMenu(player);
     }
 }

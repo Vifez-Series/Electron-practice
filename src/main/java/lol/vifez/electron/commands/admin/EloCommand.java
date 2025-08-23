@@ -10,6 +10,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+/*
+ * Copyright (c) 2025 Vifez. All rights reserved.
+ * Unauthorized use or distribution is prohibited.
+ */
+
 @CommandAlias("elo")
 @CommandPermission("electron.admin")
 public class EloCommand extends BaseCommand {
