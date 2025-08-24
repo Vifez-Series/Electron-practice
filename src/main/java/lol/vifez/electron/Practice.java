@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.LongSerializationPolicy;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
-import lol.vifez.electron.util.assemble.Assemble;
 import lol.vifez.electron.arena.commands.ArenaCommand;
 import lol.vifez.electron.arena.commands.ArenasCommand;
 import lol.vifez.electron.arena.manager.ArenaManager;
@@ -40,9 +39,9 @@ import lol.vifez.electron.util.CC;
 import lol.vifez.electron.util.ConfigFile;
 import lol.vifez.electron.util.SerializationUtil;
 import lol.vifez.electron.util.adapter.ItemStackArrayTypeAdapter;
+import lol.vifez.electron.util.assemble.Assemble;
 import lol.vifez.electron.util.menu.MenuAPI;
 import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -53,6 +52,7 @@ import xyz.refinedev.api.skin.SkinAPI;
 import xyz.refinedev.api.tablist.TablistHandler;
 
 import java.io.File;
+import java.util.Arrays;
 
 /*
  * Copyright (c) 2025 Vifez. All rights reserved.
@@ -61,23 +61,22 @@ import java.io.File;
 
 public final class Practice extends JavaPlugin {
 
-    @Getter private ConfigFile arenasFile;
-    @Getter private ConfigFile kitsFile;
-    @Getter private ConfigFile tabFile;
-
+    @Getter private static Practice instance;
+    
+    @Getter private ConfigFile arenasFile, kitsFile, tabFile;
+    @Getter private FileConfiguration languageConfig;
+    @Getter private ScoreboardConfig scoreboardConfig;
+    
     @Getter private MongoAPI mongoAPI;
     @Getter private Gson gson;
-    @Getter private FileConfiguration languageConfig;
-
     @Getter private ProfileManager profileManager;
     @Getter private ArenaManager arenaManager;
     @Getter private KitManager kitManager;
     @Getter private MatchManager matchManager;
     @Getter private QueueManager queueManager;
     @Getter private Leaderboard leaderboards;
-    @Getter private static Practice instance;
-    @Getter private ScoreboardConfig scoreboardConfig;
-    @Getter @Setter private Location spawnLocation;
+    
+    @Getter private Location spawnLocation;
 
     @Override
     public void onLoad() {
@@ -89,35 +88,104 @@ public final class Practice extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        saveDefaultConfig();
-        languageConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "language.yml"));
-
-        loadScoreboardConfig();
-
-        if (!(this.getDescription().getAuthors().contains("vifez") && this.getDescription().getAuthors().contains("MTR"))
-                || !this.getDescription().getWebsite().equals("www.vifez.lol")) {
-            for (int i = 0; i < 20000; i++) {
-                this.getServer().getConsoleSender().sendMessage("mane these skids huh \\_(^_^)_/");
-            }
-            Bukkit.getPluginManager().disablePlugin(this);
-        }
-
-        this.matchManager = new MatchManager();
-        new MatchTask(matchManager).runTaskTimer(this, 0L, 20L);
-
-        sendTitle();
-        Hotbar.loadAll();
-        initConfig();
-        initLibraries();
-        initModels();
-        registerCommands();
-        initDesign();
-        initListeners();
-
-        new Assemble(this, new PracticeScoreboard());
+        initializePlugin();
     }
 
-    private void initListeners() {
+
+    private void initializePlugin() {
+        saveDefaultConfig();
+        loadLanguageConfig();
+        loadScoreboardConfig();
+        
+        initializeManagers();
+        initializeServices();
+        registerCommands();
+        initializeListeners();
+        initializeDesign();
+        
+        displayStartupInfo();
+    }
+
+    private void loadLanguageConfig() {
+        languageConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "language.yml"));
+    }
+
+    private void loadScoreboardConfig() {
+        File file = new File(getDataFolder(), "scoreboard.yml");
+        if (!file.exists()) {
+            saveResource("scoreboard.yml", false);
+        }
+        scoreboardConfig = new ScoreboardConfig();
+    }
+
+    private void initializeManagers() {
+        matchManager = new MatchManager();
+        new MatchTask(matchManager).runTaskTimer(this, 0L, 20L);
+        
+        profileManager = new ProfileManager(new ProfileRepository(mongoAPI, gson));
+        arenaManager = new ArenaManager();
+        kitManager = new KitManager();
+        queueManager = new QueueManager();
+        leaderboards = new Leaderboard(profileManager);
+    }
+
+    private void initializeServices() {
+        initializeGson();
+        initializeMongo();
+        initializeSpawnLocation();
+        initializePlaceholderAPI();
+    }
+
+    private void initializeGson() {
+        gson = new GsonBuilder()
+                .serializeNulls()
+                .setPrettyPrinting()
+                .setLongSerializationPolicy(LongSerializationPolicy.STRING)
+                .registerTypeAdapter(ItemStack[].class, new ItemStackArrayTypeAdapter())
+                .create();
+    }
+
+    private void initializeMongo() {
+        mongoAPI = new MongoAPI(new MongoCredentials(
+                getConfig().getString("mongo.host"),
+                getConfig().getInt("mongo.port"),
+                getConfig().getString("mongo.database"),
+                getConfig().getString("mongo.user"),
+                getConfig().getString("mongo.password")
+        ));
+    }
+
+    private void initializeSpawnLocation() {
+        spawnLocation = SerializationUtil.deserializeLocation(
+                getConfig().getString("settings.spawn-location", "world,0,100,0,0,0")
+        );
+    }
+
+    private void initializePlaceholderAPI() {
+        if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            new ElectronPlaceholders(this).register();
+        }
+    }
+
+    private void registerCommands() {
+        BukkitCommandManager manager = new BukkitCommandManager(this);
+        
+        manager.registerCommand(new ArenaCommand(arenaManager));
+        manager.registerCommand(new ArenasCommand());
+        manager.registerCommand(new KitCommands());
+        manager.registerCommand(new KitEditorCommand());
+        manager.registerCommand(new ElectronCommand());
+        manager.registerCommand(new BuildModeCommand());
+        manager.registerCommand(new EloCommand());
+        manager.registerCommand(new SetSpawnCommand());
+        manager.registerCommand(new LeaderboardCommand());
+        manager.registerCommand(new MessageCommand());
+        manager.registerCommand(new ReplyCommand());
+        manager.registerCommand(new MoreCommand());
+        manager.registerCommand(new DuelCommand());
+    }
+
+    private void initializeListeners() {
         new SpawnListener();
         new MatchListener();
         new QueueListener();
@@ -125,111 +193,49 @@ public final class Practice extends JavaPlugin {
         new MenuAPI(this);
     }
 
-    public void loadScoreboardConfig() {
-        File file = new File(getDataFolder(), "scoreboard.yml");
-        if (!file.exists()) {
-            saveResource("scoreboard.yml", false);
-        }
-
-        scoreboardConfig = new ScoreboardConfig();
-    }
-
-    private void registerCommands() {
-        BukkitCommandManager manager = new BukkitCommandManager(this);
-        manager.registerCommand(new ArenaCommand(arenaManager));
-        manager.registerCommand(new ArenasCommand());
-        manager.registerCommand(new ElectronCommand());
-        manager.registerCommand(new KitCommands());
-        manager.registerCommand(new BuildModeCommand());
-        manager.registerCommand(new KitEditorCommand());
-        manager.registerCommand(new LeaderboardCommand());
-        manager.registerCommand(new MessageCommand());
-        manager.registerCommand(new ReplyCommand());
-        manager.registerCommand(new MoreCommand());
-        manager.registerCommand(new EloCommand());
-        manager.registerCommand(new DuelCommand());
-        manager.registerCommand(new SetSpawnCommand());
-    }
-
-    private void sendTitle() {
-        sendMsg(" ");
-        sendMsg("&bElectron Practice &7[Beta]");
-        sendMsg(" ");
-        sendMsg(translateMsg("Version", getDescription().getVersion()));
-        sendMsg(translateMsg("Protocol", getServer().getBukkitVersion()));
-        sendMsg(translateMsg("Spigot", getServer().getName()));
-        sendMsg(" ");
-        sendMsg(translateMsg("Author", String.join(", ", getDescription().getAuthors())));
-        sendMsg(" ");
-    }
-
-    private void sendMsg(String msg) {
-        Bukkit.getConsoleSender().sendMessage(CC.translate(msg));
-    }
-
-    private String translateMsg(String info, String detail) {
-        return " &7> &f" + info + ": &b" + detail;
-    }
-
-    private void initConfig() {
-        arenasFile = new ConfigFile(this, "arenas.yml");
-        kitsFile = new ConfigFile(this, "kits.yml");
-        tabFile = new ConfigFile(this, "tab.yml");
-        this.scoreboardConfig = new ScoreboardConfig();
-
-        if (!tabFile.getConfiguration().contains("enabled")) {
-            sendMsg("&c[ERROR] tab.yml is missing essential data!");
-        } else {
-            sendMsg("&aSuccessfully loaded tab.yml!");
-        }
-    }
-
-    private void initLibraries() {
-        gson = new GsonBuilder()
-                .serializeNulls()
-                .setPrettyPrinting()
-                .setLongSerializationPolicy(LongSerializationPolicy.STRING)
-                .registerTypeAdapter(ItemStack[].class, new ItemStackArrayTypeAdapter())
-                .create();
-
-        mongoAPI = new MongoAPI(new MongoCredentials(
-                getConfig().getString("mongo.host"),
-                getConfig().getInt("mongo.port"),
-                getConfig().getString("mongo.database"),
-                getConfig().getString("mongo.user"),
-                getConfig().getString("mongo.password"))
-        );
-
-        spawnLocation = SerializationUtil.deserializeLocation(getConfig().getString("settings.spawn-location", "world,0,100,0,0,0"));
-
-        if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            new ElectronPlaceholders(this).register();
-        }
-    }
-
-    private void initModels() {
-        profileManager = new ProfileManager(new ProfileRepository(mongoAPI, gson));
-        arenaManager = new ArenaManager();
-        kitManager = new KitManager();
-        matchManager = new MatchManager();
-        queueManager = new QueueManager();
-        leaderboards = new Leaderboard(profileManager);
-    }
-
-    private void initDesign() {
+    private void initializeDesign() {
         if (getConfig().getBoolean("scoreboard.enabled")) {
             new Assemble(this, new PracticeScoreboard());
         }
 
         if (tabFile.getBoolean("enabled")) {
-            TablistHandler tablistHandler = new TablistHandler(this);
-            SkinAPI skinAPI = new SkinAPI(this, gson);
-
-            tablistHandler.setIgnore1_7(false);
-            tablistHandler.setupSkinCache(skinAPI);
-            tablistHandler.init(PacketEvents.getAPI());
-            tablistHandler.registerAdapter(new ElectronTab(this, getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")), 20);
+            initializeTablist();
         }
+    }
+
+    private void initializeTablist() {
+        TablistHandler tablistHandler = new TablistHandler(this);
+        SkinAPI skinAPI = new SkinAPI(this, gson);
+
+        tablistHandler.setIgnore1_7(false);
+        tablistHandler.setupSkinCache(skinAPI);
+        tablistHandler.init(PacketEvents.getAPI());
+        tablistHandler.registerAdapter(
+                new ElectronTab(this, getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")), 
+                20
+        );
+    }
+
+    private void displayStartupInfo() {
+        sendMessage(" ");
+        sendMessage("&bElectron Practice &7[Beta]");
+        sendMessage(" ");
+        sendMessage(formatInfo("Version", getDescription().getVersion()));
+        sendMessage(formatInfo("Protocol", getServer().getBukkitVersion()));
+        sendMessage(formatInfo("Spigot", getServer().getName()));
+        sendMessage(" ");
+        sendMessage(formatInfo("Author", String.join(", ", getDescription().getAuthors())));
+        sendMessage(" ");
+        
+        Hotbar.loadAll();
+    }
+
+    private void sendMessage(String message) {
+        Bukkit.getConsoleSender().sendMessage(CC.translate(message));
+    }
+
+    private String formatInfo(String info, String detail) {
+        return " &7> &f" + info + ": &b" + detail;
     }
 
     @Override

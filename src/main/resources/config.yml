@@ -4,7 +4,7 @@
 # ██╔══╝  ██║     ██╔══╝  ██║        ██║   ██╔══██╗██║   ██║██║╚██╗██║
 # ███████╗███████╗███████╗╚██████╗   ██║   ██║  ██║╚██████╔╝██║ ╚████║
 # ╚══════╝╚══════╝╚══════╝ ╚═════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
-#                       Practice • v1.0
+#                       Practice • v1.1
 
 mongo:
   host: "localhost"
@@ -24,12 +24,6 @@ settings:
     messages:
       - " "
       - "&b&lElectron Practice"
-      - " &fDuels, events, ranked"
-      - " &fMultiple game modes available"
-      - " "
-      - "&7» &f&lSeason &bI"
-      - " "
-      - "&b&lFeatures"
-      - "&7» &b&lNEW &fPractice core with better performance"
-      - "&7» &b&lNEW &fSpawn and builds"
+      - " &7Duels, events, ranked"
+      - " &7Multiple game modes available"
       - " "
