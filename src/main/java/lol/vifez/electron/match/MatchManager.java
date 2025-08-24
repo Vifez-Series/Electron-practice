@@ -1,6 +1,7 @@
 package lol.vifez.electron.match;
 
 import lol.vifez.electron.Practice;
+import lol.vifez.electron.elo.EloUtil;
 import lol.vifez.electron.kit.Kit;
 import lol.vifez.electron.match.enums.MatchState;
 import lol.vifez.electron.match.event.MatchEndEvent;
@@ -134,6 +135,10 @@ public class MatchManager {
             Profile loser = match.getOpponent(match.getWinner().getPlayer());
             Profile[] profiles = {winner, loser};
 
+            if (match.isRanked()) {
+                updateEloForRankedMatch(winner, loser, match.getKit());
+            }
+
             for (Profile profile : profiles) {
                 profile.getPlayer().playSound(profile.getPlayer().getLocation(), Sound.NOTE_PLING, 0.5f, 0.5f);
 
@@ -150,6 +155,38 @@ public class MatchManager {
                     remove(match);
                 }, 100L);
             }
+        }
+    }
+
+    /**
+     * Updates ELO for both players in a ranked match
+     * @param winner The winning player
+     * @param loser The losing player
+     * @param kit The kit used in the match
+     */
+    private void updateEloForRankedMatch(Profile winner, Profile loser, Kit kit) {
+        int winnerElo = winner.getElo(kit);
+        int loserElo = loser.getElo(kit);
+        
+        int newWinnerElo = EloUtil.getNewRating(winnerElo, loserElo, true);
+        int newLoserElo = EloUtil.getNewRating(loserElo, winnerElo, false);
+        
+        winner.setElo(kit, newWinnerElo);
+        loser.setElo(kit, newLoserElo);
+        
+        winner.checkDivision(kit);
+        loser.checkDivision(kit);
+        
+        if (winner.getPlayer() != null) {
+            int eloChange = newWinnerElo - winnerElo;
+            String changeMsg = eloChange >= 0 ? "&a+" + eloChange : "&c" + eloChange;
+            CC.sendMessage(winner.getPlayer(), "&aYou won! &7ELO: " + changeMsg + " &7(&e" + newWinnerElo + "&7)");
+        }
+        
+        if (loser.getPlayer() != null) {
+            int eloChange = newLoserElo - loserElo;
+            String changeMsg = eloChange >= 0 ? "&a+" + eloChange : "&c" + eloChange;
+            CC.sendMessage(loser.getPlayer(), "&cYou lost! &7ELO: " + changeMsg + " &7(&e" + newLoserElo + "&7)");
         }
     }
 }
