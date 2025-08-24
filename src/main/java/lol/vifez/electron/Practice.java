@@ -89,6 +89,7 @@ public final class Practice extends JavaPlugin {
         instance = this;
 
         initializePlugin();
+        Assemble assemble = new Assemble(this, new PracticeScoreboard());
     }
 
 
@@ -96,9 +97,10 @@ public final class Practice extends JavaPlugin {
         saveDefaultConfig();
         loadLanguageConfig();
         loadScoreboardConfig();
+        initializeConfigFiles();
         
-        initializeManagers();
         initializeServices();
+        initializeManagers();
         registerCommands();
         initializeListeners();
         initializeDesign();
@@ -116,6 +118,18 @@ public final class Practice extends JavaPlugin {
             saveResource("scoreboard.yml", false);
         }
         scoreboardConfig = new ScoreboardConfig();
+    }
+
+    private void initializeConfigFiles() {
+        arenasFile = new ConfigFile(this, "arenas.yml");
+        kitsFile = new ConfigFile(this, "kits.yml");
+        tabFile = new ConfigFile(this, "tab.yml");
+
+        if (!tabFile.getConfiguration().contains("enabled")) {
+            sendMessage("&c[ERROR] tab.yml is missing essential data!");
+        } else {
+            sendMessage("&aSuccessfully loaded tab.yml!");
+        }
     }
 
     private void initializeManagers() {
