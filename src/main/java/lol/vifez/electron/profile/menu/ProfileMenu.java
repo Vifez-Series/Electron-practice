@@ -23,7 +23,7 @@ public class ProfileMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return CC.translate("&b&lProfile &7(" + targetProfile.getName() + ")");
+        return "&7Profile (" + targetProfile.getName() + ")";
     }
 
     @Override

@@ -25,7 +25,7 @@ public class KitEditMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return "&bEditing...";
+        return "&7Editing...";
     }
 
     @Override

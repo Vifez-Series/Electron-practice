@@ -25,7 +25,7 @@ public class KitSelectionMenu extends Menu {
 
     @Override
     public String getTitle(Player p0) {
-        return "&bKit Editor";
+        return "&7Kit Editor";
     }
 
     @Override

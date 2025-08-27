@@ -24,7 +24,7 @@ public class ArenasMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return "&b&lArenas";
+        return "&7Arenas";
     }
 
     @Override

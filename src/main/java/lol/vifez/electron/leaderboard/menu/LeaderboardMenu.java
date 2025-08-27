@@ -11,14 +11,10 @@ import lol.vifez.electron.util.menu.button.impl.EasyButton;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
- */
 
 @RequiredArgsConstructor
 public class LeaderboardMenu extends Menu {
@@ -27,7 +23,7 @@ public class LeaderboardMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return "&eLeaderboard";
+        return "&7Leaderboard";
     }
 
     @Override
@@ -45,15 +41,17 @@ public class LeaderboardMenu extends Menu {
                 .collect(Collectors.toList());
 
         List<String> lore = new ArrayList<>();
+        lore.add("&7Showing top 10 results");
+        lore.add(" ");
         for (int i = 0; i < topPlayers.size(); i++) {
             Profile profile = topPlayers.get(i);
             int globalElo = EloUtil.getGlobalElo(profile);
-            lore.add("&b" + (i + 1) + ". &e" + profile.getName() + " &7- &b" + globalElo);
+            lore.add("&b" + (i + 1) + ". " + profile.getName() + " &7- &b" + globalElo);
         }
 
         buttons.put(4, new EasyButton(
                 new ItemBuilder(Material.NETHER_STAR)
-                        .name("&b&lGlobal Elo Leaderboard")
+                        .name("&b&lGlobal Elo")
                         .lore(lore)
                         .build(),
                 true, true, () -> {}
@@ -89,10 +87,18 @@ public class LeaderboardMenu extends Menu {
 
 class LeaderboardButton extends EasyButton {
     public LeaderboardButton(Practice instance, Kit kit) {
-        super(new ItemBuilder(kit.getDisplayItem())
+        super(buildItem(instance, kit), true, true, () -> {});
+    }
+
+    private static ItemStack buildItem(Practice instance, Kit kit) {
+        List<String> lore = new ArrayList<>();
+        lore.add("&7Showing top 10 results");
+        lore.add(" ");
+        lore.addAll(Arrays.asList(instance.getLeaderboards().getLeaderboardLayout(kit)));
+
+        return new ItemBuilder(kit.getDisplayItem())
                 .name(kit.getColor() + kit.getName())
-                .lore(instance.getLeaderboards().getLeaderboardLayout(kit))
-                .build(), true, true, () -> {}
-        );
+                .lore(lore)
+                .build();
     }
 }

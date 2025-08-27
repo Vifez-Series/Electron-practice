@@ -29,7 +29,7 @@ public class DuelKitMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return "&bSelect a kit &7(duel)";
+        return "&7Select a kit &7(duel)";
     }
 
     @Override
