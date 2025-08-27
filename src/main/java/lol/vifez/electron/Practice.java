@@ -96,7 +96,6 @@ public final class Practice extends JavaPlugin {
 
     private void initializePlugin() {
         saveDefaultConfig();
-        loadLanguageConfig();
         loadScoreboardConfig();
         initializeConfigFiles();
         
@@ -107,10 +106,6 @@ public final class Practice extends JavaPlugin {
         initializeDesign();
         
         displayStartupInfo();
-    }
-
-    private void loadLanguageConfig() {
-        languageConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "language.yml"));
     }
 
     private void loadScoreboardConfig() {

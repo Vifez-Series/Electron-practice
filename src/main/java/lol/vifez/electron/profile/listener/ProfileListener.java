@@ -82,22 +82,16 @@ public class ProfileListener implements Listener {
         player.getInventory().setArmorContents(null);
         player.getInventory().setContents(Hotbar.getSpawnItems());
 
-        FileConfiguration langConfig = instance.getConfig();
+        player.sendTitle(CC.translate("&b&lPRACTICE"), CC.translate("&7Welcome to Practice (EU)"));
 
-        if (langConfig.getBoolean("title.enabled", true)) {
-            String title = langConfig.getString("title.main", "&b&lElectron");
-            String subtitle = langConfig.getString("title.subtitle", "&7Lorum Ispum");
-
-            player.sendTitle(CC.translate(title), CC.translate(subtitle));
-        }
-
-        if (langConfig.getBoolean("settings.join-message.enabled", true)) {
-            List<String> messages = langConfig.getStringList("settings.join-message.messages");
+        if (instance.getConfig().getBoolean("settings.join-message.enabled", true)) {
+            List<String> messages = instance.getConfig().getStringList("settings.join-message.messages");
             for (String message : messages) {
                 player.sendMessage(CC.translate(message));
             }
         }
     }
+
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
