@@ -42,6 +42,7 @@ import lol.vifez.electron.util.adapter.ItemStackArrayTypeAdapter;
 import lol.vifez.electron.util.assemble.Assemble;
 import lol.vifez.electron.util.menu.MenuAPI;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -52,7 +53,6 @@ import xyz.refinedev.api.skin.SkinAPI;
 import xyz.refinedev.api.tablist.TablistHandler;
 
 import java.io.File;
-import java.util.Arrays;
 
 /*
  * Copyright (c) 2025 Vifez. All rights reserved.
@@ -76,6 +76,7 @@ public final class Practice extends JavaPlugin {
     @Getter private QueueManager queueManager;
     @Getter private Leaderboard leaderboards;
     
+    @Setter
     @Getter private Location spawnLocation;
 
     @Override
