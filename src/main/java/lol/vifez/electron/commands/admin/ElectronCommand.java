@@ -21,10 +21,14 @@ public class ElectronCommand extends BaseCommand {
     @CommandPermission("electron.admin")
     public void onDefault(CommandSender sender) {
         sender.sendMessage(CC.translate(" "));
-        sender.sendMessage(CC.translate("&b&lElectron Practice"));
+        sender.sendMessage(CC.translate("&b&lElectron Practice &7[Open SRC]"));
+        sender.sendMessage(CC.translate("&7&oLightweight open-source practice core"));
         sender.sendMessage(CC.translate(" "));
         sender.sendMessage(CC.translate("&fAuthors: &bvifez &f& &eMTR"));
         sender.sendMessage(CC.translate("&fVersion: &b1.0"));
+        sender.sendMessage(CC.translate(" "));
+        sender.sendMessage(CC.translate("&fDiscord: &bhttps://discord.vifez.lol"));
+        sender.sendMessage(CC.translate("&fGithub: &bhttps://electron.vifez.lol"));
         sender.sendMessage(CC.translate(" "));
     }
 
@@ -32,6 +36,6 @@ public class ElectronCommand extends BaseCommand {
     @CommandPermission("electron.admin")
     public void onReload(CommandSender sender) {
         Practice.getInstance().reloadConfig();
-        sender.sendMessage(CC.translate("&aElectron configuration reloaded successfully!"));
+        sender.sendMessage(CC.translate("&b&lElectron &7| &fConfigurations reloaded."));
     }
 }

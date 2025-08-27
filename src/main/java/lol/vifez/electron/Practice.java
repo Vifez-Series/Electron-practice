@@ -228,15 +228,19 @@ public final class Practice extends JavaPlugin {
 
     private void displayStartupInfo() {
         sendMessage(" ");
-        sendMessage("&bElectron Practice &7[Beta]");
+        sendMessage("&b&lElectron Practice&7 [Open SRC]");
+        sendMessage("&7&oLightweight open-source practice core");
         sendMessage(" ");
-        sendMessage(formatInfo("Version", getDescription().getVersion()));
-        sendMessage(formatInfo("Protocol", getServer().getBukkitVersion()));
-        sendMessage(formatInfo("Spigot", getServer().getName()));
+        sendMessage("&fAuthors: &bvifez &f& &eMTR");
+        sendMessage("&fVersion: &b" + getDescription().getVersion());
         sendMessage(" ");
-        sendMessage(formatInfo("Author", String.join(", ", getDescription().getAuthors())));
+        sendMessage("&fProtocol: &b" + getServer().getBukkitVersion());
+        sendMessage("&fSpigot: &b" + getServer().getName());
         sendMessage(" ");
-        
+        sendMessage("&fDiscord: &bhttps://discord.vifez.lol");
+        sendMessage("&fGithub: &bhttps://electron.vifez.lol");
+        sendMessage(" ");
+
         Hotbar.loadAll();
     }
 

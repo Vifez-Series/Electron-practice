@@ -25,17 +25,19 @@ Do not expect this to be the worlds best next bolt / frost competetor lol this w
 - More command (x64 of whatever in ur hand)
 *And More...*
 
+# Support
+Need support? You can join our discord server and create a ticket!
+- https://discord.vifez.lol
+
 # Setup
+I designed this practice core to be as dependency less as possible which is why it only requires the following:
 
-I designed this practice core to be as dependencyless as possible which is why it only requires the following:
-
-- Packet events (use the one in the libs folder)
+- Packet events
 - ProtocolLib
 - 1.8
-- MongoDB (works without just doesnt save data)
+- MongoDB
 
-## Compiling
-
+# Compiling
 - Clone the repo to your intellij
 - Let maven do its magic
 - run `mvn package`

@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
  */
 
 @CommandAlias("elo")
-@CommandPermission("electron.admin")
+@CommandPermission("electron.admin.elo")
 public class EloCommand extends BaseCommand {
 
     @HelpCommand
