@@ -5,20 +5,25 @@ Lightweight practice core base
 Do not expect this to be the worlds best next bolt / frost competetor lol this was a passion project coded mainly for fun with barely any seriousness behind it, but if it works it works most practice cores are jumble logic too
 
 # Features
-
-- Queues
+- Queues (unranked / ranked, random queue)
 - Arenas
-- Kits
-- Kit editor
-- Hotbar
-- Leaderboards / Elo
-- Scoreboard
-- Profiles
-- Data saving (mongo)
-- Tablist (configurable)
-- PlaceholderAPI Support
+- Kits (boxing, ndbf, sumo)
+- Leaderboards (Per kit + Global elo)
+- Conversations (/msg, /r)
 - Matches
-- Basic chat features (/msg /reply)
+- Scoreboard (configurable)
+- Tablist (configurable)
+- Join MOTD + Title
+- PlaceholderAPI Support (and custom placeholders)
+- MongoDB For data saving
+- Duels
+- Spectate
+- Hotbar
+- Build mode
+- Elo management
+- Spawn system (/setspawn)
+- More command (x64 of whatever in ur hand)
+*And More...*
 
 # Setup
 
