@@ -13,9 +13,10 @@ import xyz.refinedev.api.tablist.setup.TabEntry;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 @RequiredArgsConstructor

@@ -1,135 +1,88 @@
 package lol.vifez.electron.util;
 
+import com.google.gson.*;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.io.BukkitObjectInputStream;
-import org.bukkit.util.io.BukkitObjectOutputStream;
-import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Credits to RevereInc, Alley
- * Original source: https://github.com/RevereInc/alley-practice/blob/master/src/main/java/dev/revere/alley/common/serializer/Serializer.java
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 @UtilityClass
 public class SerializationUtil {
 
-    public String serializeLocation(Location location) {
-        if (location == null || location.getWorld() == null) return null;
-        return String.join(", ",
-                location.getWorld().getName(),
-                String.valueOf(location.getX()),
-                String.valueOf(location.getY()),
-                String.valueOf(location.getZ()),
-                String.valueOf(location.getYaw()),
-                String.valueOf(location.getPitch())
-        );
-    }
-
-    public Location deserializeLocation(String data) {
-        if (data == null || data.isEmpty()) return null;
-
-        String[] parts = data.split(", ");
-        if (parts.length < 6) return null;
-
-        World world = Bukkit.getWorld(parts[0]);
-        if (world == null) return null;
-
-        return new Location(
-                world,
-                Double.parseDouble(parts[1]),
-                Double.parseDouble(parts[2]),
-                Double.parseDouble(parts[3]),
-                Float.parseFloat(parts[4]),
-                Float.parseFloat(parts[5])
-        );
-    }
+    private static final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(ItemStack.class, new JsonSerializer<ItemStack>() {
+                @Override
+                public JsonElement serialize(ItemStack item, java.lang.reflect.Type type, JsonSerializationContext context) {
+                    JsonObject obj = new JsonObject();
+                    if (item == null || item.getType() == Material.AIR) return JsonNull.INSTANCE;
+                    obj.addProperty("type", item.getType().name());
+                    obj.addProperty("amount", item.getAmount());
+                    return obj;
+                }
+            })
+            .registerTypeAdapter(ItemStack.class, new JsonDeserializer<ItemStack>() {
+                @Override
+                public ItemStack deserialize(JsonElement json, java.lang.reflect.Type type, JsonDeserializationContext context) throws JsonParseException {
+                    if (json.isJsonNull()) return new ItemStack(Material.AIR);
+                    JsonObject obj = json.getAsJsonObject();
+                    Material mat = Material.valueOf(obj.get("type").getAsString());
+                    int amount = obj.get("amount").getAsInt();
+                    return new ItemStack(mat, amount);
+                }
+            })
+            .create();
 
     public String serializeItemStackArray(ItemStack[] items) {
-        if (items == null) return "";
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-             BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream)) {
-
-            dataOutput.writeInt(items.length);
-            for (ItemStack item : items) {
-                dataOutput.writeObject(item);
-            }
-
-            dataOutput.flush();
-            return Base64Coder.encodeLines(outputStream.toByteArray());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
+        if (items == null) return "[]";
+        return gson.toJson(items);
     }
 
     public ItemStack[] deserializeItemStackArray(String data) {
         if (data == null || data.isEmpty()) return new ItemStack[0];
-        try (ByteArrayInputStream inputStream = new ByteArrayInputStream(Base64Coder.decodeLines(data));
-             BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream)) {
-
-            ItemStack[] items = new ItemStack[dataInput.readInt()];
-            for (int i = 0; i < items.length; i++) {
-                items[i] = (ItemStack) dataInput.readObject();
-            }
-
-            return items;
-        } catch (Exception e) {
+        try {
+            return gson.fromJson(data, ItemStack[].class);
+        } catch (JsonSyntaxException e) {
             e.printStackTrace();
             return new ItemStack[0];
         }
     }
 
-    public String serializeBlockLocation(Location location) {
-        if (location == null || location.getWorld() == null) return null;
-        return String.join(", ",
-                location.getWorld().getName(),
-                String.valueOf(location.getBlockX()),
-                String.valueOf(location.getBlockY()),
-                String.valueOf(location.getBlockZ())
-        );
+    public String serializeLocation(Location loc) {
+        if (loc == null || loc.getWorld() == null) return null;
+        return loc.getWorld().getName() + "," +
+                loc.getX() + "," +
+                loc.getY() + "," +
+                loc.getZ() + "," +
+                loc.getYaw() + "," +
+                loc.getPitch();
     }
 
-    public Location deserializeBlockLocation(String data) {
+    public Location deserializeLocation(String data) {
         if (data == null || data.isEmpty()) return null;
-
-        String[] parts = data.split(", ");
-        if (parts.length < 4) return null;
+        String[] parts = data.split(",");
+        if (parts.length < 6) return null;
 
         World world = Bukkit.getWorld(parts[0]);
         if (world == null) return null;
 
-        return new Location(
-                world,
-                Double.parseDouble(parts[1]),
-                Double.parseDouble(parts[2]),
-                Double.parseDouble(parts[3])
-        );
-    }
-
-    public List<String> serializeLocations(List<Location> locations) {
-        if (locations == null) return null;
-        List<String> result = new ArrayList<>();
-        for (Location loc : locations) {
-            result.add(serializeBlockLocation(loc));
+        try {
+            double x = Double.parseDouble(parts[1]);
+            double y = Double.parseDouble(parts[2]);
+            double z = Double.parseDouble(parts[3]);
+            float yaw = Float.parseFloat(parts[4]);
+            float pitch = Float.parseFloat(parts[5]);
+            return new Location(world, x, y, z, yaw, pitch);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return null;
         }
-        return result;
-    }
-
-    public List<Location> deserializeLocations(List<String> data) {
-        if (data == null) return null;
-        List<Location> result = new ArrayList<>();
-        for (String s : data) {
-            result.add(deserializeBlockLocation(s));
-        }
-        return result;
     }
 }

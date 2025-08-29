@@ -13,9 +13,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 public class RankedQueueLore extends EasyButton {

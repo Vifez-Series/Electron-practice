@@ -10,9 +10,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 @CommandAlias("elo")
@@ -23,9 +24,9 @@ public class EloCommand extends BaseCommand {
     @Subcommand("help")
     public void help(CommandSender sender) {
         CC.sendMessage(sender, "&b&lElo Commands",
-                "&7* &b/elo set &7<player> <kit> <elo> &f- &fSet a player's elo for a kit",
-                "&7* &b/elo add &7<player> <kit> <elo> &f- &fAdd elo to a player's elo for a kit",
-                "&7* &b/elo remove &7<player> <kit> <elo> &f- &fRemove elo from a player's elo for a kit");
+                "&7▪ &b/elo set &7<player> <kit> <elo> &f- &fSet a player's elo for a kit",
+                "&7▪ &b/elo add &7<player> <kit> <elo> &f- &fAdd elo to a player's elo for a kit",
+                "&7▪ &b/elo remove &7<player> <kit> <elo> &f- &fRemove elo from a player's elo for a kit");
     }
 
     @Subcommand("set")

@@ -8,9 +8,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 public class ScoreboardConfig {

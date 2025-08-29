@@ -1,6 +1,6 @@
 scoreboard:
   enabled: true
-  title: "&b&lPRACTICE"
+  title: "%animation%"
   in-lobby:
     lines:
       - " "
@@ -62,3 +62,20 @@ scoreboard:
       - "&fLoser&7: &c<loser>"
       - " "
       - "&7&oelectron.gg"
+
+  ANIMATION:
+    INTERVAL: 20
+    LINES:
+      - "&b&lPRACTICE"
+      - "&f&lP&b&lRACTICE"
+      - "&b&lP&f&lR&b&lACTICE"
+      - "&f&lPR&f&lA&b&lCTICE"
+      - "&b&lPRA&f&lC&b&lTICE"
+      - "&b&lPRAC&f&lT&b&lICE"
+      - "&b&lPRACT&f&lI&b&lCE"
+      - "&b&lPRACTI&f&lC&b&lE"
+      - "&b&lPRACTIC&f&lE"
+      - "&b&lPRACTICE"
+      - "&f&lPRACTICE"
+      - "&b&lPRACTICE"
+      - "&f&lPRACTICE"

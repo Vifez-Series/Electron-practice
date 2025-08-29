@@ -1,8 +1,9 @@
 package lol.vifez.electron.match.enums;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 public enum MatchState {

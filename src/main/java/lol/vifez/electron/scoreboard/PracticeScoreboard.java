@@ -16,18 +16,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 public class PracticeScoreboard implements AssembleAdapter {
 
     private final AtomicInteger titleIndex = new AtomicInteger(0);
     private final ScoreboardConfig scoreboardConfig;
+    private final AnimationManager animationManager;
 
     public PracticeScoreboard() {
         this.scoreboardConfig = Practice.getInstance().getScoreboardConfig();
+        this.animationManager = new AnimationManager();
     }
 
     @Override
@@ -35,7 +38,8 @@ public class PracticeScoreboard implements AssembleAdapter {
         Profile profile = Practice.getInstance().getProfileManager().getProfile(player.getUniqueId());
         if (!profile.isScoreboardEnabled() || !scoreboardConfig.getBoolean("scoreboard.enabled")) return "";
         String title = scoreboardConfig.getString("scoreboard.title");
-        return title != null ? title : "";
+        if (title == null) return "";
+        return title.replace("%animation%", animationManager.getCurrentFrame());
     }
 
     @Override
@@ -67,7 +71,9 @@ public class PracticeScoreboard implements AssembleAdapter {
                             .replace("<their-hits>", String.valueOf(match.getHitsMap().get(match.getOpponent(player).getUuid())))
                             .replace("<your-hits>", String.valueOf(hits))
                             .replace("<global-elo>", globalElo)
-                            .replace("<division>", division));
+                            .replace("<division>", division)
+                            .replace("%animation%", animationManager.getCurrentFrame()) // animation
+                    );
                 }
 
             } else if (match.getMatchState() == MatchState.ENDING) {
@@ -76,7 +82,9 @@ public class PracticeScoreboard implements AssembleAdapter {
                             .replace("<winner>", match.getWinner() == null ? "None" : match.getWinner().getName())
                             .replace("<loser>", match.getWinner() == null
                                     ? player.getName() + " " + match.getOpponent(player).getName()
-                                    : match.getOpponent(match.getWinner().getPlayer()).getName()));
+                                    : match.getOpponent(match.getWinner().getPlayer()).getName())
+                            .replace("%animation%", animationManager.getCurrentFrame())
+                    );
                 }
 
             } else if (match.getMatchState() == MatchState.STARTING) {
@@ -85,7 +93,9 @@ public class PracticeScoreboard implements AssembleAdapter {
                             .replace("<winner>", match.getWinner() == null ? "None" : match.getWinner().getName())
                             .replace("<loser>", match.getWinner() == null
                                     ? player.getName() + " " + match.getOpponent(player).getName()
-                                    : match.getOpponent(match.getWinner().getPlayer()).getName()));
+                                    : match.getOpponent(match.getWinner().getPlayer()).getName())
+                            .replace("%animation%", animationManager.getCurrentFrame())
+                    );
                 }
             }
 
@@ -103,7 +113,9 @@ public class PracticeScoreboard implements AssembleAdapter {
                         .replace("<playing>", String.valueOf(plugin.getMatchManager().getAllMatchSize()))
                         .replace("<username>", player.getName())
                         .replace("<global-elo>", globalElo)
-                        .replace("<division>", division));
+                        .replace("<division>", division)
+                        .replace("%animation%", animationManager.getCurrentFrame())
+                );
             }
 
         } else {
@@ -114,7 +126,9 @@ public class PracticeScoreboard implements AssembleAdapter {
                         .replace("<ping>", String.valueOf(profile.getPing()))
                         .replace("<username>", player.getName())
                         .replace("<global-elo>", globalElo)
-                        .replace("<division>", division));
+                        .replace("<division>", division)
+                        .replace("%animation%", animationManager.getCurrentFrame())
+                );
             }
         }
 

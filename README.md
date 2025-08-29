@@ -18,6 +18,7 @@ Do not expect this to be the worlds best next bolt / frost competetor lol this w
 - MongoDB For data saving
 - Duels
 - Spectate
+- Auto respawn
 - Hotbar
 - Build mode
 - Elo management

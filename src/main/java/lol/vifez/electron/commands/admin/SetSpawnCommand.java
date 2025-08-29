@@ -10,9 +10,10 @@ import lol.vifez.electron.util.SerializationUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 @CommandAlias("setspawn")

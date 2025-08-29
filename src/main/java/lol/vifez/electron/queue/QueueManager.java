@@ -9,9 +9,10 @@ import lombok.Getter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 @Getter

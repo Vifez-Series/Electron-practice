@@ -13,9 +13,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 @CommandAlias("kit")
@@ -29,12 +33,14 @@ public class KitCommands extends BaseCommand {
         sender.sendMessage(CC.translate(" "));
         sender.sendMessage(CC.translate("&b&lKit Commands"));
         sender.sendMessage(CC.translate(" "));
-        sender.sendMessage(CC.translate("&7* &b/kit create &7<kit> &f- &fCreate a kit"));
-        sender.sendMessage(CC.translate("&7* &b/kit delete &7<kit> &f- &fDelete a kit"));
-        sender.sendMessage(CC.translate("&7* &b/kit setType &7<kit> <type> &f- &fSet the inventory for a kit"));
-        sender.sendMessage(CC.translate("&7* &b/kit setInventory &7<kit> &f- &fSet the inventory for a kit"));
-        sender.sendMessage(CC.translate("&7* &b/kit setIcon &7<kit> &f- &fSet the icon for the kit"));
-        sender.sendMessage(CC.translate("&7* &b/kit list &f- &fList of kits"));
+        sender.sendMessage(CC.translate("&7▪ &b/kit create &7<kit> &f- &fCreate a new kit"));
+        sender.sendMessage(CC.translate("&7▪ &b/kit delete &7<kit> &f- &fDelete an existing kit"));
+        sender.sendMessage(CC.translate("&7▪ &b/kit setType &7<kit> <type> &f- &fSet the type of a kit"));
+        sender.sendMessage(CC.translate("&7▪ &b/kit setInventory &7<kit> &f- &fSet the inventory of a kit"));
+        sender.sendMessage(CC.translate("&7▪ &b/kit setIcon &7<kit> &f- &fSet the icon for a kit"));
+        sender.sendMessage(CC.translate("&7▪ &b/kit setRanked &7<kit> &f- &fToggle whether a kit is ranked"));
+        sender.sendMessage(CC.translate("&7▪ &b/kit setDescription &7<kit> <description> &f- &fSet the description of a kit"));
+        sender.sendMessage(CC.translate("&7▪ &b/kit list &f- &fList all kits"));
         sender.sendMessage(CC.translate(" "));
     }
 
@@ -102,9 +108,9 @@ public class KitCommands extends BaseCommand {
         CC.sendMessage(player, String.format(SuccessMessages.ICON_UPDATED, kit.getName()));
     }
 
-    @Subcommand("settype")
-    public void type(Player player, @Name("kit") @Single String kitName, @Name("type") @Single String type) {
-        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
+    @Subcommand("setType")
+    public void setType(Player player, @Name("kit") @Single String kitName, @Name("type") @Single String type) {
+        Kit kit = instance.getKitManager().getKit(kitName);
 
         if (kit == null) {
             CC.sendMessage(player, ErrorMessages.INVALID_KIT_NAME);
@@ -114,7 +120,8 @@ public class KitCommands extends BaseCommand {
         try {
             KitType typeEnum = KitType.valueOf(type.toUpperCase());
             kit.setKitType(typeEnum);
-        } catch (Exception ignored) {
+            CC.sendMessage(player, String.format(SuccessMessages.TYPE_UPDATED, kit.getName(), typeEnum.name()));
+        } catch (IllegalArgumentException ignored) {
             CC.sendMessage(player, ErrorMessages.KIT_TYPE_DOES_NOT_EXIST);
         }
     }
@@ -138,7 +145,24 @@ public class KitCommands extends BaseCommand {
         sender.sendMessage(CC.translate(" "));
 
         for (Kit kit : instance.getKitManager().getKits().values()) {
-            sender.sendMessage(CC.translate("&7* &b" + kit.getColor() + kit.getName() + "&7 &f- &f" + kit.getDescription()));
+            sender.sendMessage(CC.translate("&7▪ &b" + kit.getColor() + kit.getName() + "&7 &f- &f" + kit.getDescription()));
         }
+    }
+
+    @Subcommand("setDescription")
+    public void setDescription(CommandSender sender, @Name("kit") @Single String kitName, String[] descriptionArgs) {
+        Kit kit = instance.getKitManager().getKit(kitName);
+
+        if (kit == null) {
+            CC.sendMessage(sender, ErrorMessages.INVALID_KIT_NAME);
+            return;
+        }
+
+        String descriptionLine = String.join(" ", descriptionArgs);
+        List<String> lore = new ArrayList<>();
+        lore.add(descriptionLine);
+
+        kit.setDescription(lore);
+        CC.sendMessage(sender, "&aUpdated description of kit &b" + kit.getName() + " &ato: &f" + descriptionLine);
     }
 }

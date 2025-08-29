@@ -5,9 +5,10 @@ import lol.vifez.electron.mongo.MongoAPI;
 import lol.vifez.electron.mongo.repository.MongoRepository;
 import lol.vifez.electron.profile.Profile;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 public class ProfileRepository extends MongoRepository<Profile> {

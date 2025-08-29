@@ -9,9 +9,10 @@ import lol.vifez.electron.Practice;
 import lol.vifez.electron.util.CC;
 import org.bukkit.command.CommandSender;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 @CommandAlias("electron")

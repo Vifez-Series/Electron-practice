@@ -7,9 +7,10 @@ import org.bukkit.configuration.ConfigurationSection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 @Getter
@@ -38,7 +39,12 @@ public class KitManager {
     }
 
     public void save(Kit kit) {
-        kits.putIfAbsent(kit.getName().toLowerCase(), kit);
+        kits.put(kit.getName().toLowerCase(), kit);
+
+        ConfigurationSection section = Practice.getInstance().getKitsFile().getConfiguration()
+                .createSection("kits." + kit.getName().toLowerCase());
+        kit.toConfig(section);
+        Practice.getInstance().getKitsFile().save();
     }
 
     public void delete(Kit kit) {
@@ -47,7 +53,6 @@ public class KitManager {
         Practice.getInstance().getKitsFile().getConfiguration().set("kits." + kit.getName().toLowerCase(), null);
         Practice.getInstance().getKitsFile().save();
     }
-
     public void close() {
         ConfigurationSection section = Practice.getInstance().getKitsFile().getConfiguration().createSection("kits");
 

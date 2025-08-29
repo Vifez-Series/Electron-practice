@@ -8,9 +8,10 @@ import lol.vifez.electron.util.CC;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 @CommandAlias("arena")
@@ -28,18 +29,18 @@ public class ArenaCommand extends BaseCommand {
         sender.sendMessage(CC.translate(" "));
         sender.sendMessage(CC.translate("&b&lArena Commands"));
         sender.sendMessage(CC.translate(" "));
-        sender.sendMessage(CC.translate("&7* &b/arena create &7<arena> &f- &fCreate an arena"));
-        sender.sendMessage(CC.translate("&7* &b/arena delete &7<arena> &f- &fDelete an arena"));
-        sender.sendMessage(CC.translate("&7* &b/arena setfirstposition &7<arena> &f- &fSet a position for players to teleport for arena"));
-        sender.sendMessage(CC.translate("&7* &b/arena setsecondposition &7<arena> &f- &fSet a position for players to teleport for arena"));
-        sender.sendMessage(CC.translate("&7* &b/arena setmin &7<arena> &f- &fSet the minimum point for arena"));
-        sender.sendMessage(CC.translate("&7* &b/arena setmax &7<arena> &f- &fSet the maximum point for arena"));
-        sender.sendMessage(CC.translate("&7* &b/arena addkit &7<arena> <kit> &f- &fAdd kit to an arena"));
-        sender.sendMessage(CC.translate("&7* &b/arena removekit &7<arena> <kit> &f- &fRemove kit from an arena"));
-        sender.sendMessage(CC.translate("&7* &b/arena kits &7<arena> &f- &fList of kits allowed in an arena"));
-        sender.sendMessage(CC.translate("&7* &b/arena status &7<arena> &f- &fCheck the status of an arena"));
-        sender.sendMessage(CC.translate("&7* &b/arena save &f- &fSave all arenas"));
-        sender.sendMessage(CC.translate("&7* &b/arenas &f- &fManage the arenas"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena create &7<arena> &f- &fCreate an arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena delete &7<arena> &f- &fDelete an arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena setfirstposition &7<arena> &f- &fSet a position for players to teleport for arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena setsecondposition &7<arena> &f- &fSet a position for players to teleport for arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena setmin &7<arena> &f- &fSet the minimum point for arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena setmax &7<arena> &f- &fSet the maximum point for arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena addkit &7<arena> <kit> &f- &fAdd kit to an arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena removekit &7<arena> <kit> &f- &fRemove kit from an arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena kits &7<arena> &f- &fList of kits allowed in an arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena status &7<arena> &f- &fCheck the status of an arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena save &f- &fSave all arenas"));
+        sender.sendMessage(CC.translate("&7▪ &b/arenas &f- &fManage the arenas"));
         sender.sendMessage(CC.translate(" "));
     }
 
@@ -98,7 +99,7 @@ public class ArenaCommand extends BaseCommand {
 
         String kitsMessage = CC.translate("&fKits&7: &b" + arena.getName() + "\n");
         for (String kit : arena.getKits()) {
-            kitsMessage += CC.translate("&7* &b" + kit + "\n");
+            kitsMessage += CC.translate("&7▪ &b" + kit + "\n");
         }
         sender.sendMessage(kitsMessage);
     }

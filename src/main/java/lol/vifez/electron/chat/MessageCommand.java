@@ -7,9 +7,10 @@ import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.util.CC;
 import org.bukkit.entity.Player;
 
-/*
- * Copyright (c) 2025 Vifez. All rights reserved.
- * Unauthorized use or distribution is prohibited.
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
  */
 
 @CommandAlias("message|msg")
