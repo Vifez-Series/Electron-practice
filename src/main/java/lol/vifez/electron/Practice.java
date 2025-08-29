@@ -35,6 +35,7 @@ import lol.vifez.electron.queue.listener.QueueListener;
 import lol.vifez.electron.scoreboard.PracticeScoreboard;
 import lol.vifez.electron.scoreboard.ScoreboardConfig;
 import lol.vifez.electron.tab.ElectronTab;
+import lol.vifez.electron.util.AutoRespawn;
 import lol.vifez.electron.util.CC;
 import lol.vifez.electron.util.ConfigFile;
 import lol.vifez.electron.util.SerializationUtil;
@@ -199,6 +200,7 @@ public final class Practice extends JavaPlugin {
         new SpawnListener();
         new MatchListener();
         new QueueListener();
+        new AutoRespawn();
         new HotbarListener();
         new MenuAPI(this);
     }
