@@ -1,5 +1,5 @@
 name: Practice
-version: '1.2'
+version: '1.3'
 main: lol.vifez.electron.Practice
 soft-depend:
   - PlaceholderAPI
