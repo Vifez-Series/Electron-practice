@@ -23,7 +23,13 @@ public class KitManager {
         ConfigurationSection section = Practice.getInstance().getKitsFile().getConfiguration().getConfigurationSection("kits");
 
         if (section != null) {
-            section.getKeys(false).forEach(key -> kits.put(key.toLowerCase(), Practice.getInstance().getGson().fromJson(section.getString(key), Kit.class)));
+            section.getKeys(false).forEach(key -> {
+                ConfigurationSection kitSection = section.getConfigurationSection(key);
+                if (kitSection != null) {
+                    Kit kit = Kit.fromConfig(key, kitSection);
+                    kits.put(key.toLowerCase(), kit);
+                }
+            });
         }
     }
 
@@ -43,10 +49,13 @@ public class KitManager {
     }
 
     public void close() {
-        kits.values().forEach(kit ->
-                Practice.getInstance().getKitsFile().getConfiguration()
-                        .set("kits." + kit.getName().toLowerCase(), Practice.getInstance().getGson().toJson(kit))
-        );
+        ConfigurationSection section = Practice.getInstance().getKitsFile().getConfiguration().createSection("kits");
+
+        kits.values().forEach(kit -> {
+            ConfigurationSection kitSection = section.createSection(kit.getName().toLowerCase());
+            kit.toConfig(kitSection);
+        });
+
         Practice.getInstance().getKitsFile().save();
     }
 }

@@ -1,4 +1,4 @@
-title: # This is a title displayed to the player upon joining the server
+title:
   enabled: true
   main: "&b&lPRACTICE"
   subtitle: "&7Welcome to Practice"

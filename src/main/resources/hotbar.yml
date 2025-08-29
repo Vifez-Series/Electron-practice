@@ -19,7 +19,7 @@ HOTBAR:
       ENABLED: true
 
     LEADERBOARDS:
-      SLOT: 4
+      SLOT: 5
       MATERIAL: EMERALD
       NAME: "&bLeaderboards &7(Right Click)"
       ENABLED: true
@@ -38,7 +38,7 @@ HOTBAR:
 
   IN-QUEUE:
     LEAVE_QUEUE:
-      SLOT: 9
+      SLOT: 1
       MATERIAL: REDSTONE
       NAME: "&cLeave queue &7(Right Click)"
       ENABLED: true
