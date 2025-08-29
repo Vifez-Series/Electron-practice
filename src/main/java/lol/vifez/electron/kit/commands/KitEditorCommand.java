@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandAlias("kiteditor")
-@CommandPermission("electron.kit.editor")
+@CommandPermission("electron.user")
 public class KitEditorCommand extends BaseCommand {
 
     @Default

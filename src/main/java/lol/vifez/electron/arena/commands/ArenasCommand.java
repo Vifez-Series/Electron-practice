@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandAlias("arenas")
-@CommandPermission("electron.arena.list")
+@CommandPermission("electron.admin")
 public class ArenasCommand extends BaseCommand {
 
     @Default

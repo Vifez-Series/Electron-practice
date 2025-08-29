@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 public class BuildModeCommand extends BaseCommand {
 
     @CommandAlias("buildmode|build|bm")
-    @CommandPermission("electron.admin")
+    @CommandPermission("electron.builder")
     public void buildMode(Player player) {
         Profile profile = Practice.getInstance().getProfileManager().getProfile(player.getUniqueId());
         profile.setBuildMode(!profile.isBuildMode());

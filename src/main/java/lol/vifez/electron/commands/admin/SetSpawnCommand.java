@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
  */
 
 @CommandAlias("setspawn")
-@CommandPermission("electron.admin.setspawn")
+@CommandPermission("electron.admin")
 public class SetSpawnCommand extends BaseCommand {
 
     @Default

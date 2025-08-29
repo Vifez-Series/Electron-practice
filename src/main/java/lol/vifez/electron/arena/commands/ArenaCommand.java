@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
  */
 
 @CommandAlias("arena")
-@CommandPermission("electron.arena")
+@CommandPermission("electron.admin")
 public class ArenaCommand extends BaseCommand {
 
     private final ArenaManager arenaManager;
@@ -44,7 +44,7 @@ public class ArenaCommand extends BaseCommand {
     }
 
     @Subcommand("create")
-    @CommandPermission("electron.arena.create")
+    @CommandPermission("electron.admin")
     public void createArena(CommandSender sender, @Single String arenaName, @Single String type) {
         if (arenaManager.getArena(arenaName) != null) {
             sender.sendMessage(CC.translate("&cArena already exists!"));
@@ -59,7 +59,7 @@ public class ArenaCommand extends BaseCommand {
     }
 
     @Subcommand("delete")
-    @CommandPermission("electron.arena.delete")
+    @CommandPermission("electron.admin")
     public void deleteArena(CommandSender sender, @Single String arenaName) {
         Arena arena = arenaManager.getArena(arenaName);
         if (arena == null) {
@@ -72,7 +72,7 @@ public class ArenaCommand extends BaseCommand {
     }
 
     @Subcommand("status")
-    @CommandPermission("electron.arena.status")
+    @CommandPermission("electron.admin")
     public void statusArena(CommandSender sender, @Single String arenaName) {
         Arena arena = arenaManager.getArena(arenaName);
         if (arena == null) {
@@ -88,7 +88,7 @@ public class ArenaCommand extends BaseCommand {
     }
 
     @Subcommand("kits")
-    @CommandPermission("electron.arena.kits")
+    @CommandPermission("electron.admin")
     public void kitsArena(CommandSender sender, @Single String arenaName) {
         Arena arena = arenaManager.getArena(arenaName);
         if (arena == null) {
@@ -104,7 +104,7 @@ public class ArenaCommand extends BaseCommand {
     }
 
     @Subcommand("addkit")
-    @CommandPermission("electron.arena.addkit")
+    @CommandPermission("electron.admin")
     public void addKitArena(CommandSender sender, @Single String arenaName, @Single String kitName) {
         Arena arena = arenaManager.getArena(arenaName);
         if (arena == null) {
@@ -117,7 +117,7 @@ public class ArenaCommand extends BaseCommand {
     }
 
     @Subcommand("removekit")
-    @CommandPermission("electron.arena.removekit")
+    @CommandPermission("electron.admin")
     public void removeKitArena(CommandSender sender, @Single String arenaName, @Single String kitName) {
         Arena arena = arenaManager.getArena(arenaName);
         if (arena == null) {
@@ -130,7 +130,7 @@ public class ArenaCommand extends BaseCommand {
     }
 
     @Subcommand("setfirstposition")
-    @CommandPermission("electron.arena.setfirstposition")
+    @CommandPermission("electron.admin")
     public void setFirstPositionArena(Player sender, @Single String arenaName) {
         Arena arena = arenaManager.getArena(arenaName);
         if (arena == null) {
@@ -143,7 +143,7 @@ public class ArenaCommand extends BaseCommand {
     }
 
     @Subcommand("setsecondposition")
-    @CommandPermission("electron.arena.setsecondposition")
+    @CommandPermission("electron.admin")
     public void setSecondPositionArena(Player sender, @Single String arenaName) {
         Arena arena = arenaManager.getArena(arenaName);
         if (arena == null) {
@@ -156,7 +156,7 @@ public class ArenaCommand extends BaseCommand {
     }
 
     @Subcommand("setmin")
-    @CommandPermission("electron.arena.setmin")
+    @CommandPermission("electron.admin")
     public void setMinArena(Player sender, @Single String arenaName) {
         Arena arena = arenaManager.getArena(arenaName);
         if (arena == null) {
@@ -169,7 +169,7 @@ public class ArenaCommand extends BaseCommand {
     }
 
     @Subcommand("setmax")
-    @CommandPermission("electron.arena.setmax")
+    @CommandPermission("electron.admin")
     public void setMaxArena(Player sender, @Single String arenaName) {
         Arena arena = arenaManager.getArena(arenaName);
         if (arena == null) {
@@ -182,7 +182,7 @@ public class ArenaCommand extends BaseCommand {
     }
 
     @Subcommand("save")
-    @CommandPermission("electron.arena.save")
+    @CommandPermission("electron.admin")
     public void saveArenas(CommandSender sender) {
         arenaManager.close();
         sender.sendMessage(CC.translate("&b&lElectron &7┃ &fSaved to &bArenas.yml."));

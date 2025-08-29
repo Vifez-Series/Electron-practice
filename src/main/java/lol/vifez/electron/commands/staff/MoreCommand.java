@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 @CommandAlias("more")
-@CommandPermission("electron.staff.more")
+@CommandPermission("electron.staff")
 public class MoreCommand extends BaseCommand {
 
     @Default
