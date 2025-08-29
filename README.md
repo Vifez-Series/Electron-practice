@@ -29,25 +29,28 @@ Do not expect this to be the worlds best next bolt / frost competetor lol this w
 Need support? You can join our discord server and create a ticket!
 - https://discord.vifez.lol
 
-# Setup
-I designed this practice core to be as dependency less as possible which is why it only requires the following:
+# Permissions
+- **electron.admin**
+- **electron.staff**
+- **electron.user**
 
+# Dependencies
 - Packet events
 - ProtocolLib
 - 1.8
 - MongoDB
 
+# Credits
+- Vifez - Main developer & Current maintainer
+- MTR - Contributed heavily with me at the start
+
 # Compiling
 - Clone the repo to your intellij
 - Let maven do its magic
 - run `mvn package`
-- add `target/Practice-1.0.jar` to ur server
+- add `target/Electron.jar` to ur server
 - add `libs/packetevents-2.7.0.jar` to ur server
 - run ur server for configs to load, add mongo
 - and boom... practice server!
-
-# PLEASE NOTE
-This is an older version of the core, So expect bugs and what not... but great for a base lol
-
 ---
 © vifez 2025
