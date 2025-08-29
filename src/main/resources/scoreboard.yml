@@ -47,7 +47,6 @@ scoreboard:
       - "&cTheir Ping: <opponent-ping>&7ms"
       - "&r"
       - "&7&oelectron.gg"
-      - " "
   match-starting:
     lines:
       - " "
@@ -55,7 +54,6 @@ scoreboard:
       - "&fStarting: &b<starting-c>"
       - "&r "
       - "&7&oelectron.gg"
-      - " "
   match-ending:
     lines:
       - " "
@@ -64,4 +62,3 @@ scoreboard:
       - "&fLoser&7: &c<loser>"
       - " "
       - "&7&oelectron.gg"
-      - " "
