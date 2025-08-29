@@ -245,7 +245,7 @@ public final class Practice extends JavaPlugin {
     }
 
     private void sendMessage(String message) {
-        Bukkit.getConsoleSender().sendMessage(CC.translate(message));
+        System.out.println(CC.translate(message));
     }
 
     @Override
