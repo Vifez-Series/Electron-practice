@@ -4,12 +4,16 @@ import lol.vifez.electron.kit.Kit;
 import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.profile.ProfileManager;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// NOTE: This class is an old class so if you want to recode, be my guest!
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
+ */
+
 public class Leaderboard {
 
     private final ProfileManager profileManager;
@@ -19,27 +23,22 @@ public class Leaderboard {
     }
 
     public List<Profile> getLeaderboard(Kit kit) {
-        List<Profile> allProfiles = new ArrayList<>(profileManager.getProfiles().values());
-        allProfiles.sort(Comparator.comparingInt((Profile o) -> o.getElo(kit)).reversed());
-
-        return allProfiles.stream()
+        return profileManager.getProfiles().values().stream()
+                .sorted(Comparator.comparingInt((Profile p) -> p.getElo(kit)).reversed())
                 .limit(10)
                 .collect(Collectors.toList());
     }
 
     public String[] getLeaderboardLayout(Kit kit) {
         List<Profile> leaderboard = getLeaderboard(kit);
-        String[] leaderboardLayout = new String[11];
+        String[] leaderboardLayout = new String[10];
 
-        leaderboardLayout[0] = "&r";
-
-        for (int i = 0; i < leaderboard.size(); i++) {
-            Profile profile = leaderboard.get(i);
-
-            if (profile == null) {
-                leaderboardLayout[i] = "&7&l" + (i + 1) + ". &bN/A" + " &7- &b0";
-            } else {
+        for (int i = 0; i < leaderboardLayout.length; i++) {
+            if (i < leaderboard.size()) {
+                Profile profile = leaderboard.get(i);
                 leaderboardLayout[i] = "&7&l" + (i + 1) + ". &b" + profile.getName() + " &7- &b" + profile.getElo(kit);
+            } else {
+                leaderboardLayout[i] = "&7&l" + (i + 1) + ". &bN/A &7- &b0";
             }
         }
 
