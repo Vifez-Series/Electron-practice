@@ -248,10 +248,6 @@ public final class Practice extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(CC.translate(message));
     }
 
-    private String formatInfo(String info, String detail) {
-        return " &7> &f" + info + ": &b" + detail;
-    }
-
     @Override
     public void onDisable() {
         if (profileManager != null) profileManager.close();
