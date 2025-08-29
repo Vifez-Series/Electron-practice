@@ -90,7 +90,7 @@ public final class Practice extends JavaPlugin {
         instance = this;
 
         initializePlugin();
-        Assemble assemble = new Assemble(this, new PracticeScoreboard());
+        new Assemble(this, new PracticeScoreboard());
     }
 
 
