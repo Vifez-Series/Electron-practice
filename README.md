@@ -12,6 +12,7 @@ Do not expect this to be the worlds best next bolt / frost competetor lol this w
 - Queues (unranked / ranked, random queue)
 - Arenas
 - Kits (boxing, ndbf, sumo)
+- **NEW** Navigator menu
 - Leaderboards (Per kit + Global elo)
 - Conversations (/msg, /r)
 - Matches
