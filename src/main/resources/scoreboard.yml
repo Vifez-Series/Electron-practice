@@ -1,67 +1,72 @@
 scoreboard:
   enabled: true
   title: "%animation%"
+  footer: "&7&oexample.com"
+
   in-lobby:
     lines:
+      - "&7&m-------------------"
+      - "&b&l ▎ &fOnline: &b<online>"
+      - "&b&l ▎ &fFighting: &b<in-queue>"
       - " "
-      - "&b<username>"
-      - " &fELO: &b1000"
-      - " &fDivision: &7Silver"
-      - " "
-      - " &fOnline: &b<online>"
-      - " &fFighting: &b<in-queue>"
-      - " "
-      - "&7&oessence.gg"
+      - "<footer>"
+      - "&7&m-------------------"
+
   in-queue:
     lines:
+      - "&7&m-------------------"
+      - "&b&lQueueing&7:"
+      - "&b&l ▎ &fKit: &b<kit>"
+      - "&b&l ▎ &fTime: &b<time>"
       - " "
-      - "&b<username>"
-      - " &fELO: &b1000"
-      - " &fDivision: &7Silver"
-      - " "
-      - "&b&lQueue&7:"
-      - " &fKit: &b<kit>"
-      - " &fTime: &b<time>"
-      - " "
-      - "&7&oessence.gg"
+      - "<footer>"
+      - "&7&m-------------------"
+
   in-game:
     lines:
+      - "&7&m-------------------"
+      - "&b&l ▎ &fFighting: &c<opponent>"
+      - "&b&l ▎ &fDuration: &a<duration>"
       - " "
-      - "&fFighting: &b<opponent>"
-      - "&fDuration: &a<>"
+      - "&b&l ▎ &fYour ping: &a<ping>ms"
+      - "&b&l ▎ &fTheir ping: &c<opponent-ping>ms"
       - " "
-      - "&fYour ping: &a<ping>ms"
-      - "&fTheir ping: &c<opponent-ping>ms"
-      - " "
-      - "&7&oessence.gg"
+      - "<footer>"
+      - "&7&m-------------------"
+
   in-boxing:
     lines:
+      - "&7&m-------------------"
+      - "&b&l ▎ &fFighting: &c<opponent>"
+      - "&b&l ▎ &fDuration: &a<duration>"
       - " "
-      - "&bfFighting: &f<opponent>"
+      - "&b&l ▎ &fHits: &a<your-hits> ┃ &c<their-hits>"
+      - "&b&l ▎ <diffrence>"
       - " "
-      - "&fHits: &b<diffrence>"
-      - " &aYou: &a<your-hits>"
-      - " &cThem: &c<their-hits>"
+      - "&b&l ▎ &fYour Ping: &a<ping>ms"
+      - "&b&l ▎ &fTheir Ping: &c<opponent-ping>ms"
       - " "
-      - "&aYour Ping: <ping>&7ms"
-      - "&cTheir Ping: <opponent-ping>&7ms"
-      - "&r"
-      - "&7&oelectron.gg"
+      - "<footer>"
+      - "&7&m-------------------"
+
   match-starting:
     lines:
+      - "&7&m-------------------"
+      - "&b&l ▎ &fFighting: &c<opponent>"
+      - "&b&l ▎ &fStarting: &b<starting-c>"
       - " "
-      - "&fFighting: &b<opponent>"
-      - "&fStarting: &b<starting-c>"
-      - "&r "
-      - "&7&oelectron.gg"
+      - "<footer>"
+      - "&7&m-------------------"
+
   match-ending:
     lines:
+      - "&7&m-------------------"
+      - "&b&l ▎ &fMatch Ended"
+      - "&b&l ▎ &fWinner&7: &a<winner>"
+      - "&b&l ▎ &fLoser&7: &c<loser>"
       - " "
-      - "&fMatch Ended"
-      - "&fWinner&7: &a<winner>"
-      - "&fLoser&7: &c<loser>"
-      - " "
-      - "&7&oelectron.gg"
+      - "<footer>"
+      - "&7&m-------------------"
 
   ANIMATION:
     INTERVAL: 20
@@ -69,7 +74,7 @@ scoreboard:
       - "&b&lPRACTICE"
       - "&f&lP&b&lRACTICE"
       - "&b&lP&f&lR&b&lACTICE"
-      - "&f&lPR&f&lA&b&lCTICE"
+      - "&b&lPR&f&lA&b&lCTICE"
       - "&b&lPRA&f&lC&b&lTICE"
       - "&b&lPRAC&f&lT&b&lICE"
       - "&b&lPRACT&f&lI&b&lCE"

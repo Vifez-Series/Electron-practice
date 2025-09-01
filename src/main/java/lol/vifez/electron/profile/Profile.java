@@ -38,7 +38,6 @@ public class Profile {
 
     private Player lastMessagedPlayer;
 
-    @Getter
     private transient DuelRequest duelRequest;
 
     private String name = "", currentQueue = "";
@@ -46,6 +45,7 @@ public class Profile {
     private Divisions division = Divisions.SILVER_I;
 
     private int wins = 0, losses = 0, winStreak = 0;
+
     private boolean editMode = false, buildMode = false;
 
     private final Map<String, ItemStack[]> kitLoadout = new HashMap<>();
@@ -60,10 +60,6 @@ public class Profile {
     public Player getPlayer() {
         Player p = Bukkit.getPlayer(uuid);
         return (p != null && p.isOnline()) ? p : null;
-    }
-
-    public void setScoreboardEnabled(boolean enabled) {
-        this.scoreboardEnabled = enabled;
     }
 
     public int getPing() {
@@ -85,94 +81,6 @@ public class Profile {
 
     public void setElo(Kit kit, int elo) {
         eloMap.put(kit.getName().toLowerCase(), elo);
-    }
-
-    public Map<String, Integer> getEloMap() {
-        return eloMap;
-    }
-
-    public String getCurrentQueue() {
-        return currentQueue;
-    }
-
-    public void setCurrentQueue(String currentQueue) {
-        this.currentQueue = currentQueue;
-    }
-
-    public boolean isDuelRequestsEnabled() {
-        return duelRequestsEnabled;
-    }
-
-    public boolean isScoreboardEnabled() {
-        return scoreboardEnabled;
-    }
-
-    public boolean isPrivateMessagingEnabled() {
-        return privateMessagingEnabled;
-    }
-
-    public void setPrivateMessagingEnabled(boolean privateMessagingEnabled) {
-        this.privateMessagingEnabled = privateMessagingEnabled;
-    }
-
-    public String getWorldTime() {
-        return worldTime;
-    }
-
-    public void setWorldTime(String worldTime) {
-        this.worldTime = worldTime;
-    }
-
-    public Player getLastMessagedPlayer() {
-        return lastMessagedPlayer;
-    }
-
-    public void setLastMessagedPlayer(Player lastMessagedPlayer) {
-        this.lastMessagedPlayer = lastMessagedPlayer;
-    }
-
-    public DuelRequest getDuelRequest() {
-        return duelRequest;
-    }
-
-    public void setDuelRequest(DuelRequest duelRequest) {
-        this.duelRequest = duelRequest;
-    }
-
-    public Map<String, ItemStack[]> getKitLoadout() {
-        return kitLoadout;
-    }
-
-    public Divisions getDivision() {
-        return division;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public boolean isEditMode() {
-        return editMode;
-    }
-
-    public boolean isBuildMode() {
-        return buildMode;
-    }
-
-    public void setBuildMode(boolean buildMode) {
-        this.buildMode = buildMode;
-    }
-
-    public void setEditMode(boolean editMode) {
-        this.editMode = editMode;
     }
 
     public boolean inMatch() {

@@ -42,7 +42,7 @@ public class UnrankedMenu extends Menu {
         Map<Integer, Button> buttons = new HashMap<>();
 
         Kit[] kits = instance.getKitManager().getKits().values().toArray(new Kit[0]);
-        int[] kitSlots = {10, 11, 12, 14, 15, 16, 19, 20, 21, 23, 24, 25};
+        int[] kitSlots = {10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30};
 
         for (int i = 0; i < kits.length && i < kitSlots.length; i++) {
             buttons.put(kitSlots[i], new KitButton(instance, player, kits[i]));

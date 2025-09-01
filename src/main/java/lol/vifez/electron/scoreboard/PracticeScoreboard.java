@@ -49,15 +49,19 @@ public class PracticeScoreboard implements AssembleAdapter {
         Profile profile = plugin.getProfileManager().getProfile(player.getUniqueId());
         if (!profile.isScoreboardEnabled() || !scoreboardConfig.getBoolean("scoreboard.enabled")) return list;
 
-        Match match = plugin.getMatchManager().getMatch(profile.getUuid());
+        String footer = scoreboardConfig.getString("scoreboard.footer");
         String globalElo = String.valueOf(EloUtil.getGlobalElo(profile));
         String division = profile.getDivision().getPrettyName();
+
+        Match match = plugin.getMatchManager().getMatch(profile.getUuid());
+
+        List<String> template;
 
         if (match != null) {
             int hits = match.getHitsMap().get(profile.getUuid());
 
             if (match.getMatchState() == MatchState.STARTED) {
-                List<String> template = match.getKit().getKitType() == KitType.BOXING
+                template = match.getKit().getKitType() == KitType.BOXING
                         ? scoreboardConfig.getStringList("scoreboard.in-boxing.lines")
                         : scoreboardConfig.getStringList("scoreboard.in-game.lines");
 
@@ -72,40 +76,44 @@ public class PracticeScoreboard implements AssembleAdapter {
                             .replace("<your-hits>", String.valueOf(hits))
                             .replace("<global-elo>", globalElo)
                             .replace("<division>", division)
-                            .replace("%animation%", animationManager.getCurrentFrame()) // animation
+                            .replace("%animation%", animationManager.getCurrentFrame())
+                            .replace("<footer>", footer)
                     );
                 }
-
             } else if (match.getMatchState() == MatchState.ENDING) {
-                for (String str : scoreboardConfig.getStringList("scoreboard.match-ending.lines")) {
+                template = scoreboardConfig.getStringList("scoreboard.match-ending.lines");
+                for (String str : template) {
                     list.add(str
                             .replace("<winner>", match.getWinner() == null ? "None" : match.getWinner().getName())
                             .replace("<loser>", match.getWinner() == null
                                     ? player.getName() + " " + match.getOpponent(player).getName()
                                     : match.getOpponent(match.getWinner().getPlayer()).getName())
                             .replace("%animation%", animationManager.getCurrentFrame())
+                            .replace("<footer>", footer)
                     );
                 }
-
             } else if (match.getMatchState() == MatchState.STARTING) {
-                for (String str : scoreboardConfig.getStringList("scoreboard.match-starting.lines")) {
+                template = scoreboardConfig.getStringList("scoreboard.match-starting.lines");
+                for (String str : template) {
                     list.add(str
                             .replace("<winner>", match.getWinner() == null ? "None" : match.getWinner().getName())
                             .replace("<loser>", match.getWinner() == null
                                     ? player.getName() + " " + match.getOpponent(player).getName()
                                     : match.getOpponent(match.getWinner().getPlayer()).getName())
                             .replace("%animation%", animationManager.getCurrentFrame())
+                            .replace("<footer>", footer)
                     );
                 }
             }
 
         } else if (plugin.getQueueManager().getQueue(profile.getUuid()) != null) {
-            for (String str : scoreboardConfig.getStringList("scoreboard.in-queue.lines")) {
-                var queue = plugin.getQueueManager().getQueue(profile.getUuid());
-                Kit queueKit = queue.getKit();
-                boolean isRanked = queue.isRanked();
-                String typeTag = isRanked ? "&c[R]" : "&7[UR]";
+            template = scoreboardConfig.getStringList("scoreboard.in-queue.lines");
+            var queue = plugin.getQueueManager().getQueue(profile.getUuid());
+            Kit queueKit = queue.getKit();
+            boolean isRanked = queue.isRanked();
+            String typeTag = isRanked ? "&c[R]" : "&7[UR]";
 
+            for (String str : template) {
                 list.add(str.replace("<online>", String.valueOf(Bukkit.getOnlinePlayers().size()))
                         .replace("<in-queue>", String.valueOf(plugin.getQueueManager().getAllQueueSize()))
                         .replace("<kit>", queueKit.getName() + " " + typeTag)
@@ -115,11 +123,13 @@ public class PracticeScoreboard implements AssembleAdapter {
                         .replace("<global-elo>", globalElo)
                         .replace("<division>", division)
                         .replace("%animation%", animationManager.getCurrentFrame())
+                        .replace("<footer>", footer)
                 );
             }
 
         } else {
-            for (String str : scoreboardConfig.getStringList("scoreboard.in-lobby.lines")) {
+            template = scoreboardConfig.getStringList("scoreboard.in-lobby.lines");
+            for (String str : template) {
                 list.add(str.replace("<online>", String.valueOf(Bukkit.getOnlinePlayers().size()))
                         .replace("<in-queue>", String.valueOf(plugin.getQueueManager().getAllQueueSize()))
                         .replace("<playing>", String.valueOf(plugin.getMatchManager().getAllMatchSize()))
@@ -128,6 +138,7 @@ public class PracticeScoreboard implements AssembleAdapter {
                         .replace("<global-elo>", globalElo)
                         .replace("<division>", division)
                         .replace("%animation%", animationManager.getCurrentFrame())
+                        .replace("<footer>", footer)
                 );
             }
         }

@@ -36,6 +36,12 @@ HOTBAR:
       NAME: "&bSettings &7(Right Click)"
       ENABLED: true
 
+    NAVIGATOR:
+      SLOT: 9
+      MATERIAL: BLAZE_POWDER
+      NAME: "&bNavigation &7(Right Click)"
+      ENABLED: false
+
   IN-QUEUE:
     LEAVE_QUEUE:
       SLOT: 1
