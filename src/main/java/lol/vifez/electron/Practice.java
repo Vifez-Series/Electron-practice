@@ -27,6 +27,7 @@ import lol.vifez.electron.match.MatchManager;
 import lol.vifez.electron.match.task.MatchTask;
 import lol.vifez.electron.mongo.MongoAPI;
 import lol.vifez.electron.mongo.MongoCredentials;
+import lol.vifez.electron.navigator.command.NavigatorCommand;
 import lol.vifez.electron.placeholderapi.ElectronPlaceholders;
 import lol.vifez.electron.profile.ProfileManager;
 import lol.vifez.electron.profile.repository.ProfileRepository;
@@ -34,6 +35,7 @@ import lol.vifez.electron.queue.QueueManager;
 import lol.vifez.electron.queue.listener.QueueListener;
 import lol.vifez.electron.scoreboard.PracticeScoreboard;
 import lol.vifez.electron.scoreboard.ScoreboardConfig;
+import lol.vifez.electron.settings.command.SettingsCommand;
 import lol.vifez.electron.tab.ElectronTab;
 import lol.vifez.electron.util.AutoRespawn;
 import lol.vifez.electron.util.CC;
@@ -195,6 +197,8 @@ public final class Practice extends JavaPlugin {
         manager.registerCommand(new ReplyCommand());
         manager.registerCommand(new MoreCommand());
         manager.registerCommand(new DuelCommand());
+        manager.registerCommand(new SettingsCommand());
+        manager.registerCommand(new NavigatorCommand());
     }
 
     private void initializeListeners() {
@@ -231,18 +235,16 @@ public final class Practice extends JavaPlugin {
 
     private void displayStartupInfo() {
         sendMessage(" ");
-        sendMessage("&b&lElectron Practice&7 [Open SRC]");
-        sendMessage("&7&oLightweight open-source practice core");
-        sendMessage(" ");
+        sendMessage("&b&lElectron Practice &7[V" + getDescription().getVersion() + "]");
         sendMessage("&fAuthors: &bvifez &f& &eMTR");
-        sendMessage("&fVersion: &b" + getDescription().getVersion());
         sendMessage(" ");
         sendMessage("&fProtocol: &b" + getServer().getBukkitVersion());
         sendMessage("&fSpigot: &b" + getServer().getName());
         sendMessage(" ");
-        sendMessage("&fDiscord: &bhttps://discord.vifez.lol");
-        sendMessage("&fGithub: &bhttps://electron.vifez.lol");
+        sendMessage("&fKits: &b" + kitManager.getKits().size());
+        sendMessage("&fArenas: &b" + arenaManager.getArenas().size());
         sendMessage(" ");
+
 
         Hotbar.loadAll();
     }

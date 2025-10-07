@@ -1,4 +1,4 @@
-package lol.vifez.electron.kit.menu.kiteditor;
+package lol.vifez.electron.kit.menu.editor;
 
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.kit.Kit;

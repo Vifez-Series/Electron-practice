@@ -1,11 +1,10 @@
-package lol.vifez.electron.profile.menu.settings;
+package lol.vifez.electron.settings.menu;
 
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.profile.Profile;
-import lol.vifez.electron.profile.menu.settings.buttons.ToggleMessagesButton;
-import lol.vifez.electron.profile.menu.settings.buttons.ToggleScoreboardButton;
-import lol.vifez.electron.profile.menu.settings.buttons.WorldTimeButton;
-import lol.vifez.electron.util.CC;
+import lol.vifez.electron.settings.menu.buttons.ToggleMessagesButton;
+import lol.vifez.electron.settings.menu.buttons.ToggleScoreboardButton;
+import lol.vifez.electron.settings.menu.buttons.WorldTimeButton;
 import lol.vifez.electron.util.ItemBuilder;
 import lol.vifez.electron.util.menu.Menu;
 import lol.vifez.electron.util.menu.button.Button;

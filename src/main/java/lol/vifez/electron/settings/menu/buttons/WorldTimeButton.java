@@ -1,8 +1,8 @@
-package lol.vifez.electron.profile.menu.settings.buttons;
+package lol.vifez.electron.settings.menu.buttons;
 
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.profile.Profile;
-import lol.vifez.electron.profile.menu.settings.SettingsMenu;
+import lol.vifez.electron.settings.menu.SettingsMenu;
 import lol.vifez.electron.util.CC;
 import lol.vifez.electron.util.ItemBuilder;
 import lol.vifez.electron.util.menu.button.Button;

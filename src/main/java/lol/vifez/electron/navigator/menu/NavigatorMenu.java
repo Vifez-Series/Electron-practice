@@ -1,11 +1,12 @@
-package lol.vifez.electron.profile.menu;
+package lol.vifez.electron.navigator.menu;
 
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.duel.menu.DuelPlayerMenu;
-import lol.vifez.electron.kit.menu.kiteditor.KitSelectionMenu;
+import lol.vifez.electron.kit.menu.editor.KitSelectionMenu;
 import lol.vifez.electron.leaderboard.menu.LeaderboardMenu;
 import lol.vifez.electron.profile.Profile;
-import lol.vifez.electron.profile.menu.settings.SettingsMenu;
+import lol.vifez.electron.profile.menu.ProfileMenu;
+import lol.vifez.electron.settings.menu.SettingsMenu;
 import lol.vifez.electron.util.CC;
 import lol.vifez.electron.util.ItemBuilder;
 import lol.vifez.electron.util.menu.Menu;

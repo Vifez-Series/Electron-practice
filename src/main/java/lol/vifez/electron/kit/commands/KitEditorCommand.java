@@ -3,12 +3,12 @@ package lol.vifez.electron.kit.commands;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import lol.vifez.electron.Practice;
-import lol.vifez.electron.kit.menu.kiteditor.KitSelectionMenu;
+import lol.vifez.electron.kit.menu.editor.KitSelectionMenu;
 import lol.vifez.electron.util.CC;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@CommandAlias("kiteditor")
+@CommandAlias("editor")
 @CommandPermission("electron.user")
 public class KitEditorCommand extends BaseCommand {
 
