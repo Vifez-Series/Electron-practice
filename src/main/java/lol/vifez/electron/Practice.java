@@ -13,6 +13,7 @@ import lol.vifez.electron.chat.MessageCommand;
 import lol.vifez.electron.chat.ReplyCommand;
 import lol.vifez.electron.commands.admin.*;
 import lol.vifez.electron.commands.staff.MoreCommand;
+import lol.vifez.electron.divisions.commands.DivisionsCommand;
 import lol.vifez.electron.duel.command.DuelCommand;
 import lol.vifez.electron.hotbar.Hotbar;
 import lol.vifez.electron.hotbar.HotbarListener;
@@ -49,7 +50,6 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.refinedev.api.skin.SkinAPI;
@@ -199,6 +199,7 @@ public final class Practice extends JavaPlugin {
         manager.registerCommand(new DuelCommand());
         manager.registerCommand(new SettingsCommand());
         manager.registerCommand(new NavigatorCommand());
+        manager.registerCommand(new DivisionsCommand());
     }
 
     private void initializeListeners() {
