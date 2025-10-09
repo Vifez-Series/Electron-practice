@@ -6,8 +6,6 @@ import lol.vifez.electron.Practice;
 import lol.vifez.electron.kit.Kit;
 import lol.vifez.electron.kit.enums.KitType;
 import lol.vifez.electron.util.CC;
-import lol.vifez.electron.util.messages.ErrorMessages;
-import lol.vifez.electron.util.messages.SuccessMessages;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -33,6 +31,9 @@ public class KitCommands extends BaseCommand {
         sender.sendMessage(CC.translate(" "));
         sender.sendMessage(CC.translate("&b&lKit Commands"));
         sender.sendMessage(CC.translate(" "));
+        sender.sendMessage(CC.translate("&7Once you've made changes, run:"));
+        sender.sendMessage(CC.translate("&b/kit save"));
+        sender.sendMessage(CC.translate(" "));
         sender.sendMessage(CC.translate("&7▪ &b/kit create &7<kit> &f- &fCreate a new kit"));
         sender.sendMessage(CC.translate("&7▪ &b/kit delete &7<kit> &f- &fDelete an existing kit"));
         sender.sendMessage(CC.translate("&7▪ &b/kit setType &7<kit> <type> &f- &fSet the type of a kit"));
@@ -49,7 +50,7 @@ public class KitCommands extends BaseCommand {
         Kit kit = instance.getKitManager().getKit(kitSingle.toLowerCase());
 
         if (kit != null) {
-            CC.sendMessage(sender, ErrorMessages.KIT_ALREADY_EXISTS);
+            CC.sendMessage(sender, "&cError: This kit already exists!");
             return;
         }
 
@@ -57,7 +58,7 @@ public class KitCommands extends BaseCommand {
         kit.setIcon(Material.IRON_SWORD);
         instance.getKitManager().save(kit);
 
-        CC.sendMessage(sender, String.format(SuccessMessages.KIT_CREATED, kit.getColor() + kit.getName()));
+        CC.sendMessage(sender, "&aKit &b" + kit.getColor() + kit.getName() + " &ahas been created!");
     }
 
     @Subcommand("delete")
@@ -65,27 +66,34 @@ public class KitCommands extends BaseCommand {
         Kit kit = instance.getKitManager().getKit(kitSingle.toLowerCase());
 
         if (kit == null) {
-            CC.sendMessage(sender, ErrorMessages.KIT_DOES_NOT_EXIST);
+            CC.sendMessage(sender, "&cThis kit does not exist.");
             return;
         }
 
         instance.getKitManager().delete(kit);
-        CC.sendMessage(sender, String.format(SuccessMessages.KIT_DELETED, kit.getColor() + kit.getName()));
+        CC.sendMessage(sender, "&aKit &b" + kit.getColor() + kit.getName() + " &ahas been deleted!");
     }
 
-    @Subcommand("setinventory")
+    @Subcommand("save")
+    @Description("Save all kits to kits.yml")
+    public void save(CommandSender sender) {
+        instance.getKitManager().close();
+        CC.sendMessage(sender, "&aAll kits saved.");
+    }
+
+    @Subcommand("setInventory")
     public void setInventory(Player player, @Name("kit") @Single String kitSingle) {
         Kit kit = instance.getKitManager().getKit(kitSingle.toLowerCase());
 
         if (kit == null) {
-            CC.sendMessage(player, ErrorMessages.INVALID_KIT_NAME);
+            CC.sendMessage(player, "&cInvalid kit name.");
             return;
         }
 
         kit.setArmorContents(player.getInventory().getArmorContents());
         kit.setContents(player.getInventory().getContents());
 
-        CC.sendMessage(player, String.format(SuccessMessages.INVENTORY_UPDATED, kitSingle));
+        CC.sendMessage(player, "&aYou have updated the inventory for &b" + kit.getName() + "&a!");
     }
 
     @Subcommand("setIcon")
@@ -93,19 +101,19 @@ public class KitCommands extends BaseCommand {
         Kit kit = instance.getKitManager().getKit(kitSingle.toLowerCase());
 
         if (kit == null) {
-            CC.sendMessage(player, ErrorMessages.INVALID_KIT_NAME);
+            CC.sendMessage(player, "&cInvalid kit name.");
             return;
         }
 
         ItemStack itemInHand = player.getInventory().getItemInHand();
 
         if (itemInHand == null || itemInHand.getType() == Material.AIR) {
-            CC.sendMessage(player, ErrorMessages.NOTHING_IN_HAND);
+            CC.sendMessage(player, "&cThere is nothing in your hand...");
             return;
         }
 
         kit.setIcon(itemInHand.getType());
-        CC.sendMessage(player, String.format(SuccessMessages.ICON_UPDATED, kit.getName()));
+        CC.sendMessage(player, "&aYou have updated the icon for &b" + kit.getName() + "&a!");
     }
 
     @Subcommand("setType")
@@ -113,30 +121,30 @@ public class KitCommands extends BaseCommand {
         Kit kit = instance.getKitManager().getKit(kitName);
 
         if (kit == null) {
-            CC.sendMessage(player, ErrorMessages.INVALID_KIT_NAME);
+            CC.sendMessage(player, "&cInvalid kit name.");
             return;
         }
 
         try {
             KitType typeEnum = KitType.valueOf(type.toUpperCase());
             kit.setKitType(typeEnum);
-            CC.sendMessage(player, String.format(SuccessMessages.TYPE_UPDATED, kit.getName(), typeEnum.name()));
+            CC.sendMessage(player, "&aSet kit type for &b" + kit.getName() + " &ato &b" + typeEnum.name() + "&a!");
         } catch (IllegalArgumentException ignored) {
-            CC.sendMessage(player, ErrorMessages.KIT_TYPE_DOES_NOT_EXIST);
+            CC.sendMessage(player, "&cInvalid kit type &7(REGULAR, BUILD, BED_FIGHT, BOXING, WATER_KILL)");
         }
     }
 
-    @Subcommand("setranked")
+    @Subcommand("setRanked")
     public void ranked(Player player, @Name("kit") @Single String kitName) {
         Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
 
         if (kit == null) {
-            CC.sendMessage(player, ErrorMessages.INVALID_KIT_NAME);
+            CC.sendMessage(player, "&cInvalid kit name.");
             return;
         }
 
         kit.setRanked(!kit.isRanked());
-        CC.sendMessage(player, String.format(SuccessMessages.RANKED_TOGGLE, kit.isRanked() ? "enabled" : "disabled", kit.getColor() + kit.getName()));
+        CC.sendMessage(player, "&aYou have " + (kit.isRanked() ? "&aenabled" : "&cdisabled") + " &aranked for kit &b" + kit.getName() + "&a!");
     }
 
     @Subcommand("list")
@@ -154,7 +162,7 @@ public class KitCommands extends BaseCommand {
         Kit kit = instance.getKitManager().getKit(kitName);
 
         if (kit == null) {
-            CC.sendMessage(sender, ErrorMessages.INVALID_KIT_NAME);
+            CC.sendMessage(sender, "&cInvalid kit name.");
             return;
         }
 
