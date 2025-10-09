@@ -160,12 +160,15 @@ public final class Practice extends JavaPlugin {
     }
 
     private void initializeMongo() {
+        FileConfiguration databaseConfig = new ConfigFile(this, "database.yml").getConfiguration();
         mongoAPI = new MongoAPI(new MongoCredentials(
-                getConfig().getString("mongo.host"),
-                getConfig().getInt("mongo.port"),
-                getConfig().getString("mongo.database"),
-                getConfig().getString("mongo.user"),
-                getConfig().getString("mongo.password")
+                databaseConfig.getString("mongo.uri", ""),
+                databaseConfig.getBoolean("mongo.use uri", false),
+                databaseConfig.getString("mongo.host", "localhost"),
+                databaseConfig.getInt("mongo.port", 27017),
+                databaseConfig.getString("mongo.database", "Electron"),
+                databaseConfig.getString("mongo.user", ""),
+                databaseConfig.getString("mongo.password", "")
         ));
     }
 

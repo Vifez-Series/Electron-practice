@@ -1,0 +1,18 @@
+# ███████╗██╗     ███████╗ ██████╗████████╗██████╗  ██████╗ ███╗   ██╗
+# ██╔════╝██║     ██╔════╝██╔════╝╚══██╔══╝██╔══██╗██╔═══██╗████╗  ██║
+# █████╗  ██║     █████╗  ██║        ██║   ██████╔╝██║   ██║██╔██╗ ██║
+# ██╔══╝  ██║     ██╔══╝  ██║        ██║   ██╔══██╗██║   ██║██║╚██╗██║
+# ███████╗███████╗███████╗╚██████╗   ██║   ██║  ██║╚██████╔╝██║ ╚████║
+# ╚══════╝╚══════╝╚══════╝ ╚═════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+#                       Database • v1.5
+
+mongo:
+  uri: "" # ← Leave blank if not using a connection string!
+  use uri: false # ← Set to true if using a connection string!
+  host: "localhost"
+  port: 27017
+  database: "Electron"
+  # ↓ Leave blank if no auth!
+  user: ""
+  # ↓ Leave blank if no auth!
+  password: ""

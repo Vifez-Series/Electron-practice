@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class MongoCredentials {
 
+    private final String uri;
+    private final boolean useUri;
     private final String host;
     private final int port;
     private final String database, user, password;

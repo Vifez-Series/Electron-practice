@@ -4,16 +4,7 @@
 # ██╔══╝  ██║     ██╔══╝  ██║        ██║   ██╔══██╗██║   ██║██║╚██╗██║
 # ███████╗███████╗███████╗╚██████╗   ██║   ██║  ██║╚██████╔╝██║ ╚████║
 # ╚══════╝╚══════╝╚══════╝ ╚═════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
-#                       Practice • v1.4
-
-mongo:
-  host: "localhost"
-  port: 27017
-  database: "Electron"
-  # ↓ Leave blank if no auth!
-  user: ""
-  # ↓ Leave blank if no auth!
-  password: ""
+#                       Practice • v1.5
 
 settings:
   # ↓ Spawn Cords (/setspawn works)

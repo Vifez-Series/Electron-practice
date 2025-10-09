@@ -1,6 +1,8 @@
 package lol.vifez.electron.mongo;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
@@ -21,14 +23,24 @@ public class MongoAPI {
     public MongoAPI(MongoCredentials credentials) {
         this.credentials = credentials;
 
-
-        if (credentials.isAuth()) {
-            MongoCredential credential = MongoCredential.createCredential(credentials.getUser(), credentials.getDatabase(), credentials.getPassword().toCharArray());
-            mongoClient = new MongoClient(new ServerAddress(credentials.getHost(), credentials.getPort()), Collections.singletonList(credential));
+        if (credentials.isUseUri() && credentials.getUri() != null && !credentials.getUri().isEmpty()) {
+            mongoClient = new MongoClient(new MongoClientURI(credentials.getUri()));
+            mongoDatabase = mongoClient.getDatabase(credentials.getDatabase());
         } else {
-            mongoClient = new MongoClient(credentials.getHost(), credentials.getPort());
+            ServerAddress serverAddress = new ServerAddress(credentials.getHost(), credentials.getPort());
+            if (credentials.isAuth()) {
+                MongoCredential credential = MongoCredential.createCredential(
+                    credentials.getUser(), 
+                    credentials.getDatabase(), 
+                    credentials.getPassword().toCharArray()
+                );
+                MongoClientOptions options = MongoClientOptions.builder().build();
+                mongoClient = new MongoClient(serverAddress, credential, options);
+            } else {
+                mongoClient = new MongoClient(serverAddress);
+            }
+            mongoDatabase = mongoClient.getDatabase(credentials.getDatabase());
         }
-        mongoDatabase = mongoClient.getDatabase(credentials.getDatabase());
 
     }
 

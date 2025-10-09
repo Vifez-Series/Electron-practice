@@ -53,6 +53,10 @@
 
     <repositories>
         <repository>
+            <id>aikar</id>
+            <url>https://repo.aikar.co/content/groups/aikar/</url>
+        </repository>
+        <repository>
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
