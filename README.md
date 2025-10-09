@@ -6,7 +6,11 @@
 
 Lightweight practice core base
 
-Do not expect this to be the worlds best next bolt / frost competetor lol this was a passion project coded mainly for fun with barely any seriousness behind it, but if it works it works most practice cores are jumble logic too
+A practice core for 1.7-1.8.9 servers, Still being semi maintained, Updated every now and then...
+Feel free to fork ? lol
+
+# SUPPORT
+https://discord.gg/kKKC85rkXU
 
 # Features
 - Queues (unranked / ranked, random queue)
