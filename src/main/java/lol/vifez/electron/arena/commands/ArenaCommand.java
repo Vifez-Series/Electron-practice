@@ -130,7 +130,7 @@ public class ArenaCommand extends BaseCommand {
         sender.sendMessage(CC.translate("&aKit removed from arena!"));
     }
 
-    @Subcommand("setfirstposition")
+    @Subcommand("setpos1|setfirstposition")
     @CommandPermission("electron.admin")
     public void setFirstPositionArena(Player sender, @Single String arenaName) {
         Arena arena = arenaManager.getArena(arenaName);
@@ -143,7 +143,7 @@ public class ArenaCommand extends BaseCommand {
         sender.sendMessage(CC.translate("&aFirst position set!"));
     }
 
-    @Subcommand("setsecondposition")
+    @Subcommand("setpos2|setsecondposition")
     @CommandPermission("electron.admin")
     public void setSecondPositionArena(Player sender, @Single String arenaName) {
         Arena arena = arenaManager.getArena(arenaName);

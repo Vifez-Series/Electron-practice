@@ -66,11 +66,11 @@ import java.io.File;
 public final class Practice extends JavaPlugin {
 
     @Getter private static Practice instance;
-    
+
     @Getter private ConfigFile arenasFile, kitsFile, tabFile;
     @Getter private FileConfiguration languageConfig;
     @Getter private ScoreboardConfig scoreboardConfig;
-    
+
     @Getter private MongoAPI mongoAPI;
     @Getter private Gson gson;
     @Getter private ProfileManager profileManager;
@@ -79,7 +79,7 @@ public final class Practice extends JavaPlugin {
     @Getter private MatchManager matchManager;
     @Getter private QueueManager queueManager;
     @Getter private Leaderboard leaderboards;
-    
+
     @Setter
     @Getter private Location spawnLocation;
 
@@ -102,13 +102,13 @@ public final class Practice extends JavaPlugin {
         saveDefaultConfig();
         loadScoreboardConfig();
         initializeConfigFiles();
-        
+
         initializeServices();
         initializeManagers();
         registerCommands();
         initializeListeners();
         initializeDesign();
-        
+
         displayStartupInfo();
     }
 
@@ -135,7 +135,7 @@ public final class Practice extends JavaPlugin {
     private void initializeManagers() {
         matchManager = new MatchManager();
         new MatchTask(matchManager).runTaskTimer(this, 0L, 20L);
-        
+
         profileManager = new ProfileManager(new ProfileRepository(mongoAPI, gson));
         arenaManager = new ArenaManager();
         kitManager = new KitManager();
@@ -183,7 +183,7 @@ public final class Practice extends JavaPlugin {
 
     private void registerCommands() {
         BukkitCommandManager manager = new BukkitCommandManager(this);
-        
+
         manager.registerCommand(new ArenaCommand(arenaManager));
         manager.registerCommand(new ArenasCommand());
         manager.registerCommand(new KitCommands());
@@ -229,7 +229,7 @@ public final class Practice extends JavaPlugin {
         tablistHandler.setupSkinCache(skinAPI);
         tablistHandler.init(PacketEvents.getAPI());
         tablistHandler.registerAdapter(
-                new ElectronTab(this, getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")), 
+                new ElectronTab(this, getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")),
                 20
         );
     }
