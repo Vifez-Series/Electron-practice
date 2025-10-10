@@ -19,9 +19,9 @@ import java.util.stream.IntStream;
 
 @Getter
 @Setter
-public abstract class Menu {
+public abstract class Menu implements MenuOpener {
     public abstract String getTitle(Player player);
-    public abstract Map<Integer, Button> getButtons(Player player);
+    public abstract Map<Integer, lol.vifez.electron.util.menu.button.Button> getButtons(Player player);
 
     private Map<Integer, Button> buttons = new HashMap<>();
 

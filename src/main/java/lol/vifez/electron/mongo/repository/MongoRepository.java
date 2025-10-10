@@ -38,6 +38,7 @@ public abstract class MongoRepository<T> {
      */
     public CompletableFuture<T> getData(String id, Type type) {
         return CompletableFuture.supplyAsync(() -> {
+            if (this.collection == null) return null;
             Document document = this.collection.find(Filters.eq("_id", id)).first();
             if (document == null) return null;
             return gson.fromJson(document.toJson(), type);
@@ -54,6 +55,7 @@ public abstract class MongoRepository<T> {
      */
     public CompletableFuture<T> getData(String key, Object value, Type type) {
         return CompletableFuture.supplyAsync(() -> {
+            if (this.collection == null) return null;
             Document document = this.collection.find(Filters.eq(key, value)).first();
             if (document == null) return null;
             return gson.fromJson(document.toJson(), type);
@@ -69,6 +71,7 @@ public abstract class MongoRepository<T> {
     public CompletableFuture<List<T>> getAll(Type type) {
         return CompletableFuture.supplyAsync(() -> {
             List<T> resultList = new ArrayList<>();
+            if (this.collection == null) return resultList;
             for (Document document : this.collection.find()) {
                 T data = gson.fromJson(document.toJson(), type);
                 resultList.add(data);
@@ -79,26 +82,35 @@ public abstract class MongoRepository<T> {
 
     /**
      * Saves or replaces a document with the provided ID.
+     * If MongoDB is not available, this operation is silently ignored.
      *
      * @param id   The ID of the document.
      * @param t    The object to be saved (serialized to JSON).
      */
     public CompletableFuture<Void> saveData(String id, T t) {
         return CompletableFuture.runAsync(() -> {
-            this.collection.replaceOne(Filters.eq("_id", id),
-                    Document.parse(gson.toJson(t)),
-                    updateOptions);
+            if (this.collection != null) {
+                Document doc = Document.parse(gson.toJson(t));
+                collection.findOneAndReplace(
+                    Filters.eq("_id", id),
+                    doc,
+                    new com.mongodb.client.model.FindOneAndReplaceOptions().upsert(true)
+                );
+            }
         });
     }
 
     /**
      * Deletes the document by the provided ID.
+     * If MongoDB is not available, this operation is silently ignored.
      *
      * @param id The ID of the document to delete.
      */
     public CompletableFuture<Void> deleteData(String id) {
         return CompletableFuture.runAsync(() -> {
-            this.collection.deleteOne(Filters.eq("_id", id));
+            if (this.collection != null) {
+                this.collection.deleteOne(Filters.eq("_id", id));
+            }
         });
     }
 }

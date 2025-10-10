@@ -1,7 +1,6 @@
 package lol.vifez.electron.profile;
 
 import com.google.gson.annotations.SerializedName;
-import com.mongodb.client.model.Filters;
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.duel.DuelRequest;
 import lol.vifez.electron.kit.Kit;
@@ -40,13 +39,15 @@ public class Profile {
 
     private transient DuelRequest duelRequest;
 
-    private String name = "", currentQueue = "";
+    private String name = "", currentQueue = "", nickname = "";
 
     private Divisions division = Divisions.SILVER_I;
 
     private int wins = 0, losses = 0, winStreak = 0;
 
     private boolean editMode = false, buildMode = false;
+    
+    private long lastMessageTime = 0;
 
     private final Map<String, ItemStack[]> kitLoadout = new HashMap<>();
     private final Map<String, Integer> kitWins = new HashMap<>();

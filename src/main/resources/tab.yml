@@ -1,7 +1,40 @@
 enabled: true
 header:
-  - "&b&lElectron &7| &fPractice"
-  - "&r"
+  - "&b&m+---------------------&r %animation% &b&m---------------------+"
+  - "&fWelcome, &b%practice_player_nickname%"
+  - ""
 footer:
-  - "&fDownload &bElectron &ffor &afree&f @"
-  - "&7&oelectron.vifez.lol"
+  - ""
+  - "&7&oPlaying on &b&oelectron.lol"
+  - "&b&m+---------------------&r %footer_animation% &b&m---------------------+"
+
+ANIMATIONS:
+  MAIN:
+    INTERVAL: 20
+    LINES:
+      - "&b&lELECTRON"
+      - "&f&lE&b&lLECTRON"
+      - "&b&lE&f&lL&b&lECTRON"
+      - "&b&lEL&f&lE&b&lCTRON"
+      - "&b&lELE&f&lC&b&lTRON"
+      - "&b&lELEC&f&lT&b&lRON"
+      - "&b&lELECT&f&lR&b&lON"
+      - "&b&lELECTR&f&lO&b&lN"
+      - "&b&lELECTRO&f&lN"
+      - "&b&lELECTRON"
+      - "&f&lELECTRON"
+      - "&b&lELECTRON"
+      - "&f&lELECTRON"
+  FOOTER:
+    INTERVAL: 20
+    LINES:
+      - "&b&lPRACTICE"
+      - "&f&lP&b&lRACTICE"
+      - "&b&lP&f&lR&b&lACTICE"
+      - "&b&lPR&f&lA&b&lCTICE"
+      - "&b&lPRA&f&lC&b&lTICE"
+      - "&b&lPRAC&f&lT&b&lICE"
+      - "&b&lPRACT&f&lI&b&lCE"
+      - "&b&lPRACTI&f&lC&b&lE"
+      - "&b&lPRACTIC&f&lE"
+      - "&b&lPRACTICE"

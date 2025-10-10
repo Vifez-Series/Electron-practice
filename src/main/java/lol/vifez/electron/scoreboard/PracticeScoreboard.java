@@ -39,7 +39,7 @@ public class PracticeScoreboard implements AssembleAdapter {
         if (!profile.isScoreboardEnabled() || !scoreboardConfig.getBoolean("scoreboard.enabled")) return "";
         String title = scoreboardConfig.getString("scoreboard.title");
         if (title == null) return "";
-        return title.replace("%animation%", animationManager.getCurrentFrame());
+        return title.replace("%animation%", animationManager.getCurrentFrame("scoreboard"));
     }
 
     @Override
@@ -47,11 +47,32 @@ public class PracticeScoreboard implements AssembleAdapter {
         List<String> list = new ArrayList<>();
         Practice plugin = Practice.getInstance();
         Profile profile = plugin.getProfileManager().getProfile(player.getUniqueId());
-        if (!profile.isScoreboardEnabled() || !scoreboardConfig.getBoolean("scoreboard.enabled")) return list;
+        
+        // Basic validation
+        if (profile == null) {
+            List<String> template = scoreboardConfig.getStringList("scoreboard.in-lobby.lines");
+            for (String str : template) {
+                list.add(str.replace("<online>", String.valueOf(Bukkit.getOnlinePlayers().size()))
+                        .replace("<in-queue>", String.valueOf(plugin.getQueueManager().getAllQueueSize()))
+                        .replace("<playing>", String.valueOf(plugin.getMatchManager().getAllMatchSize()))
+                        .replace("<ping>", "0")
+                        .replace("<username>", player.getName())
+                        .replace("<global-elo>", "0")
+                        .replace("<division>", "None")
+                        .replace("%animation%", animationManager.getCurrentFrame("scoreboard"))
+                        .replace("<footer>", scoreboardConfig.getString("scoreboard.footer"))
+                );
+            }
+            return list;
+        }
+        
+        if (!profile.isScoreboardEnabled() || !scoreboardConfig.getBoolean("scoreboard.enabled")) {
+            return list;
+        }
 
         String footer = scoreboardConfig.getString("scoreboard.footer");
         String globalElo = String.valueOf(EloUtil.getGlobalElo(profile));
-        String division = profile.getDivision().getPrettyName();
+        String division = profile.getDivision() != null ? profile.getDivision().getPrettyName() : "None";
 
         Match match = plugin.getMatchManager().getMatch(profile.getUuid());
 
@@ -76,7 +97,7 @@ public class PracticeScoreboard implements AssembleAdapter {
                             .replace("<your-hits>", String.valueOf(hits))
                             .replace("<global-elo>", globalElo)
                             .replace("<division>", division)
-                            .replace("%animation%", animationManager.getCurrentFrame())
+                            .replace("%animation%", animationManager.getCurrentFrame("scoreboard"))
                             .replace("<footer>", footer)
                     );
                 }
@@ -88,7 +109,7 @@ public class PracticeScoreboard implements AssembleAdapter {
                             .replace("<loser>", match.getWinner() == null
                                     ? player.getName() + " " + match.getOpponent(player).getName()
                                     : match.getOpponent(match.getWinner().getPlayer()).getName())
-                            .replace("%animation%", animationManager.getCurrentFrame())
+                            .replace("%animation%", animationManager.getCurrentFrame("scoreboard"))
                             .replace("<footer>", footer)
                     );
                 }
@@ -100,7 +121,7 @@ public class PracticeScoreboard implements AssembleAdapter {
                             .replace("<loser>", match.getWinner() == null
                                     ? player.getName() + " " + match.getOpponent(player).getName()
                                     : match.getOpponent(match.getWinner().getPlayer()).getName())
-                            .replace("%animation%", animationManager.getCurrentFrame())
+                            .replace("%animation%", animationManager.getCurrentFrame("scoreboard"))
                             .replace("<footer>", footer)
                     );
                 }
@@ -122,7 +143,7 @@ public class PracticeScoreboard implements AssembleAdapter {
                         .replace("<username>", player.getName())
                         .replace("<global-elo>", globalElo)
                         .replace("<division>", division)
-                        .replace("%animation%", animationManager.getCurrentFrame())
+                        .replace("%animation%", animationManager.getCurrentFrame("scoreboard"))
                         .replace("<footer>", footer)
                 );
             }
@@ -137,7 +158,7 @@ public class PracticeScoreboard implements AssembleAdapter {
                         .replace("<username>", player.getName())
                         .replace("<global-elo>", globalElo)
                         .replace("<division>", division)
-                        .replace("%animation%", animationManager.getCurrentFrame())
+                        .replace("%animation%", animationManager.getCurrentFrame("scoreboard"))
                         .replace("<footer>", footer)
                 );
             }

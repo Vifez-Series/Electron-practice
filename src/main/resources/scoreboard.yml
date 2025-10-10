@@ -1,13 +1,13 @@
 scoreboard:
   enabled: true
   title: "%animation%"
-  footer: "&7&oexample.com"
+  footer: "&7&oelectron.lol"
 
   in-lobby:
     lines:
       - "&7&m-------------------"
-      - "&b&l ▎ &fOnline: &b<online>"
-      - "&b&l ▎ &fFighting: &b<in-queue>"
+      - "&b&l || &fOnline: &b<online>"
+      - "&b&l || &fFighting: &b<in-queue>"
       - " "
       - "<footer>"
       - "&7&m-------------------"
@@ -16,8 +16,8 @@ scoreboard:
     lines:
       - "&7&m-------------------"
       - "&b&lQueueing&7:"
-      - "&b&l ▎ &fKit: &b<kit>"
-      - "&b&l ▎ &fTime: &b<time>"
+      - "&b&l || &fKit: &b<kit>"
+      - "&b&l || &fTime: &b<time>"
       - " "
       - "<footer>"
       - "&7&m-------------------"
@@ -25,11 +25,11 @@ scoreboard:
   in-game:
     lines:
       - "&7&m-------------------"
-      - "&b&l ▎ &fFighting: &c<opponent>"
-      - "&b&l ▎ &fDuration: &a<duration>"
+      - "&b&l || &fFighting: &c<opponent>"
+      - "&b&l || &fDuration: &a<duration>"
       - " "
-      - "&b&l ▎ &fYour ping: &a<ping>ms"
-      - "&b&l ▎ &fTheir ping: &c<opponent-ping>ms"
+      - "&b&l || &fYour ping: &a<ping>ms"
+      - "&b&l || &fTheir ping: &c<opponent-ping>ms"
       - " "
       - "<footer>"
       - "&7&m-------------------"
@@ -37,14 +37,14 @@ scoreboard:
   in-boxing:
     lines:
       - "&7&m-------------------"
-      - "&b&l ▎ &fFighting: &c<opponent>"
-      - "&b&l ▎ &fDuration: &a<duration>"
+      - "&b&l || &fFighting: &c<opponent>"
+      - "&b&l || &fDuration: &a<duration>"
       - " "
-      - "&b&l ▎ &fHits: &a<your-hits> ┃ &c<their-hits>"
-      - "&b&l ▎ <diffrence>"
+      - "&b&l || &fHits: &a<your-hits> ┃ &c<their-hits>"
+      - "&b&l || <diffrence>"
       - " "
-      - "&b&l ▎ &fYour Ping: &a<ping>ms"
-      - "&b&l ▎ &fTheir Ping: &c<opponent-ping>ms"
+      - "&b&l || &fYour Ping: &a<ping>ms"
+      - "&b&l || &fTheir Ping: &c<opponent-ping>ms"
       - " "
       - "<footer>"
       - "&7&m-------------------"
@@ -52,8 +52,8 @@ scoreboard:
   match-starting:
     lines:
       - "&7&m-------------------"
-      - "&b&l ▎ &fFighting: &c<opponent>"
-      - "&b&l ▎ &fStarting: &b<starting-c>"
+      - "&b&l || &fFighting: &c<opponent>"
+      - "&b&l || &fStarting: &b<starting-c>"
       - " "
       - "<footer>"
       - "&7&m-------------------"
@@ -61,9 +61,9 @@ scoreboard:
   match-ending:
     lines:
       - "&7&m-------------------"
-      - "&b&l ▎ &fMatch Ended"
-      - "&b&l ▎ &fWinner&7: &a<winner>"
-      - "&b&l ▎ &fLoser&7: &c<loser>"
+      - "&b&l || &fMatch Ended"
+      - "&b&l || &fWinner&7: &a<winner>"
+      - "&b&l || &fLoser&7: &c<loser>"
       - " "
       - "<footer>"
       - "&7&m-------------------"

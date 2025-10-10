@@ -151,7 +151,7 @@
             <artifactId>asdasd</artifactId>
             <version>123</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/packetevents-2.7.0.jar</systemPath>
+            <systemPath>${project.basedir}/libs/packetevents-2.9.5.jar</systemPath>
         </dependency>
     </dependencies>
 </project>

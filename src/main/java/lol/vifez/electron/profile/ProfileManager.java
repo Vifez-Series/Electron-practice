@@ -1,6 +1,5 @@
 package lol.vifez.electron.profile;
 
-import com.mongodb.client.model.Filters;
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.profile.listener.ProfileListener;
 import lol.vifez.electron.profile.repository.ProfileRepository;
@@ -44,11 +43,14 @@ public class ProfileManager {
 
     public void delete(Profile profile) {
         profiles.remove(profile.getUuid());
-
-        profileRepository.getCollection().deleteOne(Filters.eq("_id", profile.getUuid().toString()));
+        profileRepository.deleteData(profile.getUuid().toString());
     }
 
     public void close() {
-        profiles.values().forEach(profile -> profileRepository.saveData(profile.getUuid().toString(), profile));
+        // Save all profiles in memory to the database if available
+        if (profileRepository != null) {
+            profiles.values().forEach(profile -> 
+                profileRepository.saveData(profile.getUuid().toString(), profile));
+        }
     }
 }

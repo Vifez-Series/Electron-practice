@@ -9,6 +9,7 @@ import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder
 import lol.vifez.electron.arena.commands.ArenaCommand;
 import lol.vifez.electron.arena.commands.ArenasCommand;
 import lol.vifez.electron.arena.manager.ArenaManager;
+import lol.vifez.electron.chat.ChatListener;
 import lol.vifez.electron.chat.MessageCommand;
 import lol.vifez.electron.chat.ReplyCommand;
 import lol.vifez.electron.commands.admin.*;
@@ -34,10 +35,16 @@ import lol.vifez.electron.profile.ProfileManager;
 import lol.vifez.electron.profile.repository.ProfileRepository;
 import lol.vifez.electron.queue.QueueManager;
 import lol.vifez.electron.queue.listener.QueueListener;
+import lol.vifez.electron.ranks.RankManager;
+import lol.vifez.electron.ranks.commands.RankCommands;
 import lol.vifez.electron.scoreboard.PracticeScoreboard;
 import lol.vifez.electron.scoreboard.ScoreboardConfig;
+import lol.vifez.electron.util.conversation.ConversationManager;
+import lol.vifez.electron.util.conversation.ConversationListener;
 import lol.vifez.electron.settings.command.SettingsCommand;
 import lol.vifez.electron.tab.ElectronTab;
+import lol.vifez.electron.util.nametag.NameTagAPI;
+import lol.vifez.electron.util.nametag.adapter.RankNametagAdapter;
 import lol.vifez.electron.util.AutoRespawn;
 import lol.vifez.electron.util.CC;
 import lol.vifez.electron.util.ConfigFile;
@@ -55,7 +62,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import xyz.refinedev.api.skin.SkinAPI;
 import xyz.refinedev.api.tablist.TablistHandler;
 
-import java.io.File;
 
 /**
  * @author vifez
@@ -79,22 +85,46 @@ public final class Practice extends JavaPlugin {
     @Getter private MatchManager matchManager;
     @Getter private QueueManager queueManager;
     @Getter private Leaderboard leaderboards;
+    @Getter private RankManager rankManager;
+    @Getter private ConversationManager conversationManager;
     
     @Setter
     @Getter private Location spawnLocation;
 
     @Override
     public void onLoad() {
+        // Setup PacketEvents API
         PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this));
-        PacketEvents.getAPI().init();
+        // Load PacketEvents
+        PacketEvents.getAPI().load();
     }
 
     @Override
     public void onEnable() {
         instance = this;
-
+        
+        // Initialize and configure PacketEvents
+        PacketEvents.getAPI().init();
+        PacketEvents.getAPI().getSettings()
+            .checkForUpdates(false)
+            .bStats(true)
+            .debug(false);
+            
+        // Initialize the rest of the plugin
         initializePlugin();
-        new Assemble(this, new PracticeScoreboard());
+        
+        // Initialize scoreboard
+        if (scoreboardConfig.getBoolean("scoreboard.enabled")) {
+            try {
+                new Assemble(this, new PracticeScoreboard());
+                sendMessage("&aScoreboard initialized successfully!");
+            } catch (Exception e) {
+                sendMessage("&cFailed to initialize scoreboard: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } else {
+            sendMessage("&eScoreboard is disabled in config.");
+        }
     }
 
 
@@ -113,14 +143,19 @@ public final class Practice extends JavaPlugin {
     }
 
     private void loadScoreboardConfig() {
-        File file = new File(getDataFolder(), "scoreboard.yml");
-        if (!file.exists()) {
-            saveResource("scoreboard.yml", false);
-        }
+        // Make sure default config exists
+        saveResource("scoreboard.yml", false);
         scoreboardConfig = new ScoreboardConfig();
+        sendMessage("&aScoreboard config loaded successfully!");
     }
 
     private void initializeConfigFiles() {
+        // Save default config files if they don't exist
+        saveResource("arenas.yml", false);
+        saveResource("kits.yml", false);
+        saveResource("ranks.yml", false);
+        saveResource("tab.yml", false);
+        
         arenasFile = new ConfigFile(this, "arenas.yml");
         kitsFile = new ConfigFile(this, "kits.yml");
         tabFile = new ConfigFile(this, "tab.yml");
@@ -136,11 +171,26 @@ public final class Practice extends JavaPlugin {
         matchManager = new MatchManager();
         new MatchTask(matchManager).runTaskTimer(this, 0L, 20L);
         
-        profileManager = new ProfileManager(new ProfileRepository(mongoAPI, gson));
+        // Initialize profile system even if MongoDB is not available
+        ProfileRepository profileRepo = new ProfileRepository(mongoAPI, gson);
+        profileManager = new ProfileManager(profileRepo);
+        if (!mongoAPI.isConnected()) {
+            sendMessage("&e[WARNING] Running in memory-only mode. Player data will not persist!");
+        }
+        
         arenaManager = new ArenaManager();
         kitManager = new KitManager();
         queueManager = new QueueManager();
         leaderboards = new Leaderboard(profileManager);
+        rankManager = new RankManager(this);
+        conversationManager = new ConversationManager();
+        
+        // Initialize NameTagAPI with rank adapter
+        new NameTagAPI(this, new RankNametagAdapter(this), getServer().getScoreboardManager().getMainScoreboard(), 20L);
+        
+        // Register listeners
+        getServer().getPluginManager().registerEvents(new ConversationListener(this), this);
+        getServer().getPluginManager().registerEvents(new ChatListener(this), this);
     }
 
     private void initializeServices() {
@@ -203,6 +253,7 @@ public final class Practice extends JavaPlugin {
         manager.registerCommand(new SettingsCommand());
         manager.registerCommand(new NavigatorCommand());
         manager.registerCommand(new DivisionsCommand());
+        manager.registerCommand(new RankCommands(this));
     }
 
     private void initializeListeners() {
@@ -215,39 +266,49 @@ public final class Practice extends JavaPlugin {
     }
 
     private void initializeDesign() {
-        if (getConfig().getBoolean("scoreboard.enabled")) {
-            new Assemble(this, new PracticeScoreboard());
+        // Initialize tablist if enabled in config
+        if (tabFile != null && tabFile.getBoolean("enabled")) {
+            getServer().getScheduler().runTaskLater(this, () -> {
+                try {
+                    // Create and configure tablist handler
+                    TablistHandler tablistHandler = new TablistHandler(this);
+                    
+                    // Setup skin cache
+                    SkinAPI skinAPI = new SkinAPI(this, gson);
+                    tablistHandler.setupSkinCache(skinAPI);
+                    
+                    // Configure settings
+                    tablistHandler.setIgnore1_7(false);
+                    
+                    // Initialize tablist system
+                    tablistHandler.init(PacketEvents.getAPI());
+                    
+                    // Register our adapter with 1-second update interval
+                    boolean hasPAPI = getServer().getPluginManager().isPluginEnabled("PlaceholderAPI");
+                    ElectronTab tabAdapter = new ElectronTab(this, hasPAPI);
+                    tablistHandler.registerAdapter(tabAdapter, 20L);
+                    
+                    sendMessage("&aTablist initialized successfully!");
+                } catch (Exception e) {
+                    sendMessage("&cFailed to initialize tablist: " + e.getMessage());
+                    e.printStackTrace();
+                }
+            }, 20L); // Delay tablist initialization by 1 second
         }
-
-        if (tabFile.getBoolean("enabled")) {
-            initializeTablist();
-        }
-    }
-
-    private void initializeTablist() {
-        TablistHandler tablistHandler = new TablistHandler(this);
-        SkinAPI skinAPI = new SkinAPI(this, gson);
-
-        tablistHandler.setIgnore1_7(false);
-        tablistHandler.setupSkinCache(skinAPI);
-        tablistHandler.init(PacketEvents.getAPI());
-        tablistHandler.registerAdapter(
-                new ElectronTab(this, getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")), 
-                20
-        );
     }
 
     private void displayStartupInfo() {
-        sendMessage(" ");
-        sendMessage("&b&lElectron Practice &7[V" + getDescription().getVersion() + "]");
-        sendMessage("&fAuthors: &bvifez &f& &eMTR");
-        sendMessage(" ");
-        sendMessage("&fProtocol: &b" + getServer().getBukkitVersion());
-        sendMessage("&fSpigot: &b" + getServer().getName());
-        sendMessage(" ");
-        sendMessage("&fKits: &b" + kitManager.getKits().size());
-        sendMessage("&fArenas: &b" + arenaManager.getArenas().size());
-        sendMessage(" ");
+        sendMessage("§r");
+        sendMessage("§3§lElectron Practice §8[V" + getDescription().getVersion() + "]");
+        sendMessage("§fAuthors: §3vifez §f& §eMTR");
+        sendMessage("§fCollaborators: §3aysha.rip");
+        sendMessage("§r");
+        sendMessage("§fProtocol: §3" + getServer().getBukkitVersion());
+        sendMessage("§fSpigot: §3" + getServer().getName());
+        sendMessage("§r");
+        sendMessage("§fKits: §3" + kitManager.getKits().size());
+        sendMessage("§fArenas: §3" + arenaManager.getArenas().size());
+        sendMessage("§r");
 
 
         Hotbar.loadAll();

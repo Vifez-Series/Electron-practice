@@ -24,7 +24,7 @@ https://discord.gg/kKKC85rkXU
 - Tablist (configurable)
 - Join MOTD + Title
 - PlaceholderAPI Support (and custom placeholders)
-- MongoDB For data saving
+- MongoDB For data saving + URI support
 - Duels
 - Spectate
 - Auto respawn
@@ -33,6 +33,8 @@ https://discord.gg/kKKC85rkXU
 - Elo management
 - Spawn system (/setspawn)
 - More command (x64 of whatever in ur hand)
+- Rank System (Internal)
+- Chat Formater (Internal)
 *And More...*
 
 # Support
@@ -44,15 +46,25 @@ Need support? You can join our discord server and create a ticket!
 - **electron.staff**
 - **electron.user**
 
+# Ranks Permissions
+- **electron.rank.default**
+- **electron.rank.vip**
+- **electron.rank.mvp**
+- **electron.rank.helper**
+- **electron.rank.mod**
+- **electron.rank.admin**
+- **electron.rank.owner**
+
 # Dependencies
-- Packet events
-- ProtocolLib
-- 1.8
-- MongoDB
+- Packetevents [2.9.5] : [Download](https://www.spigotmc.org/resources/packetevents-api.80279/)
+- ProtocolLib [4.8.0] : [Download](https://www.spigotmc.org/resources/protocollib.1997/download?version=443701)
+- 1.8 [PaperMC](https://fill-data.papermc.io/v1/objects/7ff6d2cec671ef0d95b3723b5c92890118fb882d73b7f8fa0a2cd31d97c55f86/paper-1.8.8-445.jar)
+- MongoDB [Internal]
 
 # Credits
 - Vifez - Main developer & Current maintainer
 - MTR - Contributed heavily with me at the start
+- Aysha - Contributed with the Rank System, and fixing the TAB
 
 # Compiling
 - Clone the repo to your intellij

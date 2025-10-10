@@ -7,9 +7,10 @@
 #                       Practice • v1.5
 
 settings:
-  # ↓ Spawn Cords (/setspawn works)
+  # Spawn Cords (/setspawn works)
   spawn-location: "world, 0, 150, 0, 0, 0"
-  # ↓ Would you like a Join MOTD?
+  
+  # Join Message Settings
   join-message:
     enabled: true
     messages:
@@ -18,3 +19,34 @@ settings:
       - " &7Duels, events, ranked"
       - " &7Multiple game modes available"
       - " "
+
+chat:
+  # Default chat format
+  # Available placeholders:
+  # {prefix} - Player's rank prefix
+  # {name} - Player's name (colored by rank)
+  # {displayname} - Player's display name
+  # {world} - Current world name
+  # {message} - The chat message
+  format: "{prefix}{name}&7: {message}"
+  
+  # Settings for players without ranks
+  default:
+    # Color for players without a rank
+    name-color: "&7"
+    # Optional default prefix for players without a rank
+    prefix: ""
+  
+  # Chat filter settings
+  filter:
+    enabled: true
+    # Block repeated characters (e.g., "hellooooo")
+    block-spam: true
+    max-repeated-chars: 3
+    # Minimum delay between messages (in seconds)
+    chat-delay: 3
+    # Exempt permissions:
+    # practice.chat.bypass.filter - Bypass chat filter
+    # practice.chat.bypass.delay - Bypass chat delay
+    # practice.chat.color - Use color codes
+    # practice.chat.hex - Use hex color codes

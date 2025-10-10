@@ -1,0 +1,42 @@
+ranks:
+  owner:
+    prefix: "&8[&bOwner&8] &r"
+    color: "&f"
+    weight: 100
+    default: false
+
+  admin:
+    prefix: "&8[&bAdmin&8] &r"
+    color: "&f"
+    weight: 90
+    default: false
+
+  mod:
+    prefix: "&8[&bMod&8] &r"
+    color: "&f"
+    weight: 80
+    default: false
+
+  helper:
+    prefix: "&8[&bHelper&8] &r"
+    color: "&f"
+    weight: 70
+    default: false
+
+  mvp:
+    prefix: "&8[&bMVP&8] &r"
+    color: "&f"
+    weight: 60
+    default: false
+
+  vip:
+    prefix: "&8[&bVIP&8] &r"
+    color: "&f"
+    weight: 50
+    default: false
+
+  default:
+    prefix: "&7"
+    color: "&f"
+    weight: 0
+    default: true

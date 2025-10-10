@@ -1,9 +1,10 @@
 package lol.vifez.electron.tab;
 
 import lol.vifez.electron.Practice;
+import lol.vifez.electron.profile.Profile;
+import lol.vifez.electron.ranks.Rank;
 import lol.vifez.electron.util.CC;
 import lol.vifez.electron.util.StringUtil;
-import lombok.RequiredArgsConstructor;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -19,24 +20,32 @@ import java.util.List;
  * @website https://vifez.lol
  */
 
-@RequiredArgsConstructor
 public class ElectronTab implements TabAdapter {
 
     private final Practice instance;
     private final boolean isPlaceholderAPI;
+    private final lol.vifez.electron.scoreboard.AnimationManager animationManager;
+
+    public ElectronTab(Practice instance, boolean isPlaceholderAPI) {
+        this.instance = instance;
+        this.isPlaceholderAPI = isPlaceholderAPI;
+        this.animationManager = new lol.vifez.electron.scoreboard.AnimationManager();
+    }
 
     @Override
     public String getHeader(Player player) {
-        return StringUtil.listToString(
+        String header = StringUtil.listToString(
                 instance.getTabFile().getConfiguration().getStringList("header")
         );
+        return header.replace("%animation%", animationManager.getCurrentFrame("main"));
     }
 
     @Override
     public String getFooter(Player player) {
-        return StringUtil.listToString(
+        String footer = StringUtil.listToString(
                 instance.getTabFile().getConfiguration().getStringList("footer")
         );
+        return footer.replace("%footer_animation%", animationManager.getCurrentFrame("footer"));
     }
 
     @Override
@@ -52,9 +61,21 @@ public class ElectronTab implements TabAdapter {
 
             if (col > 3) break;
 
-            String name = "&a" + online.getName();
+            String name = online.getName();
+            Profile onlineProfile = instance.getProfileManager().getProfile(online.getUniqueId());
+            
+            if (onlineProfile != null) {
+                Rank rank = instance.getRankManager().getPlayerRank(online);
+                if (rank != null) {
+                    name = rank.getFormattedPrefix() + rank.getColor() + name;
+                } else {
+                    name = "&a" + name;
+                }
+            } else {
+                name = "&a" + name;
+            }
+            
             name = parse(player, name);
-
             entries.add(new TabEntry(col, row, name));
             index++;
         }
