@@ -7,6 +7,8 @@ import lol.vifez.electron.kit.enums.KitType;
 import lol.vifez.electron.match.enums.MatchState;
 import lol.vifez.electron.profile.Profile;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -17,6 +19,12 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
+ */
 
 @Data
 public class Match {
@@ -61,6 +69,10 @@ public class Match {
 
         return String.format("%02d:%02d:%02d", hours, minutes, remainingSeconds);
     }
+
+    @Getter
+    @Setter
+    private boolean countdownRunning = false;
 
     public Profile getOpponent(Player player) {
         return player.getUniqueId().equals(playerOne.getUuid()) ? playerTwo : playerOne;
