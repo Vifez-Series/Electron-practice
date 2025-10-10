@@ -64,7 +64,7 @@ Need support? You can join our discord server and create a ticket!
 # Credits
 - Vifez - Main developer & Current maintainer
 - MTR - Contributed heavily with me at the start
-- Aysha - Contributed with the Rank System, and fixing the TAB
+- Aysha - Contributed with the Rank System, Chat Formater, and fixing the TAB
 
 # Compiling
 - Clone the repo to your intellij
