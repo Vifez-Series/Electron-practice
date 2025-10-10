@@ -74,20 +74,20 @@ public class MatchManager {
             profile.getPlayer().getActivePotionEffects().clear();
             match.denyMovement(profile.getPlayer());
 
-            ItemStack[] loadout;
-
-            if (profile.getKitLoadout().get(match.getKit().getName().toLowerCase()) == null) {
-                loadout = match.getKit().getContents();
-            } else {
-                loadout = profile.getKitLoadout().get(match.getKit().getName().toLowerCase());
-            }
+            ItemStack[] loadout = profile.getKitLoadout().getOrDefault(
+                    match.getKit().getName().toLowerCase(),
+                    match.getKit().getContents()
+            );
 
             profile.getPlayer().getInventory().setArmorContents(match.getKit().getArmorContents());
             profile.getPlayer().getInventory().setContents(loadout);
 
+            if (profile.getQueue() != null) {
+                profile.getQueue().remove(profile.getPlayer());
+            }
+
             Practice.getInstance().getServer().getScheduler().runTaskLater(Practice.getInstance(), () -> {
                 CC.sendMessage(profile.getPlayer(), "&aMatch started!");
-
                 profile.getPlayer().playSound(profile.getPlayer().getLocation(), Sound.NOTE_PLING, 0.5f, 0.5f);
                 match.setMatchState(MatchState.STARTED);
                 match.allowMovement(profile.getPlayer());
