@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import net.md_5.bungee.api.chat.ClickEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -40,6 +41,8 @@ public class Profile {
     private transient DuelRequest duelRequest;
 
     private String name = "", currentQueue = "", nickname = "";
+    private ChatColor chatColor = ChatColor.WHITE;
+    private boolean chatEnabled = true;
 
     private Divisions division = Divisions.SILVER_I;
 

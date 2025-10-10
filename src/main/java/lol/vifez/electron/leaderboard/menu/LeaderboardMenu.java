@@ -54,7 +54,7 @@ public class LeaderboardMenu extends Menu {
                         .name("&b&lGlobal Elo")
                         .lore(lore)
                         .build(),
-                true, true, () -> {}
+                true, true, () -> {}, null
         ));
 
         Kit[] kits = instance.getKitManager().getKits().values().toArray(new Kit[0]);
@@ -77,7 +77,7 @@ public class LeaderboardMenu extends Menu {
                             .durability((short) 15)
                             .name("&7")
                             .build(),
-                    true, false, () -> {}
+                    true, false, () -> {}, null
             ));
         }
 
@@ -87,7 +87,7 @@ public class LeaderboardMenu extends Menu {
 
 class LeaderboardButton extends EasyButton {
     public LeaderboardButton(Practice instance, Kit kit) {
-        super(buildItem(instance, kit), true, true, () -> {});
+        super(buildItem(instance, kit), true, true, () -> {}, null);
     }
 
     private static ItemStack buildItem(Practice instance, Kit kit) {

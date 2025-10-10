@@ -36,7 +36,7 @@ public class RankedQueueLore extends EasyButton {
             CC.sendMessage(player, " ");
 
             player.closeInventory();
-        });
+        }, null);
     }
 
     public static List<String> buildLore(Practice instance, Player player, Kit kit) {

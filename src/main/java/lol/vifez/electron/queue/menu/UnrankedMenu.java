@@ -60,7 +60,7 @@ public class UnrankedMenu extends Menu {
                             .durability((short) 15)
                             .name("&7")
                             .build(),
-                    true, false, () -> {}));
+                    true, false, () -> {}, null));
         }
 
         buttons.put(4, new EasyButton(
@@ -87,7 +87,7 @@ public class UnrankedMenu extends Menu {
                     CC.sendMessage(player, "&e▪ &7Searching for a &eplayer...");
                     CC.sendMessage(player, " ");
                     player.closeInventory();
-                }
+                }, null
         ));
 
         return buttons;
@@ -117,6 +117,6 @@ class KitButton extends EasyButton {
             CC.sendMessage(player, " ");
 
             player.closeInventory();
-        });
+        }, null);
     }
 }

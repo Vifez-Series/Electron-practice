@@ -53,7 +53,7 @@ public class NavigatorMenu extends Menu {
             } else {
                 CC.sendMessage(player, "&cProfile not found.");
             }
-        }));
+        }, null));
 
         buttons.put(13, new EasyButton(new ItemBuilder(Material.EMERALD)
                 .name("&bLeaderboards")
@@ -62,7 +62,7 @@ public class NavigatorMenu extends Menu {
                         "&aLeft-click to view &eLeaderboards.")
                 .build(), true, false, () -> {
             new LeaderboardMenu(instance).openMenu(player);
-        }));
+        }, null));
 
         buttons.put(15, new EasyButton(new ItemBuilder(Material.REDSTONE_COMPARATOR)
                 .name("&bSettings")
@@ -77,7 +77,7 @@ public class NavigatorMenu extends Menu {
             } else {
                 CC.sendMessage(player, "&cYour profile is not loaded.");
             }
-        }));
+        }, null));
 
         buttons.put(30, new EasyButton(new ItemBuilder(Material.DIAMOND_SWORD)
                 .name("&bDuel")
@@ -86,7 +86,7 @@ public class NavigatorMenu extends Menu {
                         "&aLeft-click to &eduel.")
                 .build(), true, false, () -> {
             new DuelPlayerMenu().openMenu(player);
-        }));
+        }, null));
 
         buttons.put(32, new EasyButton(new ItemBuilder(Material.BOOK_AND_QUILL)
                 .name("&bLoadout Editor")
@@ -95,14 +95,14 @@ public class NavigatorMenu extends Menu {
                         "&aLeft-click to &eedit layouts.")
                 .build(), true, false, () -> {
             new KitSelectionMenu(instance).openMenu(player);
-        }));
+        }, null));
 
         for (int i = 0; i < getSize(); i++) {
             if (!buttons.containsKey(i)) {
                 buttons.put(i, new EasyButton(new ItemBuilder(Material.STAINED_GLASS_PANE)
                         .durability((short) 7)
                         .name(" ")
-                        .build(), true, false, () -> {}));
+                        .build(), true, false, () -> {}, null));
             }
         }
 

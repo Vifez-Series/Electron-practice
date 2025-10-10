@@ -29,6 +29,6 @@ public class ToggleScoreboardButton {
             profile.setScoreboardEnabled(!scoreboardEnabled);
             Practice.getInstance().getProfileManager().save(profile);
             new SettingsMenu(instance, profile).openMenu(profile.getPlayer());
-        });
+        }, null);
     }
 }

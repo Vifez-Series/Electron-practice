@@ -62,6 +62,6 @@ class KitButton extends EasyButton {
 
             player.closeInventory();
             new KitEditMenu(kit).openMenu(player);
-        });
+        }, null);
     }
 }

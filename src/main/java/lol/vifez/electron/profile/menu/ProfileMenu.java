@@ -40,7 +40,7 @@ public class ProfileMenu extends Menu {
         )));
         head.setItemMeta(meta);
 
-        buttons.put(4, new EasyButton(head, true, false, () -> {}));
+        buttons.put(4, new EasyButton(head, true, false, () -> {}, null));
 
         int[] kitSlots = {10, 11, 12, 14, 15, 16};
         int index = 0;
@@ -53,7 +53,7 @@ public class ProfileMenu extends Menu {
                     .lore(CC.translate("&7Click to view kit"))
                     .build();
 
-            buttons.put(kitSlots[index], new EasyButton(kitItem, true, false, () -> {}));
+            buttons.put(kitSlots[index], new EasyButton(kitItem, true, false, () -> {}, null));
             index++;
         }
 

@@ -1,6 +1,7 @@
 package lol.vifez.electron.chat;
 
 import lol.vifez.electron.Practice;
+import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.ranks.Rank;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -22,10 +23,15 @@ public class ChatFormat {
     }
 
     public String format(String message, Player player) {
+        // Get player's profile
+        Profile profile = plugin.getProfileManager().getProfile(player.getUniqueId());
+        
         // Get player's rank information
         Rank rank = plugin.getRankManager().getPlayerRank(player);
         String prefix = "";
-        String playerName = player.getName();
+        String playerName = profile.getNickname() != null && !profile.getNickname().isEmpty() && player.hasPermission("electron.rank.vip") 
+                ? profile.getNickname() 
+                : player.getName();
         
         // Apply rank formatting if available
         if (rank != null) {
@@ -49,12 +55,20 @@ public class ChatFormat {
             .replace("{displayname}", player.getDisplayName())
             .replace("{world}", player.getWorld().getName());
             
-        // Handle message colors based on permissions
-        if (player.hasPermission("practice.chat.color")) {
-            if (player.hasPermission("practice.chat.hex")) {
-                message = translateHexColorCodes(colorize(message));
-            } else {
-                message = colorize(message);
+        // Handle message colors
+        if (player.hasPermission("electron.rank.vip")) {
+            // Apply player's chosen chat color if they have one
+            if (profile.getChatColor() != null) {
+                message = profile.getChatColor() + message;
+            }
+            
+            // Handle color codes if they have permission
+            if (player.hasPermission("practice.chat.color")) {
+                if (player.hasPermission("practice.chat.hex")) {
+                    message = translateHexColorCodes(colorize(message));
+                } else {
+                    message = colorize(message);
+                }
             }
         }
         

@@ -55,7 +55,7 @@ public class DuelKitMenu extends Menu {
                             .durability((short) 15)
                             .name("&7")
                             .build(),
-                    true, false, () -> {}));
+                    true, false, () -> {}, null));
         }
 
         return buttons;
@@ -83,6 +83,6 @@ class DuelKitButton extends EasyButton {
 
             player.closeInventory();
             profile.sendDuelRequest(target, kit);
-        });
+        }, null);
     }
 }

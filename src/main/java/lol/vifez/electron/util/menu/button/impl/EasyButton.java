@@ -12,13 +12,21 @@ import org.bukkit.inventory.ItemStack;
  * Unauthorized use or distribution is prohibited.
  */
 
-@AllArgsConstructor
 @RequiredArgsConstructor
 public class EasyButton extends Button {
 
     private final ItemStack item;
     private boolean cancelEvent = false, updateOnClick = false;
-    private final Runnable onClick;
+    protected final Runnable onClick;
+    private Runnable onRightClick;
+
+    public EasyButton(ItemStack item, boolean cancelEvent, boolean updateOnClick, Runnable onClick, Runnable onRightClick) {
+        this.item = item;
+        this.cancelEvent = cancelEvent;
+        this.updateOnClick = updateOnClick;
+        this.onClick = onClick;
+        this.onRightClick = onRightClick;
+    }
 
     @Override
     public ItemStack getItem(Player player) {
@@ -27,7 +35,11 @@ public class EasyButton extends Button {
 
     @Override
     public void onClick(Player player, int slot, ClickType type) {
-        onClick.run();
+        if (type == ClickType.RIGHT && onRightClick != null) {
+            onRightClick.run();
+        } else {
+            onClick.run();
+        }
     }
 
     @Override

@@ -47,7 +47,7 @@ public class WorldTimeButton {
             }
 
             new SettingsMenu(instance, profile).openMenu(player);
-        });
+        }, null);
     }
 
     private static void updateWorldTime(Player player, String time) {

@@ -64,7 +64,7 @@ public class RankedMenu extends Menu {
                             .durability((short) 14)
                             .name("&7")
                             .build(),
-                    true, false, () -> {}));
+                    true, false, () -> {}, null));
         }
 
         buttons.put(4, new EasyButton(
@@ -97,7 +97,7 @@ public class RankedMenu extends Menu {
                     CC.sendMessage(player, " ");
 
                     player.closeInventory();
-                }
+                }, null
         ));
 
         return buttons;
@@ -129,6 +129,6 @@ class RankedKitButton extends EasyButton {
                     CC.sendMessage(player, " ");
 
                     player.closeInventory();
-                });
+                }, null);
     }
 }

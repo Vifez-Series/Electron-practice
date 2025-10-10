@@ -54,7 +54,7 @@ public class KitEditMenu extends Menu {
             player.getInventory().setContents(Hotbar.getSpawnItems());
 
             CC.sendMessage(player, "&aSuccessfully saved " + kit.getColor() + kit.getName() + " &alayout!");
-        }));
+        }, null));
 
         buttons.put(13, new EasyButton(new ItemBuilder(Material.WOOL)
                 .name("&e&lReset")
@@ -62,7 +62,7 @@ public class KitEditMenu extends Menu {
                 .lore("&r", "&7Click here to reset this layout to the default!")
                 .build(), true, false, () -> {
             player.getInventory().setContents(kit.getContents());
-        }));
+        }, null));
 
         buttons.put(15, new EasyButton(new ItemBuilder(Material.WOOL)
                 .name("&c&lCancel & Exit")
@@ -73,7 +73,7 @@ public class KitEditMenu extends Menu {
             CC.sendMessage(player, "&cCancelled layout changes!");
             player.closeInventory();
             player.getInventory().setContents(Hotbar.getSpawnItems());
-        }));
+        }, null));
 
         return buttons;
     }

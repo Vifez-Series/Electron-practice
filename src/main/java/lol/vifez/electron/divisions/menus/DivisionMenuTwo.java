@@ -66,7 +66,7 @@ public class DivisionMenuTwo extends Menu {
                     .lore("&7Minimum Elo: &b" + division.getMinimumElo())
                     .build();
 
-            buttons.put(slot, new EasyButton(item, true, false, () -> {}));
+            buttons.put(slot, new EasyButton(item, true, false, () -> {}, null));
 
             colOffset++;
             if (colOffset == itemsPerRow) {
@@ -83,7 +83,7 @@ public class DivisionMenuTwo extends Menu {
                         .build(),
                 true,
                 false,
-                () -> new DivisionsMenu().openMenu(player)
+                () -> new DivisionsMenu().openMenu(player), null
         ));
 
         return buttons;

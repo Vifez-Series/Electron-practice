@@ -46,7 +46,7 @@ public class ArenasMenu extends Menu {
                             .lore(getArenaLore(arena))
                             .build(),
                     true, false, () -> {
-            }
+            }, null
             ));
         }
 
@@ -62,7 +62,7 @@ public class ArenasMenu extends Menu {
                             .durability((short) 15)
                             .name("&7")
                             .build(),
-                    true, false, () -> {}
+                    true, false, () -> {}, null
             ));
         }
 

@@ -46,7 +46,7 @@ public class QueuesMenu extends Menu {
                         .build(),
                 true,
                 false,
-                () -> new UnrankedMenu(instance).openMenu(player)
+                () -> new UnrankedMenu(instance).openMenu(player), null
         ));
 
         buttons.put(14, new EasyButton(
@@ -56,7 +56,7 @@ public class QueuesMenu extends Menu {
                         .build(),
                 true,
                 false,
-                () -> new RankedMenu(instance).openMenu(player)
+                () -> new RankedMenu(instance).openMenu(player), null
         ));
 
         for (int i = 0; i < getSize(); i++) {
@@ -68,7 +68,7 @@ public class QueuesMenu extends Menu {
                                 .build(),
                         true,
                         false,
-                        () -> {}
+                        () -> {}, null
                 ));
             }
         }

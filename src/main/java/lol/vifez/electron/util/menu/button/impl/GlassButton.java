@@ -10,6 +10,6 @@ public class GlassButton extends EasyButton {
         super(new ItemBuilder(Material.STAINED_GLASS_PANE)
                 .durability((short) 15)
                 .name(" ")
-                .build(), true, false, () -> {});
+                .build(), true, false, () -> {}, null);
     }
 }
