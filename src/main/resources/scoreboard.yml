@@ -53,7 +53,7 @@ scoreboard:
     lines:
       - "&7&m-------------------"
       - "&b&l ▎ &fFighting: &c<opponent>"
-      - "&b&l ▎ &fStarting: &b<starting-c>"
+     # - "&b&l ▎ &fStarting: &b<starting-c>" cba to add
       - " "
       - "<footer>"
       - "&7&m-------------------"

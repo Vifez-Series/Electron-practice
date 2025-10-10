@@ -97,6 +97,7 @@ public class PracticeScoreboard implements AssembleAdapter {
                 for (String str : template) {
                     list.add(str
                             .replace("<winner>", match.getWinner() == null ? "None" : match.getWinner().getName())
+                            .replace("<opponent>", match.getOpponent(player).getName())
                             .replace("<loser>", match.getWinner() == null
                                     ? player.getName() + " " + match.getOpponent(player).getName()
                                     : match.getOpponent(match.getWinner().getPlayer()).getName())
