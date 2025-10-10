@@ -3,6 +3,7 @@ package lol.vifez.electron.match.task;
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.match.MatchManager;
 import lol.vifez.electron.match.enums.MatchState;
+import lol.vifez.electron.util.CC;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -31,7 +32,7 @@ public class MatchTask extends BukkitRunnable {
                     if (countdown > 0) {
                         Arrays.asList(match.getPlayerOne(), match.getPlayerTwo()).forEach(profile -> {
                             profile.getPlayer().sendMessage(
-                                    "&7Match Starting In &b" + countdown + "s"
+                                    CC.colorize("&7Match Starting In &b" + countdown + "s")
                             );
                             profile.getPlayer().playSound(
                                     profile.getPlayer().getLocation(),
