@@ -93,6 +93,8 @@ public class KitCommands extends BaseCommand {
         kit.setArmorContents(player.getInventory().getArmorContents());
         kit.setContents(player.getInventory().getContents());
 
+        instance.getKitManager().save(kit);
+
         CC.sendMessage(player, "&aYou have updated the inventory for &b" + kit.getName() + "&a!");
     }
 
@@ -113,6 +115,7 @@ public class KitCommands extends BaseCommand {
         }
 
         kit.setIcon(itemInHand.getType());
+        instance.getKitManager().save(kit);
         CC.sendMessage(player, "&aYou have updated the icon for &b" + kit.getName() + "&a!");
     }
 
@@ -129,6 +132,7 @@ public class KitCommands extends BaseCommand {
             KitType typeEnum = KitType.valueOf(type.toUpperCase());
             kit.setKitType(typeEnum);
             CC.sendMessage(player, "&aSet kit type for &b" + kit.getName() + " &ato &b" + typeEnum.name() + "&a!");
+            instance.getKitManager().save(kit);
         } catch (IllegalArgumentException ignored) {
             CC.sendMessage(player, "&cInvalid kit type &7(REGULAR, BUILD, BED_FIGHT, BOXING, WATER_KILL)");
         }

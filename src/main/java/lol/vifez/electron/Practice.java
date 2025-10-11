@@ -22,6 +22,7 @@ import lol.vifez.electron.kit.commands.KitCommands;
 import lol.vifez.electron.kit.commands.KitEditorCommand;
 import lol.vifez.electron.leaderboard.Leaderboard;
 import lol.vifez.electron.leaderboard.command.LeaderboardCommand;
+import lol.vifez.electron.listener.DeathListener;
 import lol.vifez.electron.listener.MatchListener;
 import lol.vifez.electron.listener.SpawnListener;
 import lol.vifez.electron.match.MatchManager;
@@ -206,6 +207,7 @@ public final class Practice extends JavaPlugin {
         new SpawnListener();
         new MatchListener();
         new QueueListener();
+        Bukkit.getPluginManager().registerEvents(new DeathListener(), this);
         new AutoRespawn();
         new HotbarListener();
         new MenuAPI(this);

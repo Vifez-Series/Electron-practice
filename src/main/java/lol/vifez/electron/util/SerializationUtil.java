@@ -1,12 +1,15 @@
 package lol.vifez.electron.util;
 
-import com.google.gson.*;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.io.BukkitObjectInputStream;
+import org.bukkit.util.io.BukkitObjectOutputStream;
+
+import java.io.*;
+import java.util.Base64;
 
 /**
  * @author vifez
@@ -17,39 +20,33 @@ import org.bukkit.inventory.ItemStack;
 @UtilityClass
 public class SerializationUtil {
 
-    private static final Gson gson = new GsonBuilder()
-            .registerTypeAdapter(ItemStack.class, new JsonSerializer<ItemStack>() {
-                @Override
-                public JsonElement serialize(ItemStack item, java.lang.reflect.Type type, JsonSerializationContext context) {
-                    JsonObject obj = new JsonObject();
-                    if (item == null || item.getType() == Material.AIR) return JsonNull.INSTANCE;
-                    obj.addProperty("type", item.getType().name());
-                    obj.addProperty("amount", item.getAmount());
-                    return obj;
-                }
-            })
-            .registerTypeAdapter(ItemStack.class, new JsonDeserializer<ItemStack>() {
-                @Override
-                public ItemStack deserialize(JsonElement json, java.lang.reflect.Type type, JsonDeserializationContext context) throws JsonParseException {
-                    if (json.isJsonNull()) return new ItemStack(Material.AIR);
-                    JsonObject obj = json.getAsJsonObject();
-                    Material mat = Material.valueOf(obj.get("type").getAsString());
-                    int amount = obj.get("amount").getAsInt();
-                    return new ItemStack(mat, amount);
-                }
-            })
-            .create();
-
     public String serializeItemStackArray(ItemStack[] items) {
-        if (items == null) return "[]";
-        return gson.toJson(items);
+        if (items == null) return "";
+        try (ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+             BukkitObjectOutputStream out = new BukkitObjectOutputStream(byteStream)) {
+            out.writeInt(items.length);
+            for (ItemStack item : items) {
+                out.writeObject(item);
+            }
+            out.close();
+            return Base64.getEncoder().encodeToString(byteStream.toByteArray());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     public ItemStack[] deserializeItemStackArray(String data) {
         if (data == null || data.isEmpty()) return new ItemStack[0];
-        try {
-            return gson.fromJson(data, ItemStack[].class);
-        } catch (JsonSyntaxException e) {
+        try (ByteArrayInputStream byteStream = new ByteArrayInputStream(Base64.getDecoder().decode(data));
+             BukkitObjectInputStream in = new BukkitObjectInputStream(byteStream)) {
+            int length = in.readInt();
+            ItemStack[] items = new ItemStack[length];
+            for (int i = 0; i < length; i++) {
+                items[i] = (ItemStack) in.readObject();
+            }
+            return items;
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return new ItemStack[0];
         }
