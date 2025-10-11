@@ -5,7 +5,7 @@ import co.aikar.commands.annotation.*;
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.duel.DuelRequest;
 import lol.vifez.electron.duel.menu.DuelKitMenu;
-import lol.vifez.electron.kit.Kit;
+import lol.vifez.electron.game.kit.Kit;
 import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.util.CC;
 import org.bukkit.Bukkit;

@@ -2,7 +2,7 @@ package lol.vifez.electron.navigator.menu;
 
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.duel.menu.DuelPlayerMenu;
-import lol.vifez.electron.kit.menu.editor.KitSelectionMenu;
+import lol.vifez.electron.game.kit.menu.editor.KitSelectionMenu;
 import lol.vifez.electron.leaderboard.menu.LeaderboardMenu;
 import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.profile.menu.ProfileMenu;

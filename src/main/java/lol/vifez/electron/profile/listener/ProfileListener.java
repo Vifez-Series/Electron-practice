@@ -1,12 +1,11 @@
 package lol.vifez.electron.profile.listener;
 
 import lol.vifez.electron.Practice;
-import lol.vifez.electron.match.Match;
+import lol.vifez.electron.game.match.Match;
 import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.profile.menu.ProfileMenu;
 import lol.vifez.electron.util.CC;
 import lol.vifez.electron.hotbar.Hotbar;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

@@ -1,15 +1,15 @@
 package lol.vifez.electron.hotbar;
 
 import lol.vifez.electron.Practice;
-import lol.vifez.electron.kit.menu.editor.KitSelectionMenu;
+import lol.vifez.electron.game.kit.menu.editor.KitSelectionMenu;
 import lol.vifez.electron.leaderboard.menu.LeaderboardMenu;
 import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.navigator.menu.NavigatorMenu;
 import lol.vifez.electron.settings.menu.SettingsMenu;
-import lol.vifez.electron.queue.Queue;
-import lol.vifez.electron.queue.menu.QueuesMenu;
-import lol.vifez.electron.queue.menu.RankedMenu;
-import lol.vifez.electron.queue.menu.UnrankedMenu;
+import lol.vifez.electron.game.queue.Queue;
+import lol.vifez.electron.game.queue.menu.QueuesMenu;
+import lol.vifez.electron.game.queue.menu.RankedMenu;
+import lol.vifez.electron.game.queue.menu.UnrankedMenu;
 import lol.vifez.electron.util.CC;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

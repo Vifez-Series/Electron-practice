@@ -1,13 +1,12 @@
 package lol.vifez.electron.profile;
 
 import com.google.gson.annotations.SerializedName;
-import com.mongodb.client.model.Filters;
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.duel.DuelRequest;
-import lol.vifez.electron.kit.Kit;
+import lol.vifez.electron.game.kit.Kit;
 import lol.vifez.electron.divisions.Divisions;
-import lol.vifez.electron.match.Match;
-import lol.vifez.electron.queue.Queue;
+import lol.vifez.electron.game.match.Match;
+import lol.vifez.electron.game.queue.Queue;
 import lol.vifez.electron.util.CC;
 import lol.vifez.electron.util.MessageBuilder;
 import lombok.Getter;
@@ -138,10 +137,10 @@ public class Profile {
         this.duelRequest = request;
         targetProfile.setDuelRequest(request);
 
-        CC.sendMessage(sender, CC.translate("\n&c&lDuel sent\n&7* Opponent: &c" + target.getName() + "\n&7* Kit: &c" + kit.getName() + "\n "));
+        CC.sendMessage(sender, CC.translate("\n&c&lDuel sent\n&7▪ Opponent: &c" + target.getName() + "\n&7▪ Kit: &c" + kit.getName() + "\n "));
 
         new MessageBuilder(CC.translate(
-                "\n&c&lDuel Request\n&7* Opponent: &c" + name + "\n&7* Kit: &c" + kit.getName() + "\n&a&lCLICK TO ACCEPT\n"))
+                "\n&c&lDuel Request\n&7▪ Opponent: &c" + name + "\n&7▪ Kit: &c" + kit.getName() + "\n&a&lCLICK TO ACCEPT\n"))
                 .hover(true)
                 .clickable(true)
                 .hoverText("&eClick to accept")

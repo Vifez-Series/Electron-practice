@@ -1,9 +1,9 @@
 package lol.vifez.electron.duel;
 
 import lol.vifez.electron.Practice;
-import lol.vifez.electron.arena.Arena;
-import lol.vifez.electron.kit.Kit;
-import lol.vifez.electron.match.Match;
+import lol.vifez.electron.game.arena.Arena;
+import lol.vifez.electron.game.kit.Kit;
+import lol.vifez.electron.game.match.Match;
 import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.util.CC;
 import lombok.Data;

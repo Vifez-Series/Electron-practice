@@ -1,10 +1,9 @@
 package lol.vifez.electron.util.menu.button.impl;
 
-import lol.vifez.electron.kit.Kit;
-import lol.vifez.electron.kit.enums.KitType;
+import lol.vifez.electron.game.kit.Kit;
+import lol.vifez.electron.game.kit.enums.KitType;
 import lol.vifez.electron.util.ItemBuilder;
 import lol.vifez.electron.util.menu.button.Button;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;

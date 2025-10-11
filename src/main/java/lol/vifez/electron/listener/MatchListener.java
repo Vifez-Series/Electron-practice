@@ -1,7 +1,7 @@
 package lol.vifez.electron.listener;
 
 import lol.vifez.electron.Practice;
-import lol.vifez.electron.match.enums.MatchState;
+import lol.vifez.electron.game.match.enums.MatchState;
 import lol.vifez.electron.profile.Profile;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
