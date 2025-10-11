@@ -1,7 +1,7 @@
 package lol.vifez.electron.util.placeholderapi;
 
 import lol.vifez.electron.Practice;
-import lol.vifez.electron.game.elo.EloUtil;
+import lol.vifez.electron.elo.EloUtil;
 import lombok.RequiredArgsConstructor;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;

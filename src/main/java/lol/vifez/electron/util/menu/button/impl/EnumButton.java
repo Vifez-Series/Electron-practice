@@ -1,7 +1,7 @@
 package lol.vifez.electron.util.menu.button.impl;
 
-import lol.vifez.electron.game.kit.Kit;
-import lol.vifez.electron.game.kit.enums.KitType;
+import lol.vifez.electron.kit.Kit;
+import lol.vifez.electron.kit.enums.KitType;
 import lol.vifez.electron.util.ItemBuilder;
 import lol.vifez.electron.util.menu.button.Button;
 import org.bukkit.Material;

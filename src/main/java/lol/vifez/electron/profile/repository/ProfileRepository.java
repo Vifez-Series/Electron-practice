@@ -1,8 +1,8 @@
 package lol.vifez.electron.profile.repository;
 
 import com.google.gson.Gson;
-import lol.vifez.electron.storage.MongoAPI;
-import lol.vifez.electron.storage.repository.MongoRepository;
+import lol.vifez.electron.mongo.MongoAPI;
+import lol.vifez.electron.mongo.repository.MongoRepository;
 import lol.vifez.electron.profile.Profile;
 
 /**
