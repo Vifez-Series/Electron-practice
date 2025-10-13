@@ -52,7 +52,7 @@ public class SettingsMenu extends Menu {
         for (int slot : borderSlots) {
             buttons.put(slot, new EasyButton(
                     new ItemBuilder(Material.STAINED_GLASS_PANE)
-                            .durability((short) 8)
+                            .durability((short) 15)
                             .build(),
                     true, false, () -> {}
             ));
