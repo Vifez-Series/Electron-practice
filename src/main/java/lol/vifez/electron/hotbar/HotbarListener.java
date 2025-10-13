@@ -5,6 +5,7 @@ import lol.vifez.electron.kit.menu.editor.KitSelectionMenu;
 import lol.vifez.electron.leaderboard.menu.LeaderboardMenu;
 import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.navigator.menu.NavigatorMenu;
+import lol.vifez.electron.settings.menu.OptionsMenu;
 import lol.vifez.electron.settings.menu.SettingsMenu;
 import lol.vifez.electron.queue.Queue;
 import lol.vifez.electron.queue.menu.QueuesMenu;
@@ -46,7 +47,7 @@ public class HotbarListener implements Listener {
         } else if (itemInHand.isSimilar(Hotbar.SETTINGS.getItem())) {
             event.setCancelled(true);
             Profile profile = instance.getProfileManager().getProfile(player.getUniqueId());
-            if (profile != null) new SettingsMenu(instance, profile).openMenu(player);
+            if (profile != null) new OptionsMenu().openMenu(player);
             else player.sendMessage(CC.translate("&cProfile not found!"));
 
         } else if (itemInHand.isSimilar(Hotbar.RANKED.getItem())) {

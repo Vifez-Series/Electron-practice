@@ -15,6 +15,11 @@ import org.bukkit.entity.Player;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
+ */
 public class SettingsMenu extends Menu {
 
     private final Practice instance;
@@ -43,16 +48,26 @@ public class SettingsMenu extends Menu {
         buttons.put(11, ToggleMessagesButton.createToggleMessagesButton(profile, instance));
         buttons.put(12, WorldTimeButton.createWorldTimeButton(profile, instance));
 
+        buttons.put(22, new EasyButton(
+                new ItemBuilder(Material.ARROW)
+                        .name("&c&lGo Back")
+                        .lore("&7Return to the main options menu.")
+                        .build(),
+                true, true, () -> new OptionsMenu().openMenu(player)
+        ));
+
         int[] borderSlots = {
                 0, 1, 2, 3, 4, 5, 6, 7, 8,
                 9, 17, 18, 26,
-                19, 20, 21, 22, 23, 24, 25
+                19, 20, 21, 23, 24, 25
         };
 
         for (int slot : borderSlots) {
+            if (buttons.containsKey(slot)) continue;
             buttons.put(slot, new EasyButton(
                     new ItemBuilder(Material.STAINED_GLASS_PANE)
                             .durability((short) 15)
+                            .name("&7")
                             .build(),
                     true, false, () -> {}
             ));
