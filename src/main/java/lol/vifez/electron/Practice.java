@@ -1,6 +1,6 @@
 package lol.vifez.electron;
 
-import co.aikar.commands.BukkitCommandManager;
+import co.aikar.commands.PaperCommandManager;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -183,7 +183,7 @@ public final class Practice extends JavaPlugin {
     }
 
     private void registerCommands() {
-        BukkitCommandManager manager = new BukkitCommandManager(this);
+        PaperCommandManager manager = new PaperCommandManager(this);
 
         manager.registerCommand(new ArenaCommand(arenaManager));
         manager.registerCommand(new ArenasCommand());
