@@ -25,9 +25,9 @@ public class EloCommand extends BaseCommand {
     public void help(CommandSender sender) {
         CC.sendMessage(sender, "&b&lElo Commands",
                 "",
-                "&7▪ &b/elo set &7<player> <kit> <elo> &f- &fSet a player's elo for a kit",
-                "&7▪ &b/elo add &7<player> <kit> <elo> &f- &fAdd elo to a player's elo for a kit",
-                "&7▪ &b/elo remove &7<player> <kit> <elo> &f- &fRemove elo from a player's elo for a kit");
+                "&7▪ &b/elo set &7<player> <kit> <elo>",
+                "&7▪ &b/elo add &7<player> <kit> <elo>",
+                "&7▪ &b/elo remove &7<player> <kit> <elo>");
     }
 
     @Subcommand("set")
@@ -46,7 +46,8 @@ public class EloCommand extends BaseCommand {
         }
 
         profile.setElo(kit, Math.max(0, elo));
-        CC.sendMessage(sender, "&aYou have set &e" + player.getName() + "'s &aelo to " + Math.max(0, elo) + " for &e" + kit.getColor() + kit.getName());
+        CC.sendMessage(sender, "&b" + player.getName() + "'s &felo has been set to " + Math.max(0, elo));
+        CC.sendMessage(sender, "&fKit: &b"+ kit.getName());
     }
 
     @Subcommand("add")
@@ -86,6 +87,7 @@ public class EloCommand extends BaseCommand {
 
         int i = Math.max(0, profile.getElo(kit) - elo);
         profile.setElo(kit, i);
-        CC.sendMessage(sender, "&aYou have removed " + elo + " elo from &e" + player.getName() + " &afor &e" + kit.getColor() + kit.getName());
+        CC.sendMessage(sender, "&aYou have removed " + elo + " elo from &e" + player.getName());
+        CC.sendMessage(sender, "&fKit: &b"+ kit.getName());
     }
 }

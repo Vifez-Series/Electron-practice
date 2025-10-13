@@ -41,12 +41,12 @@ public class LeaderboardMenu extends Menu {
                 .collect(Collectors.toList());
 
         List<String> lore = new ArrayList<>();
-        lore.add("&7Showing top 10 results");
+        lore.add("&fShowing top 10 results");
         lore.add(" ");
         for (int i = 0; i < topPlayers.size(); i++) {
             Profile profile = topPlayers.get(i);
             int globalElo = EloUtil.getGlobalElo(profile);
-            lore.add("&b" + (i + 1) + ". " + profile.getName() + " &7- &b" + globalElo);
+            lore.add("&b" + (i + 1) + ". &f" + profile.getName() + " &7[&b" + globalElo + "&7]");
         }
 
         buttons.put(4, new EasyButton(
@@ -55,6 +55,19 @@ public class LeaderboardMenu extends Menu {
                         .lore(lore)
                         .build(),
                 true, true, () -> {}
+        ));
+
+        buttons.put(40, new EasyButton(
+                new ItemBuilder(Material.BOOK)
+                        .name("&b&lYour Stats")
+                        .lore(Arrays.asList(
+                                "&7View your personal elo",
+                                "&7for each kit and globally.",
+                                " ",
+                                "&bClick to view!"
+                        ))
+                        .build(),
+                true, true, () -> new YourStatsMenu(instance).openMenu(player)
         ));
 
         Kit[] kits = instance.getKitManager().getKits().values().toArray(new Kit[0]);
@@ -66,9 +79,9 @@ public class LeaderboardMenu extends Menu {
         }
 
         int[] borderSlots = {
-                0, 1, 2, 3, 5, 6, 7, 8,
+                0, 1, 2, 3, 6, 7, 8,
                 9, 17, 18, 26, 27, 35,
-                36, 37, 38, 39, 40, 41, 42, 43, 44
+                36, 37, 38, 39, 41, 42, 43, 44
         };
 
         for (int slot : borderSlots) {

@@ -24,7 +24,7 @@ public class WorldTimeButton {
                         CC.translate("&7Change the time (sky)"),
                         CC.translate("&7Current value: " + (worldTime.equals("DAY") ? "&aDay" : worldTime.equals("SUNSET") ? "&aSunset" : "&aNight")),
                         CC.translate("&r"),
-                        CC.translate("&eClick to change!")
+                        CC.translate("&bClick to change!")
                 ))
                 .build();
 

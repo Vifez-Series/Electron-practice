@@ -48,7 +48,7 @@ class KitButton extends EasyButton {
     public KitButton(KitSelectionMenu menu, Practice instance, Player player, Kit kit) {
         super(new ItemBuilder(kit.getDisplayItem())
                 .name(kit.getColor() + kit.getName())
-                .lore("&r", "&aClick here to edit " + kit.getColor() + kit.getName() + "'s &alayout!")
+                .lore("&r", "&aClick to edit " + kit.getColor() + kit.getName() + "'s &alayout!")
                 .build(), true, false, () -> {
             Profile profile = instance.getProfileManager().getProfile(player.getUniqueId());
 

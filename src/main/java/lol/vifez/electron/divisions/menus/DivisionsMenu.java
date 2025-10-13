@@ -65,7 +65,7 @@ public class DivisionsMenu extends Menu {
         buttons.put(44, new EasyButton(
                 new ItemBuilder(Material.ARROW)
                         .name("&aNext Page")
-                        .lore("&7Click to view Diamond–Master divisions")
+                        .lore("&7Click to view next page")
                         .build(),
                 true,
                 false,

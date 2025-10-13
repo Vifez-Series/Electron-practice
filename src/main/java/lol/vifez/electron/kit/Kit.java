@@ -35,8 +35,6 @@ public class Kit {
 
     public ItemStack getDisplayItem() {
         List<String> list = new ArrayList<>(description);
-        list.add("&r");
-        list.add("&aClick here to queue this kit!");
         return new lol.vifez.electron.util.ItemBuilder(icon)
                 .name(color + name)
                 .lore(list)

@@ -44,7 +44,7 @@ public class NavigatorMenu extends Menu {
                 .name("&bProfile")
                 .lore("&7View your profile.",
                         "&r",
-                        "&aLeft-click to view your &eprofile.")
+                        "&fLeft-click to view your &bprofile.")
                 .build(), true, false, () -> {
             Profile targetProfile = Practice.getInstance().getProfileManager().getProfile(player.getUniqueId());
 
@@ -59,7 +59,7 @@ public class NavigatorMenu extends Menu {
                 .name("&bLeaderboards")
                 .lore("&7View global leaderboards!",
                         "&r",
-                        "&aLeft-click to view &eLeaderboards.")
+                        "&fLeft-click to view &bLeaderboards.")
                 .build(), true, false, () -> {
             new LeaderboardMenu(instance).openMenu(player);
         }));
@@ -69,7 +69,7 @@ public class NavigatorMenu extends Menu {
                 .lore("&7Toggle scoreboard, world time, private messages",
                         "&7and more!",
                         "&r",
-                        "&aLeft-click to view &esettings.")
+                        "&fLeft-click to view &bsettings.")
                 .build(), true, false, () -> {
             Profile profile = Practice.getInstance().getProfileManager().getProfile(player.getUniqueId());
             if (profile != null) {
@@ -83,7 +83,7 @@ public class NavigatorMenu extends Menu {
                 .name("&bDuel")
                 .lore("&7Opens a menu of players you can duel.",
                         "&r",
-                        "&aLeft-click to &eduel.")
+                        "&fLeft-click to &bduel.")
                 .build(), true, false, () -> {
             new DuelPlayerMenu().openMenu(player);
         }));
@@ -92,7 +92,7 @@ public class NavigatorMenu extends Menu {
                 .name("&bLoadout Editor")
                 .lore("&7Customize your kit loadout!",
                         "&r",
-                        "&aLeft-click to &eedit layouts.")
+                        "&fLeft-click to &bedit layouts.")
                 .build(), true, false, () -> {
             new KitSelectionMenu(instance).openMenu(player);
         }));

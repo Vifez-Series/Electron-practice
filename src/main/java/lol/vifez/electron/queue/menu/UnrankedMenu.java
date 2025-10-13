@@ -66,7 +66,7 @@ public class UnrankedMenu extends Menu {
         buttons.put(4, new EasyButton(
                 new ItemBuilder(Material.FIREWORK)
                         .name("&b&lRandom Queue")
-                        .lore("&7Click to queue into a random kit")
+                        .lore("&7Select a random kit")
                         .build(),
                 true,
                 false,
@@ -103,7 +103,7 @@ class KitButton extends EasyButton {
                         "&fPlaying&7: &b" + instance.getMatchManager().getTotalPlayersInMatches(),
                         "&fIn Queue&7: &b" + instance.getQueueManager().getPlayersQueue().size(),
                         "",
-                        "&a&lClick to play!"
+                        "&aClick to queue"
                 )
                 .flag(ItemFlag.HIDE_ATTRIBUTES)
                 .build(), true, false, () -> {

@@ -36,9 +36,9 @@ public class Leaderboard {
         for (int i = 0; i < leaderboardLayout.length; i++) {
             if (i < leaderboard.size()) {
                 Profile profile = leaderboard.get(i);
-                leaderboardLayout[i] = "&7&l" + (i + 1) + ". &b" + profile.getName() + " &7- &b" + profile.getElo(kit);
+                leaderboardLayout[i] = "&b" + (i + 1) + ". &f" + profile.getName() + " &7[&b" + profile.getElo(kit) + "&7]";
             } else {
-                leaderboardLayout[i] = "&7&l" + (i + 1) + ". &bN/A &7- &b0";
+                leaderboardLayout[i] = "&b" + (i + 1) + ". &cN/A";
             }
         }
 

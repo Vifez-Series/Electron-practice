@@ -70,7 +70,7 @@ public class RankedMenu extends Menu {
         buttons.put(4, new EasyButton(
                 new ItemBuilder(Material.FIREWORK)
                         .name("&c&lRandom Queue")
-                        .lore("&7Click to queue into a random ranked kit")
+                        .lore("&7Select a random kit")
                         .build(),
                 true,
                 false,

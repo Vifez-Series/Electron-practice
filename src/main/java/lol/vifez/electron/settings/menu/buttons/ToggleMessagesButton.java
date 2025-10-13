@@ -22,7 +22,7 @@ public class ToggleMessagesButton {
                         CC.translate("&7Toggle private messages."),
                         CC.translate("&7Current value: " + (privateMessagingEnabled ? "&aEnabled" : "&cDisabled")),
                         CC.translate("&r"),
-                        CC.translate("&eClick to change!")
+                        CC.translate("&bClick to change!")
                 ))
                 .build();
 

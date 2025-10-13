@@ -140,10 +140,14 @@ public class Profile {
         CC.sendMessage(sender, CC.translate("\n&c&lDuel sent\n&7▪ Opponent: &c" + target.getName() + "\n&7▪ Kit: &c" + kit.getName() + "\n "));
 
         new MessageBuilder(CC.translate(
-                "\n&c&lDuel Request\n&7▪ Opponent: &c" + name + "\n&7▪ Kit: &c" + kit.getName() + "\n&a&lCLICK TO ACCEPT\n"))
+                "\n&c&lDuel Request" +
+                        "\n&7▪ Opponent: &c" +
+                        name +
+                        "\n&7▪ Kit: &c" + kit.getName() +
+                        "\n&a&lCLICK TO ACCEPT\n"))
                 .hover(true)
                 .clickable(true)
-                .hoverText("&eClick to accept")
+                .hoverText("&bClick to accept")
                 .clickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/duel accept " + name))
                 .sendMessage(target);
     }

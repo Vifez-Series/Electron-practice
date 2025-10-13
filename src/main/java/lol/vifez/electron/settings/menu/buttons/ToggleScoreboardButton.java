@@ -21,7 +21,7 @@ public class ToggleScoreboardButton {
                         CC.translate("&7Toggle the scoreboard visibility."),
                         CC.translate("&7Current value: " + (scoreboardEnabled ? "&aEnabled" : "&cDisabled")),
                         CC.translate("&r"),
-                        CC.translate("&eClick to change!")
+                        CC.translate("&bClick to change!")
                 ))
                 .build();
 

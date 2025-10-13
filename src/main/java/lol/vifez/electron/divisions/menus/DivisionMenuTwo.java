@@ -79,7 +79,7 @@ public class DivisionMenuTwo extends Menu {
         buttons.put(36, new EasyButton(
                 new ItemBuilder(Material.ARROW)
                         .name("&cPrevious Page")
-                        .lore("&7Click to view Silver–Gold divisions")
+                        .lore("&7Click to view previous page")
                         .build(),
                 true,
                 false,
