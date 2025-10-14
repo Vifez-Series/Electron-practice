@@ -3,3 +3,5 @@
 /target/*
 /.idea/*
 /.vscode/*
+/src/main/java/lol/vifez/electron/valor/
+/src/main/java/lol/vifez/electron/util/ValorUtil.java
