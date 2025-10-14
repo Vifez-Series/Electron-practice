@@ -13,6 +13,7 @@ import lol.vifez.electron.chat.MessageCommand;
 import lol.vifez.electron.chat.ReplyCommand;
 import lol.vifez.electron.commands.admin.*;
 import lol.vifez.electron.commands.staff.MoreCommand;
+import lol.vifez.electron.commands.user.SurrenderCommand;
 import lol.vifez.electron.divisions.commands.DivisionsCommand;
 import lol.vifez.electron.duel.command.DuelCommand;
 import lol.vifez.electron.hotbar.Hotbar;
@@ -201,6 +202,7 @@ public final class Practice extends JavaPlugin {
         manager.registerCommand(new SettingsCommand());
         manager.registerCommand(new NavigatorCommand());
         manager.registerCommand(new DivisionsCommand());
+        manager.registerCommand(new SurrenderCommand());
     }
 
     private void initializeListeners() {
