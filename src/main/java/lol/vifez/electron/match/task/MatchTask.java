@@ -4,12 +4,19 @@ import lol.vifez.electron.Practice;
 import lol.vifez.electron.match.MatchManager;
 import lol.vifez.electron.match.enums.MatchState;
 import lol.vifez.electron.match.event.MatchStartEvent;
+import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.util.CC;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Arrays;
+
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
+ */
 
 public class MatchTask extends BukkitRunnable {
 
@@ -26,6 +33,16 @@ public class MatchTask extends BukkitRunnable {
             if (match.isCountdownRunning()) return;
 
             match.setCountdownRunning(true);
+
+            Arrays.asList(match.getPlayerOne(), match.getPlayerTwo()).forEach(profile -> {
+                Profile opponent = profile == match.getPlayerOne() ? match.getPlayerTwo() : match.getPlayerOne();
+                profile.getPlayer().sendMessage(" ");
+                profile.getPlayer().sendMessage(CC.colorize("&b&lMatch Found!"));
+                profile.getPlayer().sendMessage(CC.colorize("&fKit: &b" + match.getKit().getName()));
+                profile.getPlayer().sendMessage(CC.colorize("&fOpponent: &c" + opponent.getPlayer().getName()));
+                profile.getPlayer().sendMessage(" ");
+                profile.getPlayer().playSound(profile.getPlayer().getLocation(), Sound.ORB_PICKUP, 1.0f, 1.0f);
+            });
 
             new BukkitRunnable() {
                 int countdown = match.getCountdownTime();
