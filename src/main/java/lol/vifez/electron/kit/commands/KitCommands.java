@@ -55,7 +55,7 @@ public class KitCommands extends BaseCommand {
         }
 
         kit = new Kit(kitSingle);
-        kit.setIcon(Material.IRON_SWORD);
+        kit.setIcon(Material.BOOK);
         instance.getKitManager().save(kit);
 
         CC.sendMessage(sender, "&aKit &b" + kit.getColor() + kit.getName() + " &ahas been created");
@@ -77,7 +77,7 @@ public class KitCommands extends BaseCommand {
     @Subcommand("save")
     @Description("Save all kits to kits.yml")
     public void save(CommandSender sender) {
-        instance.getKitManager().close();
+        instance.getKitManager().saveAll();
         CC.sendMessage(sender, "&aAll kits saved.");
     }
 
@@ -149,6 +149,7 @@ public class KitCommands extends BaseCommand {
 
         kit.setRanked(!kit.isRanked());
         CC.sendMessage(player, "&aYou have " + (kit.isRanked() ? "&aenabled" : "&cdisabled") + " &aranked for kit &b" + kit.getName());
+        instance.getKitManager().save(kit);
     }
 
     @Subcommand("list")
@@ -175,6 +176,7 @@ public class KitCommands extends BaseCommand {
         lore.add(descriptionLine);
 
         kit.setDescription(lore);
+        instance.getKitManager().save(kit);
         CC.sendMessage(sender, "&aUpdated description of kit &b" + kit.getName() + " &ato: &f" + descriptionLine);
     }
 }

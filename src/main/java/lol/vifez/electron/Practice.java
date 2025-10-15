@@ -20,7 +20,6 @@ import lol.vifez.electron.hotbar.Hotbar;
 import lol.vifez.electron.hotbar.HotbarListener;
 import lol.vifez.electron.kit.KitManager;
 import lol.vifez.electron.kit.commands.KitCommands;
-import lol.vifez.electron.kit.commands.KitEditorCommand;
 import lol.vifez.electron.leaderboard.Leaderboard;
 import lol.vifez.electron.leaderboard.command.LeaderboardCommand;
 import lol.vifez.electron.listener.DeathListener;
@@ -189,7 +188,6 @@ public final class Practice extends JavaPlugin {
         manager.registerCommand(new ArenaCommand(arenaManager));
         manager.registerCommand(new ArenasCommand());
         manager.registerCommand(new KitCommands());
-        manager.registerCommand(new KitEditorCommand());
         manager.registerCommand(new ElectronCommand());
         manager.registerCommand(new BuildModeCommand());
         manager.registerCommand(new EloCommand());

@@ -47,6 +47,25 @@ public class KitManager {
         Practice.getInstance().getKitsFile().save();
     }
 
+    public void saveAll() {
+        ConfigurationSection section = Practice.getInstance().getKitsFile().getConfiguration()
+                .getConfigurationSection("kits");
+
+        if (section == null) {
+            section = Practice.getInstance().getKitsFile().getConfiguration().createSection("kits");
+        }
+
+        for (Kit kit : kits.values()) {
+            ConfigurationSection kitSection = section.getConfigurationSection(kit.getName().toLowerCase());
+            if (kitSection == null) {
+                kitSection = section.createSection(kit.getName().toLowerCase());
+            }
+            kit.toConfig(kitSection);
+        }
+
+        Practice.getInstance().getKitsFile().save();
+    }
+
     public void delete(Kit kit) {
         kits.remove(kit.getName().toLowerCase());
 
