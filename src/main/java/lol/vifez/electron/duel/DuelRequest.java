@@ -42,8 +42,8 @@ public class DuelRequest {
         Arena arena = instance.getArenaManager().getAllAvailableArenas(kit)
                 .stream().filter(Objects::nonNull).findFirst().orElse(null);
 
-        CC.sendMessage(sender.getPlayer(), "&a" + target.getName() + " has accepted your duel request!");
-        CC.sendMessage(target.getPlayer(), "&aYou have accepted " + sender.getName() + "'s duel request!");
+        CC.sendMessage(sender.getPlayer(), "&a" + target.getName() + " has accepted your duel request");
+        CC.sendMessage(target.getPlayer(), "&aYou have accepted " + sender.getName() + "'s duel request");
 
         if (arena == null) {
             sender.setDuelRequest(null);

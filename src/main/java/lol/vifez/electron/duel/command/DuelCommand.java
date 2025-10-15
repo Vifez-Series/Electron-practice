@@ -37,7 +37,7 @@ public class DuelCommand extends BaseCommand {
         }
 
         if (target.getUniqueId().equals(sender.getUniqueId())) {
-            CC.sendMessage(sender, "&cYou cannot duel yourself!");
+            CC.sendMessage(sender, "&cYou cannot duel yourself");
             return;
         }
 
@@ -72,7 +72,7 @@ public class DuelCommand extends BaseCommand {
         DuelRequest request = profile.getDuelRequest();
 
         if (request == null) {
-            CC.sendMessage(player, "&cYou do not have any pending duel requests!");
+            CC.sendMessage(player, "&cYou do not have any pending duel requests");
             return;
         }
 

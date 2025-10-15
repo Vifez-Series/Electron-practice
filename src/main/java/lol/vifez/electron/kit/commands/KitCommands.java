@@ -50,7 +50,7 @@ public class KitCommands extends BaseCommand {
         Kit kit = instance.getKitManager().getKit(kitSingle.toLowerCase());
 
         if (kit != null) {
-            CC.sendMessage(sender, "&cError: This kit already exists!");
+            CC.sendMessage(sender, "&cError: This kit already exists");
             return;
         }
 
@@ -58,7 +58,7 @@ public class KitCommands extends BaseCommand {
         kit.setIcon(Material.IRON_SWORD);
         instance.getKitManager().save(kit);
 
-        CC.sendMessage(sender, "&aKit &b" + kit.getColor() + kit.getName() + " &ahas been created!");
+        CC.sendMessage(sender, "&aKit &b" + kit.getColor() + kit.getName() + " &ahas been created");
     }
 
     @Subcommand("delete")
@@ -71,7 +71,7 @@ public class KitCommands extends BaseCommand {
         }
 
         instance.getKitManager().delete(kit);
-        CC.sendMessage(sender, "&aKit &b" + kit.getColor() + kit.getName() + " &ahas been deleted!");
+        CC.sendMessage(sender, "&aKit &b" + kit.getColor() + kit.getName() + " &ahas been deleted");
     }
 
     @Subcommand("save")
@@ -95,7 +95,7 @@ public class KitCommands extends BaseCommand {
 
         instance.getKitManager().save(kit);
 
-        CC.sendMessage(player, "&aYou have updated the inventory for &b" + kit.getName() + "&a!");
+        CC.sendMessage(player, "&aYou have updated the inventory for &b" + kit.getName());
     }
 
     @Subcommand("setIcon")
@@ -116,7 +116,7 @@ public class KitCommands extends BaseCommand {
 
         kit.setIcon(itemInHand.getType());
         instance.getKitManager().save(kit);
-        CC.sendMessage(player, "&aYou have updated the icon for &b" + kit.getName() + "&a!");
+        CC.sendMessage(player, "&aYou have updated the icon for &b" + kit.getName());
     }
 
     @Subcommand("setType")
@@ -131,7 +131,7 @@ public class KitCommands extends BaseCommand {
         try {
             KitType typeEnum = KitType.valueOf(type.toUpperCase());
             kit.setKitType(typeEnum);
-            CC.sendMessage(player, "&aSet kit type for &b" + kit.getName() + " &ato &b" + typeEnum.name() + "&a!");
+            CC.sendMessage(player, "&aSet kit type for &b" + kit.getName() + " &ato &b" + typeEnum.name());
             instance.getKitManager().save(kit);
         } catch (IllegalArgumentException ignored) {
             CC.sendMessage(player, "&cInvalid kit type &7(REGULAR, BUILD, BED_FIGHT, BOXING, WATER_KILL)");
@@ -148,7 +148,7 @@ public class KitCommands extends BaseCommand {
         }
 
         kit.setRanked(!kit.isRanked());
-        CC.sendMessage(player, "&aYou have " + (kit.isRanked() ? "&aenabled" : "&cdisabled") + " &aranked for kit &b" + kit.getName() + "&a!");
+        CC.sendMessage(player, "&aYou have " + (kit.isRanked() ? "&aenabled" : "&cdisabled") + " &aranked for kit &b" + kit.getName());
     }
 
     @Subcommand("list")

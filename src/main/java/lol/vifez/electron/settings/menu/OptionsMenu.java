@@ -1,6 +1,9 @@
 package lol.vifez.electron.settings.menu;
 
 import lol.vifez.electron.Practice;
+import lol.vifez.electron.leaderboard.Leaderboard;
+import lol.vifez.electron.leaderboard.menu.LeaderboardMenu;
+import lol.vifez.electron.leaderboard.menu.YourStatsMenu;
 import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.util.ItemBuilder;
 import lol.vifez.electron.util.menu.Menu;
@@ -36,6 +39,18 @@ public class OptionsMenu extends Menu {
         Profile profile = instance.getProfileManager().getProfile(player.getUniqueId());
         if (profile == null) return buttons;
 
+        buttons.put(10, new EasyButton(
+                new ItemBuilder(Material.EMERALD)
+                        .name("&b&lLeaderboards")
+                        .lore(Arrays.asList(
+                                "&7View the global leaderboards,",
+                                " ",
+                                "&bClick to open"
+                        ))
+                        .build(),
+                true, true, () -> new LeaderboardMenu(instance).openMenu(player)
+        ));
+
         buttons.put(12, new EasyButton(
                 new ItemBuilder(Material.GOLD_INGOT)
                         .name("&b&lBank")
@@ -57,10 +72,22 @@ public class OptionsMenu extends Menu {
                                 "&7Adjust your personal settings,",
                                 "&7toggle scoreboard, messages, and more.",
                                 " ",
-                                "&bClick to open!"
+                                "&bClick to open"
                         ))
                         .build(),
                 true, true, () -> new SettingsMenu(instance, profile).openMenu(player)
+        ));
+
+        buttons.put(16, new EasyButton(
+                new ItemBuilder(Material.DIAMOND_SWORD)
+                        .name("&b&lStatistics")
+                        .lore(Arrays.asList(
+                                "&7View your personal statistics,",
+                                " ",
+                                "&bClick to open"
+                        ))
+                        .build(),
+                true, true, () -> new YourStatsMenu(instance).openMenu(player)
         ));
 
         int[] borderSlots = {

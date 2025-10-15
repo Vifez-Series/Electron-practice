@@ -47,7 +47,7 @@ public class EnumButton extends Button {
         }
 
         list.add("&r");
-        list.add("&aClick to change the kit type!");
+        list.add("&aClick to change the kit type");
 
         return new ItemBuilder(this.item)
                 .lore(list)

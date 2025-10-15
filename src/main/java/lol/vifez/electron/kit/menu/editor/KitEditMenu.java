@@ -34,7 +34,7 @@ public class KitEditMenu extends Menu {
         Profile profile = plugin.getProfileManager().getProfile(player.getUniqueId());
         profile.setEditMode(true);
 
-        CC.sendMessage(player, "&aYou are now editing " + kit.getColor() + kit.getName() + " &alayout!");
+        CC.sendMessage(player, "&aYou are now editing " + kit.getColor() + kit.getName() + " &alayout");
     }
 
     @Override
@@ -53,13 +53,13 @@ public class KitEditMenu extends Menu {
             profile.setEditMode(false);
             player.getInventory().setContents(Hotbar.getSpawnItems());
 
-            CC.sendMessage(player, "&aSuccessfully saved " + kit.getColor() + kit.getName() + " &alayout!");
+            CC.sendMessage(player, "&aSuccessfully saved " + kit.getColor() + kit.getName() + " &alayout");
         }));
 
         buttons.put(13, new EasyButton(new ItemBuilder(Material.WOOL)
                 .name("&e&lReset")
                 .durability((short) 4)
-                .lore("&r", "&7Click here to reset this layout to the default!")
+                .lore("&r", "&7Click here to reset this layout to the default")
                 .build(), true, false, () -> {
             player.getInventory().setContents(kit.getContents());
         }));
@@ -67,10 +67,10 @@ public class KitEditMenu extends Menu {
         buttons.put(15, new EasyButton(new ItemBuilder(Material.WOOL)
                 .name("&c&lCancel & Exit")
                 .durability((short) 14)
-                .lore("&r", "&7Click here to exit the menu and not save the changes!")
+                .lore("&r", "&7Click here to exit the menu and not save the changes")
                 .build(), true, false, () -> {
             profile.setEditMode(false);
-            CC.sendMessage(player, "&cCancelled layout changes!");
+            CC.sendMessage(player, "&cCancelled layout changes");
             player.closeInventory();
             player.getInventory().setContents(Hotbar.getSpawnItems());
         }));

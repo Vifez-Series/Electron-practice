@@ -38,7 +38,7 @@ public class Assemble {
 	 */
 	public Assemble(JavaPlugin plugin, AssembleAdapter adapter) {
 		if (plugin == null) {
-			throw new RuntimeException("Assemble can not be instantiated without a plugin instance!");
+			throw new RuntimeException("Assemble can not be instantiated without a plugin instance");
 		}
 
 		this.plugin = plugin;
