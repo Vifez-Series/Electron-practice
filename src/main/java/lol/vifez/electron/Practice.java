@@ -201,6 +201,7 @@ public final class Practice extends JavaPlugin {
         manager.registerCommand(new NavigatorCommand());
         manager.registerCommand(new DivisionsCommand());
         manager.registerCommand(new SurrenderCommand());
+        manager.registerCommand(new RenameCommand());
     }
 
     private void initializeListeners() {
