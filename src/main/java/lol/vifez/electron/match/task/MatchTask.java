@@ -37,7 +37,7 @@ public class MatchTask extends BukkitRunnable {
             Arrays.asList(match.getPlayerOne(), match.getPlayerTwo()).forEach(profile -> {
                 Profile opponent = profile == match.getPlayerOne() ? match.getPlayerTwo() : match.getPlayerOne();
                 profile.getPlayer().sendMessage(" ");
-                profile.getPlayer().sendMessage(CC.colorize("&b&lMatch Found!"));
+                profile.getPlayer().sendMessage(CC.colorize("&b&lOPPONENT FOUND"));
                 profile.getPlayer().sendMessage(CC.colorize("&fKit: &b" + match.getKit().getName()));
                 profile.getPlayer().sendMessage(CC.colorize("&fOpponent: &c" + opponent.getPlayer().getName()));
                 profile.getPlayer().sendMessage(" ");
