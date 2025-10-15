@@ -38,6 +38,7 @@ public class KitCommands extends BaseCommand {
         sender.sendMessage(CC.translate("&7▪ &b/kit delete &7<kit> &f- &fDelete an existing kit"));
         sender.sendMessage(CC.translate("&7▪ &b/kit setType &7<kit> <type> &f- &fSet the type of a kit"));
         sender.sendMessage(CC.translate("&7▪ &b/kit setInventory &7<kit> &f- &fSet the inventory of a kit"));
+        sender.sendMessage(CC.translate("&7▪ &b/kit getInventory &7<kit> &f- &fGet the inventory of a kit"));
         sender.sendMessage(CC.translate("&7▪ &b/kit setIcon &7<kit> &f- &fSet the icon for a kit"));
         sender.sendMessage(CC.translate("&7▪ &b/kit setRanked &7<kit> &f- &fToggle whether a kit is ranked"));
         sender.sendMessage(CC.translate("&7▪ &b/kit setDescription &7<kit> <description> &f- &fSet the description of a kit"));
@@ -95,7 +96,24 @@ public class KitCommands extends BaseCommand {
 
         instance.getKitManager().save(kit);
 
-        CC.sendMessage(player, "&aYou have updated the inventory for &b" + kit.getName());
+        CC.sendMessage(player, "&fUpdated the kit layout for &b" + kit.getName());
+    }
+
+    @Subcommand("getInventory")
+    public void getInventory(Player player, @Name("kit") @Single String kitName) {
+        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
+
+        if (kit == null) {
+            CC.sendMessage(player, "&cInvalid kit name.");
+            return;
+        }
+
+        player.getInventory().clear();
+
+        player.getInventory().setContents(kit.getContents());
+        player.getInventory().setArmorContents(kit.getArmorContents());
+
+        CC.sendMessage(player, "&fReceived the kit layout for &b" + kit.getName());
     }
 
     @Subcommand("setIcon")
@@ -116,7 +134,7 @@ public class KitCommands extends BaseCommand {
 
         kit.setIcon(itemInHand.getType());
         instance.getKitManager().save(kit);
-        CC.sendMessage(player, "&aYou have updated the icon for &b" + kit.getName());
+        CC.sendMessage(player, "&fUpdated the icon for &b" + kit.getName());
     }
 
     @Subcommand("setType")
@@ -131,10 +149,14 @@ public class KitCommands extends BaseCommand {
         try {
             KitType typeEnum = KitType.valueOf(type.toUpperCase());
             kit.setKitType(typeEnum);
-            CC.sendMessage(player, "&aSet kit type for &b" + kit.getName() + " &ato &b" + typeEnum.name());
+            CC.sendMessage(player, "&fNew type for &b" + kit.getName() + "&f: &b" + typeEnum.name());
             instance.getKitManager().save(kit);
         } catch (IllegalArgumentException ignored) {
-            CC.sendMessage(player, "&cInvalid kit type &7(REGULAR, BUILD, BED_FIGHT, BOXING, WATER_KILL)");
+            CC.sendMessage(player, "&cInvalid kit type, Please use one of the following:");
+            CC.sendMessage(player, "&7▪ REGULAR");
+            CC.sendMessage(player, "&7▪ BUILD");
+            CC.sendMessage(player, "&7▪ BOXING, WATER_KILL)");
+            CC.sendMessage(player, "&7▪ WATER_KILL)");
         }
     }
 
