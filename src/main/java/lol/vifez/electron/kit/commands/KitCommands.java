@@ -155,8 +155,8 @@ public class KitCommands extends BaseCommand {
             CC.sendMessage(player, "&cInvalid kit type, Please use one of the following:");
             CC.sendMessage(player, "&7▪ REGULAR");
             CC.sendMessage(player, "&7▪ BUILD");
-            CC.sendMessage(player, "&7▪ BOXING, WATER_KILL)");
-            CC.sendMessage(player, "&7▪ WATER_KILL)");
+            CC.sendMessage(player, "&7▪ BOXING");
+            CC.sendMessage(player, "&7▪ WATER_KILL");
         }
     }
 
