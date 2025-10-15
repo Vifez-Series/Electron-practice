@@ -56,6 +56,9 @@ public class Profile {
     private boolean duelRequestsEnabled = true;
     private String worldTime = "DAY";
 
+    private Player rematchOpponent;
+    private Kit rematchKit;
+
     public Player getPlayer() {
         Player p = Bukkit.getPlayer(uuid);
         return (p != null && p.isOnline()) ? p : null;
@@ -150,5 +153,21 @@ public class Profile {
                 .hoverText("&bClick to accept")
                 .clickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/duel accept " + name))
                 .sendMessage(target);
+    }
+
+    public Player getRematchOpponent() {
+        return rematchOpponent;
+    }
+
+    public void setRematchOpponent(Player rematchOpponent) {
+        this.rematchOpponent = rematchOpponent;
+    }
+
+    public Kit getRematchKit() {
+        return rematchKit;
+    }
+
+    public void setRematchKit(Kit rematchKit) {
+        this.rematchKit = rematchKit;
     }
 }

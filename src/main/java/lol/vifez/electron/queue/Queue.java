@@ -51,48 +51,19 @@ public class Queue {
     }
 
     public void move() {
-        Map<UUID, Queue> playersInQueue = instance.getQueueManager().getPlayersQueue();
-        List<UUID> playersUUID = new ArrayList<>(playersInQueue.keySet());
-
-        if (playersInQueue.isEmpty() || playersInQueue.size() < 2) return;
+        List<UUID> playersUUID = new ArrayList<>(playerJoinTimes.keySet());
+        if (playersUUID.size() < 2) return;
 
         Player one = Bukkit.getPlayer(playersUUID.get(0));
         Player two = Bukkit.getPlayer(playersUUID.get(1));
+
+        if (one == null || two == null) return;
 
         Profile oneProfile = instance.getProfileManager().getProfile(one.getUniqueId());
         Profile twoProfile = instance.getProfileManager().getProfile(two.getUniqueId());
 
         Arena arena = instance.getArenaManager().getAllAvailableArenas(kit)
                 .stream().filter(Objects::nonNull).findFirst().orElse(null);
-
-        if (ranked) {
-            int difference = oneProfile.getElo(kit) - twoProfile.getElo(kit);
-
-            if (difference <= 250) {
-                playersInQueue.remove(one.getUniqueId());
-                playersInQueue.remove(two.getUniqueId());
-
-                if (arena == null) {
-                    CC.sendMessage(one, "&cThere are no available arenas for you to join!");
-                    CC.sendMessage(two, "&cThere are no available arenas for you to join!");
-
-                    one.getInventory().setContents(Hotbar.getSpawnItems());
-                    two.getInventory().setContents(Hotbar.getSpawnItems());
-                    return;
-                }
-
-                Bukkit.getScheduler().runTask(Practice.getInstance(), () -> new Match(instance, oneProfile, twoProfile, kit, arena, true));
-            } else {
-                if (rankedIndex > playersInQueue.size()) return;
-
-                rankedIndex++;
-                two = Bukkit.getPlayer(new ArrayList<>(playersInQueue.keySet()).get(rankedIndex));
-            }
-            return;
-        }
-
-        playersInQueue.remove(one.getUniqueId());
-        playersInQueue.remove(two.getUniqueId());
 
         if (arena == null) {
             CC.sendMessage(one, "&cThere are no available arenas for you to join!");
@@ -103,14 +74,19 @@ public class Queue {
             return;
         }
 
-        final Player finalTwo = two;
+        if (ranked) {
+            int difference = Math.abs(oneProfile.getElo(kit) - twoProfile.getElo(kit));
+            if (difference > 250) return;
+        }
+
+        playerJoinTimes.remove(one.getUniqueId());
+        playerJoinTimes.remove(two.getUniqueId());
+
+        instance.getQueueManager().getPlayersQueue().remove(one.getUniqueId());
+        instance.getQueueManager().getPlayersQueue().remove(two.getUniqueId());
 
         Bukkit.getScheduler().runTask(instance, () -> {
-            Match match = new Match(instance,
-                    instance.getProfileManager().getProfile(one.getUniqueId()),
-                    instance.getProfileManager().getProfile(finalTwo.getUniqueId()),
-                    kit, arena, ranked);
-
+            Match match = new Match(instance, oneProfile, twoProfile, kit, arena, ranked);
             instance.getMatchManager().start(match);
         });
     }

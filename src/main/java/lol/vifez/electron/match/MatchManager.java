@@ -134,6 +134,11 @@ public class MatchManager {
                 updateEloForRankedMatch(winner, loser, match.getKit());
             }
 
+            winner.setRematchOpponent(loser.getPlayer());
+            loser.setRematchOpponent(winner.getPlayer());
+            winner.setRematchKit(match.getKit());
+            loser.setRematchKit(match.getKit());
+
             for (Profile profile : profiles) {
                 profile.getPlayer().playSound(profile.getPlayer().getLocation(), Sound.NOTE_PLING, 0.5f, 0.5f);
 

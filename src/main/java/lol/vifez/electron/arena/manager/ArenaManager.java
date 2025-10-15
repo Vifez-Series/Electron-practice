@@ -8,6 +8,7 @@ import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -54,6 +55,14 @@ public class ArenaManager {
                         .filter(arena -> arena.getKits().contains(kit.getName().toLowerCase()) && !arena.isBusy())
                         .collect(Collectors.toSet()))
                 .join();
+    }
+
+    public Arena getAvailableArena(Kit kit) {
+        Set<Arena> available = getAllAvailableArenas(kit);
+        if (available.isEmpty()) return null;
+
+        int index = new Random().nextInt(available.size());
+        return available.stream().skip(index).findFirst().orElse(null);
     }
 
     public void save(Arena arena) {
