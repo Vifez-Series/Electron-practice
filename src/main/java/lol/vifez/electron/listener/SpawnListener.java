@@ -18,6 +18,12 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
+ */
+
 public class SpawnListener implements Listener {
 
     public SpawnListener() {

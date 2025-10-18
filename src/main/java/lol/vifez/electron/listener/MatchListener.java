@@ -10,6 +10,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
+ */
+
 public class MatchListener implements Listener {
 
     public MatchListener() {
