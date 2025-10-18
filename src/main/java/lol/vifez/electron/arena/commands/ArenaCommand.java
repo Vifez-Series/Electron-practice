@@ -31,14 +31,15 @@ public class ArenaCommand extends BaseCommand {
         sender.sendMessage(CC.translate(" "));
         sender.sendMessage(CC.translate("&7▪ &b/arena create &7<arena> &f- &fCreate an arena"));
         sender.sendMessage(CC.translate("&7▪ &b/arena delete &7<arena> &f- &fDelete an arena"));
-        sender.sendMessage(CC.translate("&7▪ &b/arena setfirstposition &7<arena> &f- &fSet a position for players to teleport for arena"));
-        sender.sendMessage(CC.translate("&7▪ &b/arena setsecondposition &7<arena> &f- &fSet a position for players to teleport for arena"));
-        sender.sendMessage(CC.translate("&7▪ &b/arena setmin &7<arena> &f- &fSet the minimum point for arena"));
-        sender.sendMessage(CC.translate("&7▪ &b/arena setmax &7<arena> &f- &fSet the maximum point for arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena setPos1 &7<arena> &f- &fSet a position for players to teleport for arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena setPos2 &7<arena> &f- &fSet a position for players to teleport for arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena setmin &7<arena> &f- &fSet the minimum corner for arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena setmax &7<arena> &f- &fSet the maximum corner for arena"));
         sender.sendMessage(CC.translate("&7▪ &b/arena addkit &7<arena> <kit> &f- &fAdd kit to an arena"));
         sender.sendMessage(CC.translate("&7▪ &b/arena removekit &7<arena> <kit> &f- &fRemove kit from an arena"));
         sender.sendMessage(CC.translate("&7▪ &b/arena kits &7<arena> &f- &fList of kits allowed in an arena"));
         sender.sendMessage(CC.translate("&7▪ &b/arena status &7<arena> &f- &fCheck the status of an arena"));
+        sender.sendMessage(CC.translate("&7▪ &b/arena tp <arena> &f- &fTeleport to an arena"));
         sender.sendMessage(CC.translate("&7▪ &b/arena save &f- &fSave all arenas"));
         sender.sendMessage(CC.translate("&7▪ &b/arenas &f- &fManage the arenas"));
         sender.sendMessage(CC.translate(" "));
@@ -180,6 +181,25 @@ public class ArenaCommand extends BaseCommand {
 
         arena.setPositionTwo(sender.getLocation());
         sender.sendMessage(CC.translate("&aMaximum point set!"));
+    }
+
+    @Subcommand("tp")
+    @CommandPermission("electron.admin")
+    public void teleportToArena(Player sender, @Single String arenaName) {
+        Arena arena = arenaManager.getArena(arenaName);
+        if (arena == null) {
+            sender.sendMessage(CC.translate("&cArena not found!"));
+            return;
+        }
+
+        if (arena.getSpawnA() == null) {
+            sender.sendMessage(CC.translate("&cUnable to teleport you to this arena"));
+            sender.sendMessage(CC.translate("&cSet the first player position spawn (/arena setPos1 <arena>)"));
+            return;
+        }
+
+        sender.teleport(arena.getSpawnA());
+        sender.sendMessage(CC.translate("&aTeleported to &b" + arena.getName() + " &7(pos1)."));
     }
 
     @Subcommand("save")
