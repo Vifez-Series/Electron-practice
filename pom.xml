@@ -6,7 +6,7 @@
 
     <groupId>lol.vifez</groupId>
     <artifactId>Practice</artifactId>
-    <version>1.6</version>
+    <version>1.6.9</version>
     <packaging>jar</packaging>
 
     <name>Practice</name>
