@@ -6,13 +6,19 @@
 
 # Electron
 
-Lightweight practice core base
 
-A practice core for 1.7-1.8.9 servers, Still being semi maintained, Updated every now and then...
-Feel free to fork ? lol
+**Lightweight Practice Core Base for Minecraft 1.7–1.8.9**
 
-# SUPPORT
-https://discord.gg/kKKC85rkXU
+Electron is an open source **Minecraft Practice Core** 
+
+It supports duels, kits, queues, arenas, leaderboards, and more. Still being **semi maintained**, updated periodically.  
+
+Feel free to fork and contribute! 😎
+
+## 📣 Support
+
+Need help or want to join the community?  
+[Join our Discord Server](https://discord.gg/kKKC85rkXU)
 
 # Features
 - Queues (unranked / ranked, random queue)
@@ -41,10 +47,13 @@ https://discord.gg/kKKC85rkXU
 Need support? You can join our discord server and create a ticket!
 - https://discord.vifez.lol
 
-# Permissions
-- **electron.admin**
-- **electron.staff**
-- **electron.user**
+## 🛠 Permissions
+
+| Permission          | Description                      |
+|--------------------|----------------------------------|
+| `electron.admin`    | Full administrative access        |
+| `electron.staff`    | Staff-level commands              |
+| `electron.user`     | Standard user commands            |
 
 # Dependencies
 - Packet events
