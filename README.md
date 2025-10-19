@@ -21,13 +21,9 @@ Need help or want to join the community?
 [Join our Discord Server](https://discord.gg/kKKC85rkXU)
 
 # Features
-- Queues (unranked / ranked, random queue)
-- Arenas
-- Kits (boxing, ndbf, sumo)
 - **NEW** Navigator menu
 - Leaderboards (Per kit + Global elo)
 - Conversations (/msg, /r)
-- Matches
 - Scoreboard (configurable)
 - Tablist (configurable)
 - Join MOTD + Title
