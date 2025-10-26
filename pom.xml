@@ -17,7 +17,7 @@
     </properties>
 
     <build>
-        <finalName>Electron</finalName>
+        <finalName>Electron-v${project.version}</finalName>
         <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>
