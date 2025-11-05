@@ -26,7 +26,7 @@ public class ElectronCommand extends BaseCommand {
         sender.sendMessage(CC.translate("&7&oLightweight open-source practice core"));
         sender.sendMessage(CC.translate(" "));
         sender.sendMessage(CC.translate("&fAuthors: &bvifez &f& &eMTR"));
-        sender.sendMessage(CC.translate("&fVersion: &b1.0"));
+        sender.sendMessage(CC.translate("&fVersion: &b" + Practice.getInstance().getDescription().getVersion()));
         sender.sendMessage(CC.translate(" "));
         sender.sendMessage(CC.translate("&fDiscord: &bhttps://discord.vifez.lol"));
         sender.sendMessage(CC.translate("&fGithub: &bhttps://electron.vifez.lol"));

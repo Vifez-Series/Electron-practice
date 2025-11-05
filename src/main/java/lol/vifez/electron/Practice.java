@@ -71,7 +71,6 @@ public final class Practice extends JavaPlugin {
     @Getter private static Practice instance;
 
     @Getter private ConfigFile arenasFile, kitsFile, tabFile;
-    @Getter private FileConfiguration languageConfig;
     @Getter private ScoreboardConfig scoreboardConfig;
 
     @Getter private MongoAPI mongoAPI;
