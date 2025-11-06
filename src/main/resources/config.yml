@@ -6,14 +6,9 @@
 # ╚══════╝╚══════╝╚══════╝ ╚═════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
 #                       Practice • v1.7.0
 
-mongo:
-  host: "localhost"
-  port: 27017
-  database: "Electron"
-  # ↓ Leave blank if no auth!
-  user: ""
-  # ↓ Leave blank if no auth!
-  password: ""
+MONGO:
+  URI: "mongodb://127.0.0.1:27017"
+  DATABASE: "electron"
 
 settings:
   # ↓ Spawn Cords (/setspawn works)

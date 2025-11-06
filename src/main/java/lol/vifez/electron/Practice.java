@@ -30,7 +30,6 @@ import lol.vifez.electron.listener.SpawnListener;
 import lol.vifez.electron.match.MatchManager;
 import lol.vifez.electron.match.task.MatchTask;
 import lol.vifez.electron.mongo.MongoAPI;
-import lol.vifez.electron.mongo.MongoCredentials;
 import lol.vifez.electron.navigator.command.NavigatorCommand;
 import lol.vifez.electron.util.placeholderapi.ElectronPlaceholders;
 import lol.vifez.electron.profile.ProfileManager;
@@ -163,13 +162,10 @@ public final class Practice extends JavaPlugin {
     }
 
     private void initializeMongo() {
-        mongoAPI = new MongoAPI(new MongoCredentials(
-                getConfig().getString("mongo.host"),
-                getConfig().getInt("mongo.port"),
-                getConfig().getString("mongo.database"),
-                getConfig().getString("mongo.user"),
-                getConfig().getString("mongo.password")
-        ));
+        String uri = getConfig().getString("MONGO.URI");
+        String dbName = getConfig().getString("MONGO.DATABASE");
+
+        mongoAPI = new MongoAPI(uri, dbName);
     }
 
     private void initializeSpawnLocation() {
@@ -266,6 +262,7 @@ public final class Practice extends JavaPlugin {
         if (profileManager != null) profileManager.close();
         if (arenaManager != null) arenaManager.close();
         if (kitManager != null) kitManager.close();
+        if (mongoAPI != null) mongoAPI.close();
 
         PacketEvents.getAPI().terminate();
     }

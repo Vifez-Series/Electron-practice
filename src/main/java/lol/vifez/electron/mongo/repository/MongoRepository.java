@@ -3,6 +3,7 @@ package lol.vifez.electron.mongo.repository;
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.ReplaceOptions;
 import com.mongodb.client.model.UpdateOptions;
 import lol.vifez.electron.mongo.MongoAPI;
 import lombok.Getter;
@@ -14,13 +15,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
+ */
+
 @Getter
 @Setter
 public abstract class MongoRepository<T> {
 
-    private MongoAPI mongoAPI;
-    private Gson gson;
-    private UpdateOptions updateOptions;
+    private final MongoAPI mongoAPI;
+    private final Gson gson;
+    private final UpdateOptions updateOptions;
     private MongoCollection<Document> collection;
 
     public MongoRepository(MongoAPI mongoAPI, Gson gson) {
@@ -29,76 +36,43 @@ public abstract class MongoRepository<T> {
         this.updateOptions = new UpdateOptions().upsert(true);
     }
 
-    /**
-     * Retrieves a document by the provided ID.
-     *
-     * @param id   The document's ID.
-     * @param type The type of the object to be returned.
-     * @return A CompletableFuture with the deserialized object.
-     */
     public CompletableFuture<T> getData(String id, Type type) {
         return CompletableFuture.supplyAsync(() -> {
-            Document document = this.collection.find(Filters.eq("_id", id)).first();
-            if (document == null) return null;
-            return gson.fromJson(document.toJson(), type);
+            Document document = collection.find(Filters.eq("_id", id)).first();
+            return document == null ? null : gson.fromJson(document.toJson(), type);
         });
     }
 
-    /**
-     * Retrieves a document by the provided key-value pair.
-     *
-     * @param key   The key to search by.
-     * @param value The value to search for.
-     * @param type  The type of the object to be returned.
-     * @return A CompletableFuture with the deserialized object.
-     */
     public CompletableFuture<T> getData(String key, Object value, Type type) {
         return CompletableFuture.supplyAsync(() -> {
-            Document document = this.collection.find(Filters.eq(key, value)).first();
-            if (document == null) return null;
-            return gson.fromJson(document.toJson(), type);
+            Document document = collection.find(Filters.eq(key, value)).first();
+            return document == null ? null : gson.fromJson(document.toJson(), type);
         });
     }
 
-    /**
-     * Retrieves all documents and returns them as a list of CompletableFutures.
-     *
-     * @param type The type of the object to be returned for each document.
-     * @return A CompletableFuture that contains a list of the deserialized objects.
-     */
     public CompletableFuture<List<T>> getAll(Type type) {
         return CompletableFuture.supplyAsync(() -> {
-            List<T> resultList = new ArrayList<>();
-            for (Document document : this.collection.find()) {
-                T data = gson.fromJson(document.toJson(), type);
-                resultList.add(data);
+            List<T> result = new ArrayList<>();
+            for (Document document : collection.find()) {
+                result.add(gson.fromJson(document.toJson(), type));
             }
-            return resultList;
+            return result;
         });
     }
 
-    /**
-     * Saves or replaces a document with the provided ID.
-     *
-     * @param id   The ID of the document.
-     * @param t    The object to be saved (serialized to JSON).
-     */
     public CompletableFuture<Void> saveData(String id, T t) {
-        return CompletableFuture.runAsync(() -> {
-            this.collection.replaceOne(Filters.eq("_id", id),
-                    Document.parse(gson.toJson(t)),
-                    updateOptions);
-        });
+        return CompletableFuture.runAsync(() ->
+                collection.replaceOne(
+                        Filters.eq("_id", id),
+                        Document.parse(gson.toJson(t)),
+                        new ReplaceOptions().upsert(true)
+                )
+        );
     }
 
-    /**
-     * Deletes the document by the provided ID.
-     *
-     * @param id The ID of the document to delete.
-     */
     public CompletableFuture<Void> deleteData(String id) {
-        return CompletableFuture.runAsync(() -> {
-            this.collection.deleteOne(Filters.eq("_id", id));
-        });
+        return CompletableFuture.runAsync(() ->
+                collection.deleteOne(Filters.eq("_id", id))
+        );
     }
 }

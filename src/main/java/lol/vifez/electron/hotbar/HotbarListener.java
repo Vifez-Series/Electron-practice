@@ -6,7 +6,6 @@ import lol.vifez.electron.leaderboard.menu.LeaderboardMenu;
 import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.navigator.menu.NavigatorMenu;
 import lol.vifez.electron.settings.menu.OptionsMenu;
-import lol.vifez.electron.settings.menu.SettingsMenu;
 import lol.vifez.electron.queue.Queue;
 import lol.vifez.electron.queue.menu.QueuesMenu;
 import lol.vifez.electron.queue.menu.RankedMenu;
@@ -18,6 +17,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
+ */
 
 public class HotbarListener implements Listener {
 

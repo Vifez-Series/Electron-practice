@@ -1,7 +1,6 @@
 package lol.vifez.electron.settings.menu;
 
 import lol.vifez.electron.Practice;
-import lol.vifez.electron.leaderboard.Leaderboard;
 import lol.vifez.electron.leaderboard.menu.LeaderboardMenu;
 import lol.vifez.electron.leaderboard.menu.YourStatsMenu;
 import lol.vifez.electron.profile.Profile;
@@ -19,6 +18,7 @@ import java.util.*;
  * @project Electron
  * @website https://vifez.lol
  */
+
 public class OptionsMenu extends Menu {
 
     @Override

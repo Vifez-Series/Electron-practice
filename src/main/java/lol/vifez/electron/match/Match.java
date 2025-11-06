@@ -98,7 +98,6 @@ public class Match {
         player.setFoodLevel(20);
 
         player.setSprinting(true);
-        player.removePotionEffect(PotionEffectType.JUMP);
         player.setGameMode(GameMode.SURVIVAL);
     }
 }

@@ -15,7 +15,6 @@ public class ProfileRepository extends MongoRepository<Profile> {
 
     public ProfileRepository(MongoAPI mongoAPI, Gson gson) {
         super(mongoAPI, gson);
-
-        setCollection(mongoAPI.getCollection("profile"));
+        setCollection(mongoAPI.getDatabase().getCollection("profiles"));
     }
 }

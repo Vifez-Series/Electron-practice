@@ -8,7 +8,6 @@ import lol.vifez.electron.Practice;
 import lol.vifez.electron.kit.Kit;
 import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.util.CC;
-import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 
