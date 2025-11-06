@@ -83,7 +83,6 @@ public final class Practice extends JavaPlugin {
 
     @Setter
     @Getter private Location spawnLocation;
-    @Getter private BukkitCommandManager bukkitCommandManager;
     @Override
     public void onLoad() {
         PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this));
