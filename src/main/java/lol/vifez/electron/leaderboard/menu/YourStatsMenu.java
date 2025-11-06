@@ -14,11 +14,11 @@ import org.bukkit.inventory.ItemFlag;
 
 import java.util.*;
 
-/* 
+/*
  * Electron © Vifez
  * Developed by Vifez
  * Copyright (c) 2025 Vifez. All rights reserved.
-*/
+ */
 public class YourStatsMenu extends Menu {
 
     private final Practice instance;
@@ -42,9 +42,7 @@ public class YourStatsMenu extends Menu {
         Map<Integer, Button> buttons = new HashMap<>();
 
         Profile profile = instance.getProfileManager().getProfile(player.getUniqueId());
-        if (profile == null) {
-            return buttons;
-        }
+        if (profile == null) return buttons;
 
         int globalElo = EloUtil.getGlobalElo(profile);
 
@@ -53,10 +51,13 @@ public class YourStatsMenu extends Menu {
         globalLore.add("&facross all ranked kits.");
         globalLore.add(" ");
         globalLore.add("&fGlobal Elo: &b" + globalElo);
+        globalLore.add("&fTotal Wins: &a" + profile.getWins());
+        globalLore.add("&fTotal Losses: &c" + profile.getLosses());
+        globalLore.add("&fCurrent Win Streak: &e" + profile.getWinStreak());
 
         buttons.put(4, new EasyButton(
                 new ItemBuilder(Material.NETHER_STAR)
-                        .name("&b&lGlobal Elo")
+                        .name("&b&lGlobal Stats")
                         .lore(globalLore)
                         .build(),
                 true, true, () -> {}
@@ -76,9 +77,21 @@ public class YourStatsMenu extends Menu {
             if (index >= kitSlots.length) break;
 
             int elo = profile.getElo(kit);
+
+            int kitWins = profile.getKitWins().getOrDefault(kit.getName(), 0);
+
+            int kitLosses = Math.max(0, profile.getLosses() / Math.max(1, kits.length));
+
+            int total = kitWins + kitLosses;
+            double winrate = total > 0 ? (kitWins * 100.0 / total) : 0.0;
+
             List<String> lore = new ArrayList<>();
             lore.add(" ");
-            lore.add("&fCurrent ELO: &b" + elo);
+            lore.add("&f• ELO: &b" + elo);
+            lore.add(" ");
+            lore.add("&f• Won: &a" + kitWins);
+            lore.add("&f• Lost: &c" + kitLosses);
+            lore.add("&f• Winrate: &e" + String.format("%.1f", winrate) + "%");
 
             buttons.put(kitSlots[index], new EasyButton(
                     new ItemBuilder(kit.getDisplayItem())

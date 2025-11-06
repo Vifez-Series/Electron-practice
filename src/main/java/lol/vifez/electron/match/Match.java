@@ -92,6 +92,7 @@ public class Match {
     }
 
     public void allowMovement(Player player) {
+        player.removePotionEffect(PotionEffectType.JUMP);
         player.setHealth(player.getMaxHealth());
         player.setWalkSpeed(0.2F);
         player.setFlySpeed(0.2F);

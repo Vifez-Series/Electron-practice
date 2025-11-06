@@ -24,7 +24,7 @@ import lol.vifez.electron.kit.commands.KitCommands;
 import lol.vifez.electron.leaderboard.Leaderboard;
 import lol.vifez.electron.leaderboard.command.LeaderboardCommand;
 import lol.vifez.electron.listener.DeathListener;
-import lol.vifez.electron.listener.MatchListener;
+import lol.vifez.electron.match.MatchListener;
 import lol.vifez.electron.listener.PearlListener;
 import lol.vifez.electron.listener.SpawnListener;
 import lol.vifez.electron.match.MatchManager;

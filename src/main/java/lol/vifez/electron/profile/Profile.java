@@ -32,7 +32,6 @@ import java.util.UUID;
 @Setter
 public class Profile {
 
-    @SerializedName("_id")
     private final UUID uuid;
 
     private Player lastMessagedPlayer;

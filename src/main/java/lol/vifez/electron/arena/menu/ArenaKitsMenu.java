@@ -11,14 +11,15 @@ import lol.vifez.electron.util.menu.button.Button;
 import lol.vifez.electron.util.menu.button.impl.EasyButton;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 
 import java.util.*;
 
-/* 
+/*
  * Electron © Vifez
  * Developed by Vifez
  * Copyright (c) 2025 Vifez. All rights reserved.
-*/
+ */
 
 public class ArenaKitsMenu extends Menu {
 
@@ -45,26 +46,28 @@ public class ArenaKitsMenu extends Menu {
         Map<Integer, Button> map = new HashMap<>();
 
         List<Kit> kits = new ArrayList<>(Practice.getInstance().getKitManager().getKits().values());
-
         int slot = 10;
+
         for (Kit kit : kits) {
             boolean has = arena.getKits().contains(kit.getName());
+
             map.put(slot, new EasyButton(
-                    new ItemBuilder(has ? Material.EMERALD : Material.REDSTONE)
+                    new ItemBuilder(kit.getIcon().clone())
                             .name("&b" + kit.getName())
                             .lore(Arrays.asList(
-                                    "&7Status: " + (has ? "&aAdded" : "&cNot Added"),
+                                    "&7Status: " + (has ? "&aEnabled" : "&cDisabled"),
                                     " ",
                                     "&fClick to toggle."
                             ))
+                            .flag(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_ENCHANTS)
                             .build(),
-                    true,false,() -> {
+                    true, false, () -> {
                 if (has) {
                     arena.getKits().remove(kit.getName());
-                    player.sendMessage(CC.translate("&cRemoved &b" + kit.getName() + " &cfrom " + arena.getName()));
+                    CC.sendMessage(player, "&cRemoved &b" + kit.getName() + " &cfrom " + arena.getName());
                 } else {
                     arena.getKits().add(kit.getName());
-                    player.sendMessage(CC.translate("&aAdded &b" + kit.getName() + " &ato " + arena.getName()));
+                    CC.sendMessage(player, "&aAdded &b" + kit.getName() + " &ato " + arena.getName());
                 }
                 new ArenaKitsMenu(arena, manager).openMenu(player);
             }
@@ -78,14 +81,17 @@ public class ArenaKitsMenu extends Menu {
                 new ItemBuilder(Material.ARROW)
                         .name("&cGo back")
                         .build(),
-                true,false,() -> new ArenaEditorMenu(arena, manager).openMenu(player)
+                true, false, () -> new ArenaEditorMenu(arena, manager).openMenu(player)
         ));
 
-        int[] border = {0,1,2,3,4,5,6,7,8,45,46,47,48,50,51,52,53};
+        int[] border = {0, 1, 2, 3, 4, 5, 6, 7, 8, 45, 46, 47, 48, 50, 51, 52, 53};
         for (int i : border) {
             map.put(i, new EasyButton(
-                    new ItemBuilder(Material.STAINED_GLASS_PANE).durability((short)15).name("&7").build(),
-                    true,false,()->{}
+                    new ItemBuilder(Material.STAINED_GLASS_PANE)
+                            .durability((short) 15)
+                            .name("&7")
+                            .build(),
+                    true, false, () -> {}
             ));
         }
 

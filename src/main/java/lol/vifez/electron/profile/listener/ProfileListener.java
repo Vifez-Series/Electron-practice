@@ -3,6 +3,7 @@ package lol.vifez.electron.profile.listener;
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.match.Match;
 import lol.vifez.electron.profile.Profile;
+import lol.vifez.electron.profile.ProfileManager;
 import lol.vifez.electron.profile.menu.ProfileMenu;
 import lol.vifez.electron.util.CC;
 import lol.vifez.electron.hotbar.Hotbar;
@@ -17,6 +18,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.List;
 
+/*
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+ */
+
 public class ProfileListener implements Listener {
 
     private final Practice instance;
@@ -28,20 +35,22 @@ public class ProfileListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPreLogin(AsyncPlayerPreLoginEvent event) {
-        if (instance.getProfileManager() == null) {
-            return;
-        }
+        if (instance.getProfileManager() == null) return;
 
-        Profile profile = instance.getProfileManager().getProfile(event.getUniqueId());
+        ProfileManager manager = instance.getProfileManager();
+        Profile profile = manager.getProfile(event.getUniqueId());
 
         if (profile == null) {
             profile = new Profile(event.getUniqueId());
-            instance.getProfileManager().save(profile);
+            manager.save(profile);
         }
 
         if (profile.getName() == null || !profile.getName().equals(event.getName())) {
             profile.setName(event.getName());
         }
+
+        manager.getProfileRepository()
+                .saveData(profile.getUuid().toString(), profile);
     }
 
     @EventHandler
@@ -94,9 +103,21 @@ public class ProfileListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-
         Profile profile = instance.getProfileManager().getProfile(player.getUniqueId());
+
         if (profile != null) {
+            if (profile.inMatch()) {
+                Match match = profile.getMatch();
+                Profile opponent = match.getOpponent(player);
+
+                if (opponent != null && opponent.getPlayer() != null) {
+                    match.setWinner(opponent);
+                    CC.sendMessage(opponent.getPlayer(), "&aYour opponent has left the match! You win by default.");
+                }
+
+                instance.getMatchManager().end(match);
+            }
+
             instance.getProfileManager().save(profile);
         }
 

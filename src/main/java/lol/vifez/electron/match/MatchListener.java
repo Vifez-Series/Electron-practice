@@ -1,4 +1,4 @@
-package lol.vifez.electron.listener;
+package lol.vifez.electron.match;
 
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.match.enums.MatchState;

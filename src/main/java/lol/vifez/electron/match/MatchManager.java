@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-/* 
+/*
  * Electron © Vifez
  * Developed by Vifez
  * Copyright (c) 2025 Vifez. All rights reserved.
@@ -78,6 +78,7 @@ public class MatchManager {
                     match.getKit().getName(),
                     match.getKit().getContents()
             );
+            profile.getPlayer().getActivePotionEffects().forEach(effect -> profile.getPlayer().removePotionEffect(effect.getType()));
 
             profile.getPlayer().getInventory().setContents(loadout);
             profile.getPlayer().getInventory().setArmorContents(match.getKit().getArmorContents());
@@ -134,6 +135,8 @@ public class MatchManager {
                 updateEloForRankedMatch(winner, loser, match.getKit());
             }
 
+            recordMatchResult(winner, loser, match.getKit());
+
             winner.setRematchOpponent(loser.getPlayer());
             loser.setRematchOpponent(winner.getPlayer());
             winner.setRematchKit(match.getKit());
@@ -147,6 +150,7 @@ public class MatchManager {
                     profile.getPlayer().getInventory().setContents(Hotbar.getSpawnItems());
 
                     profile.getPlayer().teleport(Practice.getInstance().getSpawnLocation());
+                    profile.getPlayer().getActivePotionEffects().forEach(effect -> profile.getPlayer().removePotionEffect(effect.getType()));
 
                     match.setMatchState(MatchState.ENDED);
                     match.getArena().setBusy(false);
@@ -158,6 +162,25 @@ public class MatchManager {
         }
     }
 
+    private void recordMatchResult(Profile winner, Profile loser, Kit kit) {
+        winner.setWins(winner.getWins() + 1);
+        winner.setWinStreak(winner.getWinStreak() + 1);
+
+        loser.setLosses(loser.getLosses() + 1);
+        loser.setWinStreak(0);
+
+        winner.getKitWins().put(kit.getName(),
+                winner.getKitWins().getOrDefault(kit.getName(), 0) + 1);
+
+        Practice plugin = Practice.getInstance();
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> {
+            plugin.getProfileManager().getProfileRepository()
+                    .saveData(winner.getUuid().toString(), winner);
+            plugin.getProfileManager().getProfileRepository()
+                    .saveData(loser.getUuid().toString(), loser);
+        });
+    }
+
     /**
      * Updates ELO for both players in a ranked match
      * @param winner The winning player
@@ -167,22 +190,22 @@ public class MatchManager {
     private void updateEloForRankedMatch(Profile winner, Profile loser, Kit kit) {
         int winnerElo = winner.getElo(kit);
         int loserElo = loser.getElo(kit);
-        
+
         int newWinnerElo = EloUtil.getNewRating(winnerElo, loserElo, true);
         int newLoserElo = EloUtil.getNewRating(loserElo, winnerElo, false);
-        
+
         winner.setElo(kit, newWinnerElo);
         loser.setElo(kit, newLoserElo);
-        
+
         winner.checkDivision(kit);
         loser.checkDivision(kit);
-        
+
         if (winner.getPlayer() != null) {
             int eloChange = newWinnerElo - winnerElo;
             String changeMsg = eloChange >= 0 ? "&a+" + eloChange : "&c" + eloChange;
             CC.sendMessage(winner.getPlayer(), "&aYou won! &7ELO: " + changeMsg + " &7(&e" + newWinnerElo + "&7)");
         }
-        
+
         if (loser.getPlayer() != null) {
             int eloChange = newLoserElo - loserElo;
             String changeMsg = eloChange >= 0 ? "&a+" + eloChange : "&c" + eloChange;
