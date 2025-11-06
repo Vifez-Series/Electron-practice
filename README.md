@@ -58,10 +58,10 @@ Need support? You can join our discord server and create a ticket!
 - MongoDB
 
 # Credits
-- Vifez - Main developer & Current maintainer
-- MTR - Contributed heavily with me at the start
-- Lugami - Insane ass pull request
-- Mqaaz - Add 1 global title to scoreboard
+- **Vifez** - Main developer & Current maintainer
+- **MTR** - Contributed heavily with me at the start
+- **Lugami** - Insane ass pull request
+- **Mqaaz** - Add 1 global title to scoreboard
 
 # Compiling
 - Clone the repo to your intellij
