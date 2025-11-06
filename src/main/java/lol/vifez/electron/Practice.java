@@ -238,7 +238,8 @@ public final class Practice extends JavaPlugin {
     private void displayStartupInfo() {
         sendMessage(" ");
         sendMessage("&b&lElectron Practice &7[V" + getDescription().getVersion() + "]");
-        sendMessage("&fAuthors: &bvifez &f& &eMTR");
+        sendMessage("&fAuthor: &bVifez");
+        sendMessage("&fCredits: &bVifez&f, &bMTR&f, &bLugami&f, &bmqaaz");
         sendMessage(" ");
         sendMessage("&fProtocol: &b" + getServer().getBukkitVersion());
         sendMessage("&fSpigot: &b" + getServer().getName());
