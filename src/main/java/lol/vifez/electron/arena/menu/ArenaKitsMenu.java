@@ -48,7 +48,7 @@ public class ArenaKitsMenu extends Menu {
 
         int slot = 10;
         for (Kit kit : kits) {
-            boolean has = arena.getKits().contains(kit.getName().toLowerCase());
+            boolean has = arena.getKits().contains(kit.getName());
             map.put(slot, new EasyButton(
                     new ItemBuilder(has ? Material.EMERALD : Material.REDSTONE)
                             .name("&b" + kit.getName())
@@ -60,10 +60,10 @@ public class ArenaKitsMenu extends Menu {
                             .build(),
                     true,false,() -> {
                 if (has) {
-                    arena.getKits().remove(kit.getName().toLowerCase());
+                    arena.getKits().remove(kit.getName());
                     player.sendMessage(CC.translate("&cRemoved &b" + kit.getName() + " &cfrom " + arena.getName()));
                 } else {
-                    arena.getKits().add(kit.getName().toLowerCase());
+                    arena.getKits().add(kit.getName());
                     player.sendMessage(CC.translate("&aAdded &b" + kit.getName() + " &ato " + arena.getName()));
                 }
                 new ArenaKitsMenu(arena, manager).openMenu(player);

@@ -75,7 +75,7 @@ public class MatchManager {
             match.denyMovement(profile.getPlayer());
 
             ItemStack[] loadout = profile.getKitLoadout().getOrDefault(
-                    match.getKit().getName().toLowerCase(),
+                    match.getKit().getName(),
                     match.getKit().getContents()
             );
 

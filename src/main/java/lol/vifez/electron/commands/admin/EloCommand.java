@@ -39,7 +39,7 @@ public class EloCommand extends BaseCommand {
         }
 
         Profile profile = Practice.getInstance().getProfileManager().getProfile(player.getUniqueId());
-        Kit kit = Practice.getInstance().getKitManager().getKit(kitName.toLowerCase());
+        Kit kit = Practice.getInstance().getKitManager().getKit(kitName);
         if (kit == null) {
             CC.sendMessage(sender, "&cInvalid kit name.");
             return;
@@ -59,7 +59,7 @@ public class EloCommand extends BaseCommand {
         }
 
         Profile profile = Practice.getInstance().getProfileManager().getProfile(player.getUniqueId());
-        Kit kit = Practice.getInstance().getKitManager().getKit(kitName.toLowerCase());
+        Kit kit = Practice.getInstance().getKitManager().getKit(kitName);
         if (kit == null) {
             CC.sendMessage(sender, "&cInvalid kit name.");
             return;
@@ -79,7 +79,7 @@ public class EloCommand extends BaseCommand {
         }
 
         Profile profile = Practice.getInstance().getProfileManager().getProfile(player.getUniqueId());
-        Kit kit = Practice.getInstance().getKitManager().getKit(kitName.toLowerCase());
+        Kit kit = Practice.getInstance().getKitManager().getKit(kitName);
         if (kit == null) {
             CC.sendMessage(sender, "&cInvalid kit name.");
             return;

@@ -10,6 +10,7 @@ import lol.vifez.electron.util.menu.button.Button;
 import lol.vifez.electron.util.menu.button.impl.EasyButton;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 
 import java.util.*;
 
@@ -76,13 +77,13 @@ public class YourStatsMenu extends Menu {
 
             int elo = profile.getElo(kit);
             List<String> lore = new ArrayList<>();
-            lore.add("&7Your current ranked elo");
             lore.add(" ");
-            lore.add("&fElo: &b" + elo);
+            lore.add("&fCurrent ELO: &b" + elo);
 
             buttons.put(kitSlots[index], new EasyButton(
                     new ItemBuilder(kit.getDisplayItem())
                             .name(kit.getColor() + kit.getName())
+                            .flag(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_ENCHANTS)
                             .lore(lore)
                             .build(),
                     true, true, () -> {}

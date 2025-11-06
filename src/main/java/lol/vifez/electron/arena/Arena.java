@@ -88,8 +88,7 @@ public class Arena {
 
     public void kitsCleanup() {
         Practice instance = JavaPlugin.getPlugin(Practice.class);
-
-        kits.removeIf(str -> instance.getKitManager().getKit(str.toLowerCase()) == null);
+        kits.removeIf(str -> instance.getKitManager().getKit(str) == null);
     }
 
     public void teleport(Player player) {

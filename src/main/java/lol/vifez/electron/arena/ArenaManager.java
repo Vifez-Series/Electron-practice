@@ -13,11 +13,11 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-/* 
+/*
  * Electron © Vifez
  * Developed by Vifez
  * Copyright (c) 2025 Vifez. All rights reserved.
-*/
+ */
 
 public class ArenaManager {
 
@@ -30,28 +30,33 @@ public class ArenaManager {
 
         if (section != null) {
             section.getKeys(false).forEach(key -> {
-                String name = key.toLowerCase();
-                String type = section.getString(name + ".type");
-                String spawnA = section.getString(name + ".spawnA");
-                String spawnB = section.getString(name + ".spawnB");
-                String icon = section.getString(name + ".icon");
-                String positionOne = section.getString(name + ".positionOne");
-                String positionTwo = section.getString(name + ".positionTwo");
+                String type = section.getString(key + ".type");
+                String spawnA = section.getString(key + ".spawnA");
+                String spawnB = section.getString(key + ".spawnB");
+                String icon = section.getString(key + ".icon");
+                String positionOne = section.getString(key + ".positionOne");
+                String positionTwo = section.getString(key + ".positionTwo");
 
-                Arena arena = new Arena(name, type, spawnA, spawnB, icon, positionOne, positionTwo);
-                arena.setKits(section.getStringList(name + ".kits"));
-                arenas.put(name, arena);
+                Arena arena = new Arena(key, type, spawnA, spawnB, icon, positionOne, positionTwo);
+                arena.setKits(section.getStringList(key + ".kits"));
+                arenas.put(key, arena);
             });
         }
     }
 
     public Arena getArena(String name) {
-        return arenas.get(name.toLowerCase());
+        for (Arena arena : arenas.values()) {
+            if (arena.getName().equalsIgnoreCase(name)) {
+                return arena;
+            }
+        }
+        return null;
     }
 
     public Set<Arena> getAllAvailableArenas(Kit kit) {
         return CompletableFuture.supplyAsync(() -> arenas.values().stream()
-                        .filter(arena -> arena.getKits().contains(kit.getName().toLowerCase()) && !arena.isBusy())
+                        .filter(arena -> arena.getKits().stream()
+                                .anyMatch(k -> k.equalsIgnoreCase(kit.getName())) && !arena.isBusy())
                         .collect(Collectors.toSet()))
                 .join();
     }
@@ -65,7 +70,7 @@ public class ArenaManager {
     }
 
     public void save(Arena arena) {
-        arenas.putIfAbsent(arena.getName().toLowerCase(), arena);
+        arenas.put(arena.getName(), arena);
     }
 
     public Collection<Arena> getArenas() {
@@ -73,16 +78,16 @@ public class ArenaManager {
     }
 
     public void delete(Arena arena) {
-        arenas.remove(arena.getName().toLowerCase());
+        arenas.remove(arena.getName());
 
         Practice.getInstance().getArenasFile().getConfiguration()
-                .set("arenas." + arena.getName().toLowerCase(), null);
+                .set("arenas." + arena.getName(), null);
         Practice.getInstance().getArenasFile().save();
     }
 
     public void close() {
         arenas.values().forEach(arena -> {
-            String path = "arenas." + arena.getName().toLowerCase();
+            String path = "arenas." + arena.getName();
             Practice.getInstance().getArenasFile().getConfiguration().set(path + ".type", arena.getType());
             Practice.getInstance().getArenasFile().getConfiguration().set(path + ".spawnA", formatLocation(arena.getSpawnA()));
             Practice.getInstance().getArenasFile().getConfiguration().set(path + ".spawnB", formatLocation(arena.getSpawnB()));

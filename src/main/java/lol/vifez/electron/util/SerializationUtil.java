@@ -11,11 +11,11 @@ import org.bukkit.util.io.BukkitObjectOutputStream;
 import java.io.*;
 import java.util.Base64;
 
-/* 
+/*
  * Electron © Vifez
  * Developed by Vifez
  * Copyright (c) 2025 Vifez. All rights reserved.
-*/
+ */
 
 @UtilityClass
 public class SerializationUtil {
@@ -78,6 +78,30 @@ public class SerializationUtil {
             float pitch = Float.parseFloat(parts[5]);
             return new Location(world, x, y, z, yaw, pitch);
         } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String serializeItemStack(ItemStack item) {
+        if (item == null) return "";
+        try (ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+             BukkitObjectOutputStream out = new BukkitObjectOutputStream(byteStream)) {
+            out.writeObject(item);
+            out.close();
+            return Base64.getEncoder().encodeToString(byteStream.toByteArray());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public ItemStack deserializeItemStack(String data) {
+        if (data == null || data.isEmpty()) return null;
+        try (ByteArrayInputStream byteStream = new ByteArrayInputStream(Base64.getDecoder().decode(data));
+             BukkitObjectInputStream in = new BukkitObjectInputStream(byteStream)) {
+            return (ItemStack) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
         }

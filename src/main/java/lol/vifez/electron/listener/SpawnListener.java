@@ -52,7 +52,7 @@ public class SpawnListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         Profile profile = Practice.getInstance().getProfileManager().getProfile(event.getPlayer().getUniqueId());
 
-        if (profile.inMatch() && Practice.getInstance().getMatchManager().getMatch(profile.getUuid()).getArena().getType().toLowerCase().contains("build")) {
+        if (profile.inMatch() && Practice.getInstance().getMatchManager().getMatch(profile.getUuid()).getArena().getType().contains("build")) {
             event.setCancelled(false);
         } else {
             event.setCancelled(!profile.inMatch() && !profile.isBuildMode());
@@ -63,7 +63,7 @@ public class SpawnListener implements Listener {
     public void onBlockPlace(BlockPlaceEvent event) {
         Profile profile = Practice.getInstance().getProfileManager().getProfile(event.getPlayer().getUniqueId());
 
-        if (profile.inMatch() && Practice.getInstance().getMatchManager().getMatch(profile.getUuid()).getArena().getType().toLowerCase().contains("build")) {
+        if (profile.inMatch() && Practice.getInstance().getMatchManager().getMatch(profile.getUuid()).getArena().getType().contains("build")) {
             event.setCancelled(false);
         } else {
             event.setCancelled(!profile.inMatch() && !profile.isBuildMode());

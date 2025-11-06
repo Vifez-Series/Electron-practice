@@ -46,7 +46,7 @@ public class KitCommands extends BaseCommand {
 
     @Subcommand("create")
     public void create(CommandSender sender, @Name("kit") @Single String kitName) {
-        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
+        Kit kit = instance.getKitManager().getKit(kitName);
 
         if (kit != null) {
             sender.sendMessage(CC.translate("&cKit already exists!"));
@@ -54,7 +54,7 @@ public class KitCommands extends BaseCommand {
         }
 
         kit = new Kit(kitName);
-        kit.setIcon(Material.BOOK);
+        kit.setIcon(new ItemStack(Material.BOOK));
         instance.getKitManager().save(kit);
 
         sender.sendMessage(CC.translate("&7[&b" + kit.getName() + "&7] &fKit created"));
@@ -62,7 +62,7 @@ public class KitCommands extends BaseCommand {
 
     @Subcommand("delete")
     public void delete(CommandSender sender, @Name("kit") @Single String kitName) {
-        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
+        Kit kit = instance.getKitManager().getKit(kitName);
 
         if (kit == null) {
             sender.sendMessage(CC.translate("&cKit not found!"));
@@ -82,7 +82,7 @@ public class KitCommands extends BaseCommand {
 
     @Subcommand("setInventory")
     public void setInventory(Player player, @Name("kit") @Single String kitName) {
-        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
+        Kit kit = instance.getKitManager().getKit(kitName);
 
         if (kit == null) {
             player.sendMessage(CC.translate("&cKit not found!"));
@@ -98,7 +98,7 @@ public class KitCommands extends BaseCommand {
 
     @Subcommand("getInventory")
     public void getInventory(Player player, @Name("kit") @Single String kitName) {
-        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
+        Kit kit = instance.getKitManager().getKit(kitName);
 
         if (kit == null) {
             player.sendMessage(CC.translate("&cKit not found!"));
@@ -114,7 +114,7 @@ public class KitCommands extends BaseCommand {
 
     @Subcommand("setIcon")
     public void setIcon(Player player, @Name("kit") @Single String kitName) {
-        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
+        Kit kit = instance.getKitManager().getKit(kitName);
 
         if (kit == null) {
             player.sendMessage(CC.translate("&cKit not found!"));
@@ -127,7 +127,7 @@ public class KitCommands extends BaseCommand {
             return;
         }
 
-        kit.setIcon(item.getType());
+        kit.setIcon(item.clone());
         instance.getKitManager().save(kit);
 
         player.sendMessage(CC.translate("&7[&b" + kit.getName() + "&7] &fIcon updated"));
@@ -135,7 +135,7 @@ public class KitCommands extends BaseCommand {
 
     @Subcommand("setType")
     public void setType(Player player, @Name("kit") @Single String kitName, @Name("type") @Single String type) {
-        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
+        Kit kit = instance.getKitManager().getKit(kitName);
 
         if (kit == null) {
             player.sendMessage(CC.translate("&cKit not found!"));
@@ -155,7 +155,7 @@ public class KitCommands extends BaseCommand {
 
     @Subcommand("setRanked")
     public void setRanked(Player player, @Name("kit") @Single String kitName) {
-        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
+        Kit kit = instance.getKitManager().getKit(kitName);
 
         if (kit == null) {
             player.sendMessage(CC.translate("&cKit not found!"));
@@ -171,7 +171,7 @@ public class KitCommands extends BaseCommand {
 
     @Subcommand("setDescription")
     public void setDescription(CommandSender sender, @Name("kit") @Single String kitName, String[] descriptionArgs) {
-        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
+        Kit kit = instance.getKitManager().getKit(kitName);
 
         if (kit == null) {
             sender.sendMessage(CC.translate("&cKit not found!"));

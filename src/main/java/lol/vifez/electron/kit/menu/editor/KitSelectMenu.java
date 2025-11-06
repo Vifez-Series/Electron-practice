@@ -11,6 +11,7 @@ import lol.vifez.electron.util.menu.button.impl.EasyButton;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 
 import java.util.*;
 
@@ -46,14 +47,15 @@ public class KitSelectMenu extends Menu {
                     new ItemBuilder(kit.getDisplayItem())
                             .name(kit.getColor() + kit.getName())
                             .lore("&r", "&fClick to edit " + kit.getColor() + kit.getName() + "&f's kit layout")
+                            .flag(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_ENCHANTS)
                             .build(),
                     true, false, () -> {
                 Profile profile = instance.getProfileManager().getProfile(p0.getUniqueId());
 
-                if (profile.getKitLoadout().get(kit.getName().toLowerCase()) == null) {
+                if (profile.getKitLoadout().get(kit.getName()) == null) {
                     p0.getInventory().setContents(kit.getContents());
                 } else {
-                    p0.getInventory().setContents(profile.getKitLoadout().get(kit.getName().toLowerCase()));
+                    p0.getInventory().setContents(profile.getKitLoadout().get(kit.getName()));
                 }
 
                 setClosedByMenu(true);

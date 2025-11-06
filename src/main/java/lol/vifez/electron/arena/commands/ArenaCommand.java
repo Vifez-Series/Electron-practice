@@ -114,7 +114,7 @@ public class ArenaCommand extends BaseCommand {
             return;
         }
 
-        arena.getKits().add(kitName.toLowerCase());
+        arena.getKits().add(kitName);
         sender.sendMessage(CC.translate("&7[&b" + arenaName + "&7] &b" + kitName + " &fkit was added"));
     }
 
@@ -127,7 +127,7 @@ public class ArenaCommand extends BaseCommand {
             return;
         }
 
-        arena.getKits().remove(kitName.toLowerCase());
+        arena.getKits().remove(kitName);
         sender.sendMessage(CC.translate("&7[&b" + arenaName + "&7] &b" + kitName + " &fwas removed"));
     }
 

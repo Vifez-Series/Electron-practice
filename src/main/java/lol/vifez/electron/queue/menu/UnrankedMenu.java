@@ -105,7 +105,7 @@ class KitButton extends EasyButton {
                         "",
                         "&aClick to queue"
                 )
-                .flag(ItemFlag.HIDE_ATTRIBUTES)
+                .flag(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_ENCHANTS)
                 .build(), true, false, () -> {
             Profile profile = instance.getProfileManager().getProfile(player.getUniqueId());
             instance.getQueueManager().getQueue(kit, false).add(profile.getPlayer());

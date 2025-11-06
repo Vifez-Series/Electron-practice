@@ -65,7 +65,7 @@ public class KitEditMenu extends Menu {
                         .lore("&r", "&fKit: &b" + kit.getName(), "&fClick to save your kit changes")
                         .build(),
                 true, false, () -> {
-            profile.getKitLoadout().put(kit.getName().toLowerCase(), player.getInventory().getContents());
+            profile.getKitLoadout().put(kit.getName(), player.getInventory().getContents());
             player.closeInventory();
             CC.sendMessage(player, "&aSuccessfully saved " + kit.getColor() + kit.getName() + " &alayout");
         }));

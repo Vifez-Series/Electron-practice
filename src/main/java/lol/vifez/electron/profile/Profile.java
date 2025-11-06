@@ -78,11 +78,11 @@ public class Profile {
     }
 
     public int getElo(Kit kit) {
-        return eloMap.getOrDefault(kit.getName().toLowerCase(), 1000);
+        return eloMap.getOrDefault(kit.getName(), 1000);
     }
 
     public void setElo(Kit kit, int elo) {
-        eloMap.put(kit.getName().toLowerCase(), elo);
+        eloMap.put(kit.getName(), elo);
     }
 
     public boolean inMatch() {

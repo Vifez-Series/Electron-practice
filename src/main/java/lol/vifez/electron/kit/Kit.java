@@ -12,11 +12,11 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-/* 
+/*
  * Electron © Vifez
  * Developed by Vifez
  * Copyright (c) 2025 Vifez. All rights reserved.
-*/
+ */
 
 @Data
 public class Kit {
@@ -25,7 +25,7 @@ public class Kit {
     private List<String> description = new ArrayList<>();
 
     private ItemStack[] contents = new ItemStack[]{}, armorContents = new ItemStack[]{};
-    private Material icon = Material.BOOK;
+    private ItemStack icon = new ItemStack(Material.BOOK);
 
     private ChatColor color = ChatColor.AQUA;
     private KitType kitType = KitType.REGULAR;
@@ -34,10 +34,10 @@ public class Kit {
     private boolean ranked = false;
 
     public ItemStack getDisplayItem() {
-        List<String> list = new ArrayList<>(description);
-        return new lol.vifez.electron.util.ItemBuilder(icon)
+        ItemStack item = icon.clone();
+        return new lol.vifez.electron.util.ItemBuilder(item)
                 .name(color + name)
-                .lore(list)
+                .lore(description)
                 .build();
     }
 
@@ -45,7 +45,7 @@ public class Kit {
         section.set("description", description);
         section.set("contents", SerializationUtil.serializeItemStackArray(contents));
         section.set("armorContents", SerializationUtil.serializeItemStackArray(armorContents));
-        section.set("icon", icon.name());
+        section.set("icon", SerializationUtil.serializeItemStack(icon));
         section.set("color", color.name());
         section.set("kitType", kitType.name());
         section.set("weight", weight);
@@ -80,9 +80,22 @@ public class Kit {
             Practice.getInstance().getLogger().warning("Failed to load armor for kit " + name + ": " + e.getMessage());
         }
 
-        if (section.isString("icon")) {
-            try { kit.setIcon(Material.valueOf(section.getString("icon"))); } catch (IllegalArgumentException ignored) {}
+        try {
+            String iconData = section.getString("icon");
+            if (iconData != null && !iconData.isEmpty()) {
+                kit.setIcon(SerializationUtil.deserializeItemStack(iconData));
+            } else if (section.isString("icon")) {
+                try {
+                    kit.setIcon(new ItemStack(Material.valueOf(section.getString("icon"))));
+                } catch (IllegalArgumentException ignored) {
+                    kit.setIcon(new ItemStack(Material.BOOK));
+                }
+            }
+        } catch (Exception e) {
+            kit.setIcon(new ItemStack(Material.BOOK));
+            Practice.getInstance().getLogger().warning("Failed to load icon for kit " + name + ": " + e.getMessage());
         }
+
         if (section.isString("color")) {
             try { kit.setColor(ChatColor.valueOf(section.getString("color"))); } catch (IllegalArgumentException ignored) {}
         }

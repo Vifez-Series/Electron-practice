@@ -67,9 +67,9 @@ public class MatchTask extends BukkitRunnable {
                         match.setMatchState(MatchState.STARTED);
 
                         Arrays.asList(match.getPlayerOne(), match.getPlayerTwo()).forEach(profile -> {
-                            if (profile.getKitLoadout().containsKey(match.getKit().getName().toLowerCase())) {
+                            if (profile.getKitLoadout().containsKey(match.getKit().getName())) {
                                 profile.getPlayer().getInventory().setContents(
-                                        profile.getKitLoadout().get(match.getKit().getName().toLowerCase())
+                                        profile.getKitLoadout().get(match.getKit().getName())
                                 );
                             } else {
                                 profile.getPlayer().getInventory().setContents(match.getKit().getContents());

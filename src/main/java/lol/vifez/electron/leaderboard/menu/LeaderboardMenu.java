@@ -12,6 +12,7 @@ import lol.vifez.electron.util.menu.button.impl.EasyButton;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
@@ -120,6 +121,7 @@ class LeaderboardButton extends EasyButton {
 
         return new ItemBuilder(kit.getDisplayItem())
                 .name(kit.getColor() + kit.getName())
+                .flag(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_ENCHANTS)
                 .lore(lore)
                 .build();
     }
