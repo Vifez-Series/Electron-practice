@@ -31,17 +31,25 @@ public class Leaderboard {
 
     public String[] getLeaderboardLayout(Kit kit) {
         List<Profile> leaderboard = getLeaderboard(kit);
-        String[] leaderboardLayout = new String[10];
+        String[] layout = new String[10];
 
-        for (int i = 0; i < leaderboardLayout.length; i++) {
+        for (int i = 0; i < layout.length; i++) {
+            int rank = i + 1;
             if (i < leaderboard.size()) {
                 Profile profile = leaderboard.get(i);
-                leaderboardLayout[i] = "&b" + (i + 1) + ". &f" + profile.getName() + " &7[&b" + profile.getElo(kit) + "&7]";
+                layout[i] = getRankColor(rank) + "✩" + rank
+                        + " &f" + profile.getName()
+                        + " &7[&b" + profile.getElo(kit) + "&7]";
             } else {
-                leaderboardLayout[i] = "&b" + (i + 1) + ". &cN/A";
+                layout[i] = getRankColor(rank) + "✩" + rank + " &cN/A";
             }
         }
+        return layout;
+    }
 
-        return leaderboardLayout;
+    public static String getRankColor(int rank) {
+        if (rank == 1) return "&6";
+        if (rank == 2 || rank == 3) return "&e";
+        return "&b";
     }
 }

@@ -3,6 +3,7 @@ package lol.vifez.electron.leaderboard.menu;
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.elo.EloUtil;
 import lol.vifez.electron.kit.Kit;
+import lol.vifez.electron.leaderboard.Leaderboard;
 import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.util.ItemBuilder;
 import lol.vifez.electron.util.menu.Menu;
@@ -15,6 +16,12 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+/*
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 @RequiredArgsConstructor
 public class LeaderboardMenu extends Menu {
@@ -46,7 +53,9 @@ public class LeaderboardMenu extends Menu {
         for (int i = 0; i < topPlayers.size(); i++) {
             Profile profile = topPlayers.get(i);
             int globalElo = EloUtil.getGlobalElo(profile);
-            lore.add("&b" + (i + 1) + ". &f" + profile.getName() + " &7[&b" + globalElo + "&7]");
+            int rank = i + 1;
+            String color = Leaderboard.getRankColor(rank);
+            lore.add(color + "✩" + rank + " &f" + profile.getName() + " &7[&b" + globalElo + "&7]");
         }
 
         buttons.put(4, new EasyButton(
