@@ -25,9 +25,9 @@ public class EloCommand extends BaseCommand {
     public void help(CommandSender sender) {
         CC.sendMessage(sender, "&b&lElo Commands",
                 "",
-                "&7▪ &b/elo set &7<player> <kit> <elo>",
-                "&7▪ &b/elo add &7<player> <kit> <elo>",
-                "&7▪ &b/elo remove &7<player> <kit> <elo>");
+                "&f • &b/elo set &f<player> <kit> <elo>",
+                "&f • &b/elo add &f<player> <kit> <elo>",
+                "&f • &b/elo remove &f<player> <kit> <elo>");
     }
 
     @Subcommand("set")

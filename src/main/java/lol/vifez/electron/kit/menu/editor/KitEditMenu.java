@@ -25,7 +25,7 @@ public class KitEditMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return "&7Editing...";
+        return "&fEditing...";
     }
 
     @Override
@@ -46,7 +46,7 @@ public class KitEditMenu extends Menu {
         buttons.put(11, new EasyButton(new ItemBuilder(Material.WOOL)
                 .name("&2&lSave & Exit")
                 .durability((short) 13)
-                .lore("&r", "&7Click here to save this layout and exit the menu")
+                .lore("&r", "&fClick here to save this layout and exit the menu")
                 .build(), true, false, () -> {
             profile.getKitLoadout().put(kit.getName().toLowerCase(), player.getInventory().getContents());
             player.closeInventory();
@@ -59,7 +59,7 @@ public class KitEditMenu extends Menu {
         buttons.put(13, new EasyButton(new ItemBuilder(Material.WOOL)
                 .name("&e&lReset")
                 .durability((short) 4)
-                .lore("&r", "&7Click here to reset this layout to the default")
+                .lore("&r", "&fClick here to reset this layout to the default")
                 .build(), true, false, () -> {
             player.getInventory().setContents(kit.getContents());
         }));
@@ -67,7 +67,7 @@ public class KitEditMenu extends Menu {
         buttons.put(15, new EasyButton(new ItemBuilder(Material.WOOL)
                 .name("&c&lCancel & Exit")
                 .durability((short) 14)
-                .lore("&r", "&7Click here to exit the menu and not save the changes")
+                .lore("&r", "&fClick here to exit the menu and not save the changes")
                 .build(), true, false, () -> {
             profile.setEditMode(false);
             CC.sendMessage(player, "&cCancelled layout changes");

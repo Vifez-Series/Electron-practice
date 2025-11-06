@@ -59,12 +59,12 @@ public class LeaderboardMenu extends Menu {
 
         buttons.put(40, new EasyButton(
                 new ItemBuilder(Material.BOOK)
-                        .name("&b&lYour Stats")
+                        .name("&a&lYour Stats")
                         .lore(Arrays.asList(
-                                "&7View your personal elo",
-                                "&7for each kit and globally.",
+                                "&fView your personal elo",
+                                "&ffor each kit and globally.",
                                 " ",
-                                "&bClick to view!"
+                                "&aClick to view!"
                         ))
                         .build(),
                 true, true, () -> new YourStatsMenu(instance).openMenu(player)

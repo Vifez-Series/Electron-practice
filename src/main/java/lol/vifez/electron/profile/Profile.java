@@ -140,13 +140,13 @@ public class Profile {
         this.duelRequest = request;
         targetProfile.setDuelRequest(request);
 
-        CC.sendMessage(sender, CC.translate("\n&c&lDuel sent\n&7▪ Opponent: &c" + target.getName() + "\n&7▪ Kit: &c" + kit.getName() + "\n "));
+        CC.sendMessage(sender, CC.translate("\n&c&lDuel sent\n&f• Opponent: &c" + target.getName() + "\n&f• Kit: &c" + kit.getName() + "\n "));
 
         new MessageBuilder(CC.translate(
                 "\n&c&lDuel Request" +
-                        "\n&7▪ Opponent: &c" +
+                        "\n&f• Opponent: &c" +
                         name +
-                        "\n&7▪ Kit: &c" + kit.getName() +
+                        "\n&f• Kit: &c" + kit.getName() +
                         "\n&a&lCLICK TO ACCEPT\n"))
                 .hover(true)
                 .clickable(true)

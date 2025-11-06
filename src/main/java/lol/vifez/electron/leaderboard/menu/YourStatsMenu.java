@@ -48,8 +48,8 @@ public class YourStatsMenu extends Menu {
         int globalElo = EloUtil.getGlobalElo(profile);
 
         List<String> globalLore = new ArrayList<>();
-        globalLore.add("&7Your overall average");
-        globalLore.add("&7across all ranked kits.");
+        globalLore.add("&fYour overall average");
+        globalLore.add("&facross all ranked kits.");
         globalLore.add(" ");
         globalLore.add("&fGlobal Elo: &b" + globalElo);
 
@@ -95,10 +95,10 @@ public class YourStatsMenu extends Menu {
                 new ItemBuilder(Material.BOOK)
                         .name("&a&lLeaderboards")
                         .lore(Arrays.asList(
-                                "&7View the global",
-                                "&7Leaderboards.",
+                                "&fView the global",
+                                "&fLeaderboards.",
                                 " ",
-                                "&bClick to view!"
+                                "&aClick to view!"
                         ))
                         .build(),
                 true, true, () -> new LeaderboardMenu(instance).openMenu(player)

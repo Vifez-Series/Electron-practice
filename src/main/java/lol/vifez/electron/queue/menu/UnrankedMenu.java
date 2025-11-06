@@ -83,8 +83,8 @@ public class UnrankedMenu extends Menu {
 
                     CC.sendMessage(player, " ");
                     CC.sendMessage(player, "&e&lRandom Queue &7[UR]");
-                    CC.sendMessage(player, "&e▪ &7Kit: &e" + randomKit.getName());
-                    CC.sendMessage(player, "&e▪ &7Searching for a &eplayer...");
+                    CC.sendMessage(player, "&e• &7Kit: &e" + randomKit.getName());
+                    CC.sendMessage(player, "&e• &7Searching for a &eplayer...");
                     CC.sendMessage(player, " ");
                     player.closeInventory();
                 }
@@ -112,8 +112,8 @@ class KitButton extends EasyButton {
 
             CC.sendMessage(player, " ");
             CC.sendMessage(player, "&b&lUnranked Queue");
-            CC.sendMessage(player, "&b▪ &7Kit: &b" + kit.getName());
-            CC.sendMessage(player, "&b▪ &7Searching for a &bplayer...");
+            CC.sendMessage(player, "&b• &7Kit: &b" + kit.getName());
+            CC.sendMessage(player, "&b• &7Searching for a &bplayer...");
             CC.sendMessage(player, " ");
 
             player.closeInventory();

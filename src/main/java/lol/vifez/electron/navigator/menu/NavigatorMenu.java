@@ -100,7 +100,7 @@ public class NavigatorMenu extends Menu {
         for (int i = 0; i < getSize(); i++) {
             if (!buttons.containsKey(i)) {
                 buttons.put(i, new EasyButton(new ItemBuilder(Material.STAINED_GLASS_PANE)
-                        .durability((short) 7)
+                        .durability((short) 15)
                         .name(" ")
                         .build(), true, false, () -> {}));
             }

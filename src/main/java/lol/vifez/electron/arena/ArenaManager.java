@@ -1,7 +1,6 @@
-package lol.vifez.electron.arena.manager;
+package lol.vifez.electron.arena;
 
 import lol.vifez.electron.Practice;
-import lol.vifez.electron.arena.Arena;
 import lol.vifez.electron.kit.Kit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;

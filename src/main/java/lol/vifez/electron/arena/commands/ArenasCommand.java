@@ -9,6 +9,12 @@ import lol.vifez.electron.arena.menu.ArenasMenu;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
+ */
+
 @CommandAlias("arenas")
 @CommandPermission("electron.admin")
 public class ArenasCommand extends BaseCommand {

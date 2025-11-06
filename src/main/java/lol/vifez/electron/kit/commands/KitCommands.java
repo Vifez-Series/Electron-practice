@@ -34,15 +34,15 @@ public class KitCommands extends BaseCommand {
         sender.sendMessage(CC.translate("&7Once you've made changes, run:"));
         sender.sendMessage(CC.translate("&b/kit save"));
         sender.sendMessage(CC.translate(" "));
-        sender.sendMessage(CC.translate("&7▪ &b/kit create &7<kit> &f- &fCreate a new kit"));
-        sender.sendMessage(CC.translate("&7▪ &b/kit delete &7<kit> &f- &fDelete an existing kit"));
-        sender.sendMessage(CC.translate("&7▪ &b/kit setType &7<kit> <type> &f- &fSet the type of a kit"));
-        sender.sendMessage(CC.translate("&7▪ &b/kit setInventory &7<kit> &f- &fSet the inventory of a kit"));
-        sender.sendMessage(CC.translate("&7▪ &b/kit getInventory &7<kit> &f- &fGet the inventory of a kit"));
-        sender.sendMessage(CC.translate("&7▪ &b/kit setIcon &7<kit> &f- &fSet the icon for a kit"));
-        sender.sendMessage(CC.translate("&7▪ &b/kit setRanked &7<kit> &f- &fToggle whether a kit is ranked"));
-        sender.sendMessage(CC.translate("&7▪ &b/kit setDescription &7<kit> <description> &f- &fSet the description of a kit"));
-        sender.sendMessage(CC.translate("&7▪ &b/kit list &f- &fList all kits"));
+        sender.sendMessage(CC.translate("&f • &b/kit create &f<kit> - &fCreate a new kit"));
+        sender.sendMessage(CC.translate("&f • &b/kit delete &f<kit> - &fDelete an existing kit"));
+        sender.sendMessage(CC.translate("&f • &b/kit setType &f<kit> <type> - &fSet the type of a kit"));
+        sender.sendMessage(CC.translate("&f • &b/kit setInventory &f<kit> - &fSet the inventory of a kit"));
+        sender.sendMessage(CC.translate("&f • &b/kit getInventory &f<kit> - &fGet the inventory of a kit"));
+        sender.sendMessage(CC.translate("&f • &b/kit setIcon &f<kit> - &fSet the icon for a kit"));
+        sender.sendMessage(CC.translate("&f • &b/kit setRanked &f<kit> - &fToggle whether a kit is ranked"));
+        sender.sendMessage(CC.translate("&f • &b/kit setDescription &f<kit> <description> - &fSet the description of a kit"));
+        sender.sendMessage(CC.translate("&f • &b/kit list - &fList all kits"));
         sender.sendMessage(CC.translate(" "));
     }
 
@@ -153,10 +153,10 @@ public class KitCommands extends BaseCommand {
             instance.getKitManager().save(kit);
         } catch (IllegalArgumentException ignored) {
             CC.sendMessage(player, "&cInvalid kit type, Please use one of the following:");
-            CC.sendMessage(player, "&7▪ REGULAR");
-            CC.sendMessage(player, "&7▪ BUILD");
-            CC.sendMessage(player, "&7▪ BOXING");
-            CC.sendMessage(player, "&7▪ WATER_KILL");
+            CC.sendMessage(player, "&f• REGULAR");
+            CC.sendMessage(player, "&f• BUILD");
+            CC.sendMessage(player, "&f• BOXING");
+            CC.sendMessage(player, "&f• WATER_KILL");
         }
     }
 
@@ -180,7 +180,7 @@ public class KitCommands extends BaseCommand {
         sender.sendMessage(CC.translate(" "));
 
         for (Kit kit : instance.getKitManager().getKits().values()) {
-            sender.sendMessage(CC.translate("&7▪ &b" + kit.getColor() + kit.getName() + "&7 &f- &f" + kit.getDescription()));
+            sender.sendMessage(CC.translate("&f • " + kit.getColor() + kit.getName() + "&7 - &f" + kit.getDescription()));
         }
     }
 
