@@ -3,6 +3,5 @@ version: ${project.version}
 main: lol.vifez.electron.Practice
 soft-depend:
   - PlaceholderAPI
-authors:
-  - 'vifez'
+author: vifez
 website: www.vifez.lol
