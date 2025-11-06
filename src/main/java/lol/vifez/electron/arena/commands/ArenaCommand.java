@@ -183,7 +183,7 @@ public class ArenaCommand extends BaseCommand {
         sender.sendMessage(CC.translate("&aMaximum point set!"));
     }
 
-    @Subcommand("tp")
+    @Subcommand("tp|teleport")
     @CommandPermission("electron.admin")
     public void teleportToArena(Player sender, @Single String arenaName) {
         Arena arena = arenaManager.getArena(arenaName);
@@ -192,14 +192,7 @@ public class ArenaCommand extends BaseCommand {
             return;
         }
 
-        if (arena.getSpawnA() == null) {
-            sender.sendMessage(CC.translate("&cUnable to teleport you to this arena"));
-            sender.sendMessage(CC.translate("&cSet the first player position spawn (/arena setPos1 <arena>)"));
-            return;
-        }
-
-        sender.teleport(arena.getSpawnA());
-        sender.sendMessage(CC.translate("&aTeleported to &b" + arena.getName() + " &7(pos1)."));
+        arena.teleport(sender);
     }
 
     @Subcommand("save")

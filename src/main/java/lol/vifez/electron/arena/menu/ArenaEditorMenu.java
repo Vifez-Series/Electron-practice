@@ -119,6 +119,16 @@ public class ArenaEditorMenu extends Menu {
                 true, false, () -> new ArenaKitsMenu(arena, arenaManager).openMenu(player)
         ));
 
+        map.put(22, new EasyButton(
+                new ItemBuilder(Material.ENDER_PEARL)
+                        .name("&bTeleport to Arena")
+                        .lore("&fClick to teleport to this arena.")
+                        .build(),
+                true, false, () -> {
+            arena.teleport(player);
+        }
+        ));
+
         map.put(39, new EasyButton(
                 new ItemBuilder(Material.INK_SACK)
                         .durability((short)1)

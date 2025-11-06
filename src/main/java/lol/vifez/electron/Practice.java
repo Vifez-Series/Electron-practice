@@ -1,7 +1,6 @@
 package lol.vifez.electron;
 
 import co.aikar.commands.BukkitCommandManager;
-import co.aikar.commands.PaperCommandManager;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -59,7 +58,6 @@ import xyz.refinedev.api.skin.SkinAPI;
 import xyz.refinedev.api.tablist.TablistHandler;
 
 import java.io.File;
-import java.util.Arrays;
 
 /* 
  * Electron © Vifez
@@ -182,29 +180,27 @@ public final class Practice extends JavaPlugin {
     }
 
     private void registerCommands() {
-        BukkitCommandManager manager = getBukkitCommandManager();
+        BukkitCommandManager manager = new BukkitCommandManager(this);
 
-        Arrays.asList(
-                new ArenaCommand(arenaManager),
-                new ArenasCommand(),
-                new KitCommands(),
-                new ElectronCommand(),
-                new BuildModeCommand(),
-                new EloCommand(),
-                new SetSpawnCommand(),
-                new LeaderboardCommand(),
-                new MessageCommand(),
-                new ReplyCommand(),
-                new MoreCommand(),
-                new DuelCommand(),
-                new SettingsCommand(),
-                new NavigatorCommand(),
-                new DivisionsCommand(),
-                new SurrenderCommand(),
-                new RenameCommand(),
-                new RematchCommand(),
-                new ForceQueueCommand()
-        ).forEach(manager::registerCommand);
+        manager.registerCommand(new ArenaCommand(arenaManager));
+        manager.registerCommand(new ArenasCommand());
+        manager.registerCommand(new KitCommands());
+        manager.registerCommand(new ElectronCommand());
+        manager.registerCommand(new BuildModeCommand());
+        manager.registerCommand(new EloCommand());
+        manager.registerCommand(new SetSpawnCommand());
+        manager.registerCommand(new LeaderboardCommand());
+        manager.registerCommand(new MessageCommand());
+        manager.registerCommand(new ReplyCommand());
+        manager.registerCommand(new MoreCommand());
+        manager.registerCommand(new DuelCommand());
+        manager.registerCommand(new SettingsCommand());
+        manager.registerCommand(new NavigatorCommand());
+        manager.registerCommand(new DivisionsCommand());
+        manager.registerCommand(new SurrenderCommand());
+        manager.registerCommand(new RenameCommand());
+        manager.registerCommand(new RematchCommand());
+        manager.registerCommand(new ForceQueueCommand());
     }
 
     private void initializeListeners() {

@@ -7,15 +7,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 import java.util.UUID;
 
-/* 
+/*
  * Electron © Vifez
  * Developed by Vifez
  * Copyright (c) 2025 Vifez. All rights reserved.
-*/
+ */
 
 public class PearlListener implements Listener {
 
@@ -36,11 +37,41 @@ public class PearlListener implements Listener {
 
         if (now - last < COOLDOWN) {
             double seconds = (COOLDOWN - (now - last)) / 1000.0;
-            player.sendMessage(CC.translate("&cYou are on cooldown for " + String.format("%.1f", seconds) + "s"));
+            player.sendMessage(CC.translate("&cYou must wait &e" + String.format("%.1f", seconds) + "s &cto throw another pearl."));
             event.setCancelled(true);
             return;
         }
 
         cooldowns.put(player.getUniqueId(), now);
+        startBar(player);
+    }
+
+    private void startBar(Player player) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (!player.isOnline()) {
+                    cancel();
+                    return;
+                }
+
+                long last = cooldowns.getOrDefault(player.getUniqueId(), 0L);
+                long elapsed = System.currentTimeMillis() - last;
+
+                if (elapsed >= COOLDOWN) {
+                    player.setLevel(0);
+                    player.setExp(0f);
+                    cooldowns.remove(player.getUniqueId());
+                    player.sendMessage(CC.translate("&aYou can now throw an enderpearl!"));
+                    cancel();
+                    return;
+                }
+
+                double remaining = (COOLDOWN - elapsed) / 1000.0;
+                float xp = (float) (remaining / (COOLDOWN / 1000.0));
+                player.setLevel((int) Math.ceil(remaining));
+                player.setExp(xp);
+            }
+        }.runTaskTimerAsynchronously(Practice.getInstance(), 0L, 2L);
     }
 }

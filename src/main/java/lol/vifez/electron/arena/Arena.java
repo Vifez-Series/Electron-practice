@@ -1,10 +1,12 @@
 package lol.vifez.electron.arena;
 
 import lol.vifez.electron.Practice;
+import lol.vifez.electron.util.CC;
 import lombok.Data;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
@@ -88,5 +90,15 @@ public class Arena {
         Practice instance = JavaPlugin.getPlugin(Practice.class);
 
         kits.removeIf(str -> instance.getKitManager().getKit(str.toLowerCase()) == null);
+    }
+
+    public void teleport(Player player) {
+        if (spawnA != null) {
+            player.teleport(spawnA);
+        } else if (spawnB != null) {
+            player.teleport(spawnB);
+        } else {
+            player.sendMessage(CC.translate("&cNo spawn point set."));
+        }
     }
 }
