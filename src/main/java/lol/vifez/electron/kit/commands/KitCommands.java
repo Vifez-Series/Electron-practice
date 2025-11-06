@@ -31,17 +31,14 @@ public class KitCommands extends BaseCommand {
         sender.sendMessage(CC.translate(" "));
         sender.sendMessage(CC.translate("&b&lKit Commands"));
         sender.sendMessage(CC.translate(" "));
-        sender.sendMessage(CC.translate("&7Once you've made changes, run:"));
-        sender.sendMessage(CC.translate("&b/kit save"));
-        sender.sendMessage(CC.translate(" "));
-        sender.sendMessage(CC.translate("&f • &b/kit create &f<kit> - &fCreate a new kit"));
-        sender.sendMessage(CC.translate("&f • &b/kit delete &f<kit> - &fDelete an existing kit"));
-        sender.sendMessage(CC.translate("&f • &b/kit setType &f<kit> <type> - &fSet the type of a kit"));
-        sender.sendMessage(CC.translate("&f • &b/kit setInventory &f<kit> - &fSet the inventory of a kit"));
-        sender.sendMessage(CC.translate("&f • &b/kit getInventory &f<kit> - &fGet the inventory of a kit"));
-        sender.sendMessage(CC.translate("&f • &b/kit setIcon &f<kit> - &fSet the icon for a kit"));
-        sender.sendMessage(CC.translate("&f • &b/kit setRanked &f<kit> - &fToggle whether a kit is ranked"));
-        sender.sendMessage(CC.translate("&f • &b/kit setDescription &f<kit> <description> - &fSet the description of a kit"));
+        sender.sendMessage(CC.translate("&f • &b/kit create &f<kit> &7- &fCreate a new kit"));
+        sender.sendMessage(CC.translate("&f • &b/kit delete &f<kit> &7- &fDelete an existing kit"));
+        sender.sendMessage(CC.translate("&f • &b/kit setType &f<kit> <type> &7- &fSet the type of a kit"));
+        sender.sendMessage(CC.translate("&f • &b/kit setInventory &f<kit> &7- &fSet the inventory of a kit"));
+        sender.sendMessage(CC.translate("&f • &b/kit getInventory &f<kit> &7- &fGet the inventory of a kit"));
+        sender.sendMessage(CC.translate("&f • &b/kit setIcon &f<kit> &7- &fSet the icon for a kit"));
+        sender.sendMessage(CC.translate("&f • &b/kit setRanked &f<kit> &7- &fToggle whether a kit is ranked"));
+        sender.sendMessage(CC.translate("&f • &b/kit setDescription &f<kit> <description> &7- &fSet the description of a kit"));
         sender.sendMessage(CC.translate("&f • &b/kit list - &fList all kits"));
         sender.sendMessage(CC.translate(" "));
     }
@@ -51,7 +48,7 @@ public class KitCommands extends BaseCommand {
         Kit kit = instance.getKitManager().getKit(kitSingle.toLowerCase());
 
         if (kit != null) {
-            CC.sendMessage(sender, "&cError: This kit already exists");
+            CC.sendMessage(sender, "&cKit already exists");
             return;
         }
 
@@ -59,7 +56,7 @@ public class KitCommands extends BaseCommand {
         kit.setIcon(Material.BOOK);
         instance.getKitManager().save(kit);
 
-        CC.sendMessage(sender, "&aKit &b" + kit.getColor() + kit.getName() + " &ahas been created");
+        CC.sendMessage(sender, "&fCreated &b" + kit.getColor() + kit.getName() + " &fkit");
     }
 
     @Subcommand("delete")
@@ -72,7 +69,7 @@ public class KitCommands extends BaseCommand {
         }
 
         instance.getKitManager().delete(kit);
-        CC.sendMessage(sender, "&aKit &b" + kit.getColor() + kit.getName() + " &ahas been deleted");
+        CC.sendMessage(sender, "&cDeleted &b" + kit.getColor() + kit.getName() + " &ckit");
     }
 
     @Subcommand("save")
@@ -95,8 +92,7 @@ public class KitCommands extends BaseCommand {
         kit.setContents(player.getInventory().getContents());
 
         instance.getKitManager().save(kit);
-
-        CC.sendMessage(player, "&fUpdated the kit layout for &b" + kit.getName());
+        CC.sendMessage(player, "&fUpdated &b" + kit.getName() + "'s &flayout");
     }
 
     @Subcommand("getInventory")
@@ -126,10 +122,12 @@ public class KitCommands extends BaseCommand {
         }
 
         ItemStack itemInHand = player.getInventory().getItemInHand();
+        instance.getKitManager().save(kit);
 
         if (itemInHand == null || itemInHand.getType() == Material.AIR) {
             CC.sendMessage(player, "&cThere is nothing in your hand...");
             return;
+
         }
 
         kit.setIcon(itemInHand.getType());
