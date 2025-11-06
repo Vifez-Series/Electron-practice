@@ -7,11 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 @Getter
 @RequiredArgsConstructor

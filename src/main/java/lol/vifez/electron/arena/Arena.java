@@ -9,11 +9,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 @Data
 public class Arena {

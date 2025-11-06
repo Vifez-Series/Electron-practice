@@ -7,11 +7,11 @@ import org.bukkit.command.CommandSender;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 public class CC {
     public static final String BLUE = ChatColor.BLUE.toString();

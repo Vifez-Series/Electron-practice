@@ -10,6 +10,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+/*
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+ */
+
 @CommandAlias("more")
 @CommandPermission("electron.staff")
 public class MoreCommand extends BaseCommand {

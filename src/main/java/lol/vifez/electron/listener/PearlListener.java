@@ -11,11 +11,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import java.util.HashMap;
 import java.util.UUID;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 public class PearlListener implements Listener {
 

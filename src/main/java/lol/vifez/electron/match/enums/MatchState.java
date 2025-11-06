@@ -1,10 +1,10 @@
 package lol.vifez.electron.match.enums;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 public enum MatchState {
     STARTING,

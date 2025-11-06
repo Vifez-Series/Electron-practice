@@ -6,11 +6,11 @@ import co.aikar.commands.annotation.Default;
 import lol.vifez.electron.divisions.menus.DivisionsMenu;
 import org.bukkit.entity.Player;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 @CommandAlias("divisions")
 public class DivisionsCommand extends BaseCommand {

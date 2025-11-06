@@ -4,11 +4,12 @@ import lombok.experimental.UtilityClass;
 
 import java.util.List;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez Series
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
+
 @UtilityClass
 public class StringUtil {
 

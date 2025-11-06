@@ -9,11 +9,11 @@ import lol.vifez.electron.arena.menu.ArenasMenu;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 @CommandAlias("arenas")
 @CommandPermission("electron.admin")

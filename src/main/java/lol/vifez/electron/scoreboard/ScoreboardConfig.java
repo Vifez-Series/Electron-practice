@@ -8,11 +8,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 public class ScoreboardConfig {
 

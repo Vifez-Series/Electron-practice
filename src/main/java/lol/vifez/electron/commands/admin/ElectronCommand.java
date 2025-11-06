@@ -9,11 +9,11 @@ import lol.vifez.electron.Practice;
 import lol.vifez.electron.util.CC;
 import org.bukkit.command.CommandSender;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 @CommandAlias("electron")
 public class ElectronCommand extends BaseCommand {

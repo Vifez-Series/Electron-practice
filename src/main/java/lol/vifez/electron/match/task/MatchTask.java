@@ -12,11 +12,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Arrays;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 public class MatchTask extends BukkitRunnable {
 

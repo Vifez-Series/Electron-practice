@@ -7,11 +7,11 @@ import lol.vifez.electron.queue.QueueManager;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.scheduler.BukkitRunnable;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 @RequiredArgsConstructor
 public class QueueTask extends BukkitRunnable {

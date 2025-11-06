@@ -10,11 +10,11 @@ import lol.vifez.electron.settings.menu.SettingsMenu;
 import lol.vifez.electron.util.CC;
 import org.bukkit.entity.Player;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 @CommandAlias("settings|options")
 public class SettingsCommand extends BaseCommand {

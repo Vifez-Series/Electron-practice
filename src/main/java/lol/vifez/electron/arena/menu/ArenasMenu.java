@@ -12,11 +12,11 @@ import org.bukkit.entity.Player;
 
 import java.util.*;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 @RequiredArgsConstructor
 public class ArenasMenu extends Menu {

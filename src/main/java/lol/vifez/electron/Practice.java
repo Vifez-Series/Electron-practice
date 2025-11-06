@@ -1,5 +1,6 @@
 package lol.vifez.electron;
 
+import co.aikar.commands.BukkitCommandManager;
 import co.aikar.commands.PaperCommandManager;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.google.gson.Gson;
@@ -31,6 +32,7 @@ import lol.vifez.electron.match.MatchManager;
 import lol.vifez.electron.match.task.MatchTask;
 import lol.vifez.electron.mongo.MongoAPI;
 import lol.vifez.electron.navigator.command.NavigatorCommand;
+import lol.vifez.electron.queue.command.ForceQueueCommand;
 import lol.vifez.electron.util.placeholderapi.ElectronPlaceholders;
 import lol.vifez.electron.profile.ProfileManager;
 import lol.vifez.electron.profile.repository.ProfileRepository;
@@ -57,12 +59,13 @@ import xyz.refinedev.api.skin.SkinAPI;
 import xyz.refinedev.api.tablist.TablistHandler;
 
 import java.io.File;
+import java.util.Arrays;
 
-/**
- * @author vifez
- * @project Electron
- * @website https://vifez.lol
- */
+/* 
+ * Electron © Vifez
+ * Developed by Vifez
+ * Copyright (c) 2025 Vifez. All rights reserved.
+*/
 
 public final class Practice extends JavaPlugin {
 
@@ -82,7 +85,7 @@ public final class Practice extends JavaPlugin {
 
     @Setter
     @Getter private Location spawnLocation;
-
+    @Getter private BukkitCommandManager bukkitCommandManager;
     @Override
     public void onLoad() {
         PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this));
@@ -179,26 +182,29 @@ public final class Practice extends JavaPlugin {
     }
 
     private void registerCommands() {
-        PaperCommandManager manager = new PaperCommandManager(this);
+        BukkitCommandManager manager = getBukkitCommandManager();
 
-        manager.registerCommand(new ArenaCommand(arenaManager));
-        manager.registerCommand(new ArenasCommand());
-        manager.registerCommand(new KitCommands());
-        manager.registerCommand(new ElectronCommand());
-        manager.registerCommand(new BuildModeCommand());
-        manager.registerCommand(new EloCommand());
-        manager.registerCommand(new SetSpawnCommand());
-        manager.registerCommand(new LeaderboardCommand());
-        manager.registerCommand(new MessageCommand());
-        manager.registerCommand(new ReplyCommand());
-        manager.registerCommand(new MoreCommand());
-        manager.registerCommand(new DuelCommand());
-        manager.registerCommand(new SettingsCommand());
-        manager.registerCommand(new NavigatorCommand());
-        manager.registerCommand(new DivisionsCommand());
-        manager.registerCommand(new SurrenderCommand());
-        manager.registerCommand(new RenameCommand());
-        manager.registerCommand(new RematchCommand());
+        Arrays.asList(
+                new ArenaCommand(arenaManager),
+                new ArenasCommand(),
+                new KitCommands(),
+                new ElectronCommand(),
+                new BuildModeCommand(),
+                new EloCommand(),
+                new SetSpawnCommand(),
+                new LeaderboardCommand(),
+                new MessageCommand(),
+                new ReplyCommand(),
+                new MoreCommand(),
+                new DuelCommand(),
+                new SettingsCommand(),
+                new NavigatorCommand(),
+                new DivisionsCommand(),
+                new SurrenderCommand(),
+                new RenameCommand(),
+                new RematchCommand(),
+                new ForceQueueCommand()
+        ).forEach(manager::registerCommand);
     }
 
     private void initializeListeners() {
