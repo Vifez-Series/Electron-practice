@@ -36,7 +36,7 @@ public class Arena {
     public Arena(String name) {
         this.name = name;
         this.type = "default";
-        this.icon = Material.DIAMOND_SWORD;
+        this.icon = Material.PAPER;
         this.kits = new ArrayList<>();
         this.busy = false;
         this.blocksBuilt = new ArrayList<>();

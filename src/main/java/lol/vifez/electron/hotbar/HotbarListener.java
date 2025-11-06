@@ -1,7 +1,7 @@
 package lol.vifez.electron.hotbar;
 
 import lol.vifez.electron.Practice;
-import lol.vifez.electron.kit.menu.editor.KitSelectionMenu;
+import lol.vifez.electron.kit.menu.editor.KitSelectMenu;
 import lol.vifez.electron.leaderboard.menu.LeaderboardMenu;
 import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.navigator.menu.NavigatorMenu;
@@ -70,7 +70,7 @@ public class HotbarListener implements Listener {
 
         } else if (itemInHand.isSimilar(Hotbar.KIT_EDITOR.getItem())) {
             event.setCancelled(true);
-            new KitSelectionMenu(instance).openMenu(player);
+            new KitSelectMenu(instance).openMenu(player);
 
         } else if (itemInHand.isSimilar(Hotbar.NAVIGATOR.getItem())) {
             event.setCancelled(true);

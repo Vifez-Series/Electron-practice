@@ -8,6 +8,7 @@ import lol.vifez.electron.settings.menu.buttons.WorldTimeButton;
 import lol.vifez.electron.util.ItemBuilder;
 import lol.vifez.electron.util.menu.Menu;
 import lol.vifez.electron.util.menu.button.Button;
+import lol.vifez.electron.util.menu.button.impl.DisplayButton;
 import lol.vifez.electron.util.menu.button.impl.EasyButton;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -56,20 +57,12 @@ public class SettingsMenu extends Menu {
                 true, true, () -> new OptionsMenu().openMenu(player)
         ));
 
-        int[] borderSlots = {
-                0, 1, 2, 3, 4, 5, 6, 7, 8,
-                9, 17, 18, 26,
-                19, 20, 21, 23, 24, 25
-        };
-
-        for (int slot : borderSlots) {
-            if (buttons.containsKey(slot)) continue;
-            buttons.put(slot, new EasyButton(
+        for (int i = 0; i < getSize(); i++) {
+            buttons.putIfAbsent(i, new DisplayButton(
                     new ItemBuilder(Material.STAINED_GLASS_PANE)
                             .durability((short) 15)
                             .name("&7")
-                            .build(),
-                    true, false, () -> {}
+                            .build()
             ));
         }
 

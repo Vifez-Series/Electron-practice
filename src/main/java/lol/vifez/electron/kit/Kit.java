@@ -25,7 +25,7 @@ public class Kit {
     private List<String> description = new ArrayList<>();
 
     private ItemStack[] contents = new ItemStack[]{}, armorContents = new ItemStack[]{};
-    private Material icon = Material.IRON_SWORD;
+    private Material icon = Material.BOOK;
 
     private ChatColor color = ChatColor.AQUA;
     private KitType kitType = KitType.REGULAR;

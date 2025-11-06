@@ -8,12 +8,19 @@ import lol.vifez.electron.util.ItemBuilder;
 import lol.vifez.electron.hotbar.Hotbar;
 import lol.vifez.electron.util.menu.Menu;
 import lol.vifez.electron.util.menu.button.Button;
+import lol.vifez.electron.util.menu.button.impl.DisplayButton;
 import lol.vifez.electron.util.menu.button.impl.EasyButton;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+
+/**
+ * @author vifez
+ * @project Electron
+ * @website https://vifez.lol
+ */
 
 public class KitEditMenu extends Menu {
 
@@ -25,7 +32,7 @@ public class KitEditMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return "&fEditing...";
+        return "&7Editing... [" + kit.getName() + "]";
     }
 
     @Override
@@ -43,10 +50,10 @@ public class KitEditMenu extends Menu {
         Map<Integer, Button> buttons = new HashMap<>();
         Profile profile = plugin.getProfileManager().getProfile(player.getUniqueId());
 
-        buttons.put(11, new EasyButton(new ItemBuilder(Material.WOOL)
-                .name("&2&lSave & Exit")
-                .durability((short) 13)
-                .lore("&r", "&fClick here to save this layout and exit the menu")
+        buttons.put(11, new EasyButton(new ItemBuilder(Material.INK_SACK)
+                .name("&2&lConfirm")
+                .durability((short) 10)
+                .lore("&r", "", "&fKit: &b" + kit.getName(), "&fClick to save your kit changes")
                 .build(), true, false, () -> {
             profile.getKitLoadout().put(kit.getName().toLowerCase(), player.getInventory().getContents());
             player.closeInventory();
@@ -56,24 +63,33 @@ public class KitEditMenu extends Menu {
             CC.sendMessage(player, "&aSuccessfully saved " + kit.getColor() + kit.getName() + " &alayout");
         }));
 
-        buttons.put(13, new EasyButton(new ItemBuilder(Material.WOOL)
-                .name("&e&lReset")
-                .durability((short) 4)
-                .lore("&r", "&fClick here to reset this layout to the default")
+        buttons.put(13, new EasyButton(new ItemBuilder(Material.REDSTONE_COMPARATOR)
+                .name("&e&lRestore default")
+                .lore("&r", "", "&fKit: &b" + kit.getName(), "&fClick to restore kit to default")
                 .build(), true, false, () -> {
+            CC.sendMessage(player, "&eRestored kit to default");
             player.getInventory().setContents(kit.getContents());
         }));
 
-        buttons.put(15, new EasyButton(new ItemBuilder(Material.WOOL)
-                .name("&c&lCancel & Exit")
-                .durability((short) 14)
-                .lore("&r", "&fClick here to exit the menu and not save the changes")
+        buttons.put(15, new EasyButton(new ItemBuilder(Material.INK_SACK)
+                .name("&c&lCancel")
+                .durability((short) 1)
+                .lore("&r", "", "&fKit: &b" + kit.getName(), "&fClick to cancel your changes")
                 .build(), true, false, () -> {
             profile.setEditMode(false);
             CC.sendMessage(player, "&cCancelled layout changes");
             player.closeInventory();
             player.getInventory().setContents(Hotbar.getSpawnItems());
         }));
+
+        for (int i = 0; i < getSize(); i++) {
+            buttons.putIfAbsent(i, new DisplayButton(
+                    new ItemBuilder(Material.STAINED_GLASS_PANE)
+                            .durability((short) 15)
+                            .name("&7")
+                            .build()
+            ));
+        }
 
         return buttons;
     }

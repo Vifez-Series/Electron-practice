@@ -5,6 +5,7 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Default;
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.profile.Profile;
+import lol.vifez.electron.settings.menu.OptionsMenu;
 import lol.vifez.electron.settings.menu.SettingsMenu;
 import lol.vifez.electron.util.CC;
 import org.bukkit.entity.Player;
@@ -24,10 +25,9 @@ public class SettingsCommand extends BaseCommand {
     public void openSettings(Player player) {
         Profile profile = instance.getProfileManager().getProfile(player.getUniqueId());
         if (profile == null) {
-            player.sendMessage(CC.translate("&cCould not load your profile."));
             return;
         }
 
-        new SettingsMenu(instance, profile).openMenu(player);
+        new OptionsMenu().openMenu(player);
     }
 }

@@ -2,7 +2,7 @@ package lol.vifez.electron.navigator.menu;
 
 import lol.vifez.electron.Practice;
 import lol.vifez.electron.duel.menu.DuelPlayerMenu;
-import lol.vifez.electron.kit.menu.editor.KitSelectionMenu;
+import lol.vifez.electron.kit.menu.editor.KitSelectMenu;
 import lol.vifez.electron.leaderboard.menu.LeaderboardMenu;
 import lol.vifez.electron.profile.Profile;
 import lol.vifez.electron.profile.menu.ProfileMenu;
@@ -94,7 +94,7 @@ public class NavigatorMenu extends Menu {
                         "&r",
                         "&fLeft-click to &bedit layouts.")
                 .build(), true, false, () -> {
-            new KitSelectionMenu(instance).openMenu(player);
+            new KitSelectMenu(instance).openMenu(player);
         }));
 
         for (int i = 0; i < getSize(); i++) {
