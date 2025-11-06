@@ -51,8 +51,7 @@ public class SettingsMenu extends Menu {
 
         buttons.put(22, new EasyButton(
                 new ItemBuilder(Material.ARROW)
-                        .name("&c&lGo Back")
-                        .lore("&7Return to the main options menu.")
+                        .name("&cGo back")
                         .build(),
                 true, true, () -> new OptionsMenu().openMenu(player)
         ));

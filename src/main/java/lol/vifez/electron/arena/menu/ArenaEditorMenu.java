@@ -144,7 +144,7 @@ public class ArenaEditorMenu extends Menu {
 
         map.put(40, new EasyButton(
                 new ItemBuilder(Material.ARROW)
-                        .name("&cBack")
+                        .name("&cGo back")
                         .build(),
                 true, false, () -> new ArenasMenu(arenaManager).openMenu(player)
         ));

@@ -14,11 +14,11 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-/* 
+/*
  * Electron © Vifez
  * Developed by Vifez
  * Copyright (c) 2025 Vifez. All rights reserved.
-*/
+ */
 
 @CommandAlias("kit")
 @CommandPermission("electron.admin")
@@ -39,60 +39,61 @@ public class KitCommands extends BaseCommand {
         sender.sendMessage(CC.translate("&f • &b/kit setIcon &f<kit> &7- &fSet the icon for a kit"));
         sender.sendMessage(CC.translate("&f • &b/kit setRanked &f<kit> &7- &fToggle whether a kit is ranked"));
         sender.sendMessage(CC.translate("&f • &b/kit setDescription &f<kit> <description> &7- &fSet the description of a kit"));
-        sender.sendMessage(CC.translate("&f • &b/kit list - &fList all kits"));
+        sender.sendMessage(CC.translate("&f • &b/kit list &7- &fList all kits"));
+        sender.sendMessage(CC.translate("&f • &b/kit save &7- &fSave all kits"));
         sender.sendMessage(CC.translate(" "));
     }
 
     @Subcommand("create")
-    public void create(CommandSender sender, @Name("kit") @Single String kitSingle) {
-        Kit kit = instance.getKitManager().getKit(kitSingle.toLowerCase());
+    public void create(CommandSender sender, @Name("kit") @Single String kitName) {
+        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
 
         if (kit != null) {
-            CC.sendMessage(sender, "&cKit already exists");
+            sender.sendMessage(CC.translate("&cKit already exists!"));
             return;
         }
 
-        kit = new Kit(kitSingle);
+        kit = new Kit(kitName);
         kit.setIcon(Material.BOOK);
         instance.getKitManager().save(kit);
 
-        CC.sendMessage(sender, "&fCreated &b" + kit.getColor() + kit.getName() + " &fkit");
+        sender.sendMessage(CC.translate("&7[&b" + kit.getName() + "&7] &fKit created"));
     }
 
     @Subcommand("delete")
-    public void delete(CommandSender sender, @Name("kit") @Single String kitSingle) {
-        Kit kit = instance.getKitManager().getKit(kitSingle.toLowerCase());
+    public void delete(CommandSender sender, @Name("kit") @Single String kitName) {
+        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
 
         if (kit == null) {
-            CC.sendMessage(sender, "&cThis kit does not exist.");
+            sender.sendMessage(CC.translate("&cKit not found!"));
             return;
         }
 
         instance.getKitManager().delete(kit);
-        CC.sendMessage(sender, "&cDeleted &b" + kit.getColor() + kit.getName() + " &ckit");
+        sender.sendMessage(CC.translate("&7[&b" + kit.getName() + "&7] &fKit deleted"));
     }
 
     @Subcommand("save")
     @Description("Save all kits to kits.yml")
     public void save(CommandSender sender) {
         instance.getKitManager().saveAll();
-        CC.sendMessage(sender, "&aAll kits saved.");
+        sender.sendMessage(CC.translate("&fSaved all &bkits"));
     }
 
     @Subcommand("setInventory")
-    public void setInventory(Player player, @Name("kit") @Single String kitSingle) {
-        Kit kit = instance.getKitManager().getKit(kitSingle.toLowerCase());
+    public void setInventory(Player player, @Name("kit") @Single String kitName) {
+        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
 
         if (kit == null) {
-            CC.sendMessage(player, "&cInvalid kit name.");
+            player.sendMessage(CC.translate("&cKit not found!"));
             return;
         }
 
         kit.setArmorContents(player.getInventory().getArmorContents());
         kit.setContents(player.getInventory().getContents());
-
         instance.getKitManager().save(kit);
-        CC.sendMessage(player, "&fUpdated &b" + kit.getName() + "'s &flayout");
+
+        player.sendMessage(CC.translate("&7[&b" + kit.getName() + "&7] &fLayout saved"));
     }
 
     @Subcommand("getInventory")
@@ -100,103 +101,98 @@ public class KitCommands extends BaseCommand {
         Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
 
         if (kit == null) {
-            CC.sendMessage(player, "&cInvalid kit name.");
+            player.sendMessage(CC.translate("&cKit not found!"));
             return;
         }
 
         player.getInventory().clear();
-
         player.getInventory().setContents(kit.getContents());
         player.getInventory().setArmorContents(kit.getArmorContents());
 
-        CC.sendMessage(player, "&fReceived the kit layout for &b" + kit.getName());
+        player.sendMessage(CC.translate("&7[&b" + kit.getName() + "&7] &fLayout loaded"));
     }
 
     @Subcommand("setIcon")
-    public void setIcon(Player player, @Name("kit") @Single String kitSingle) {
-        Kit kit = instance.getKitManager().getKit(kitSingle.toLowerCase());
+    public void setIcon(Player player, @Name("kit") @Single String kitName) {
+        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
 
         if (kit == null) {
-            CC.sendMessage(player, "&cInvalid kit name.");
+            player.sendMessage(CC.translate("&cKit not found!"));
             return;
         }
 
-        ItemStack itemInHand = player.getInventory().getItemInHand();
-        instance.getKitManager().save(kit);
-
-        if (itemInHand == null || itemInHand.getType() == Material.AIR) {
-            CC.sendMessage(player, "&cThere is nothing in your hand...");
+        ItemStack item = player.getItemInHand();
+        if (item == null || item.getType() == Material.AIR) {
+            player.sendMessage(CC.translate("&cYou must hold an item in your hand!"));
             return;
-
         }
 
-        kit.setIcon(itemInHand.getType());
+        kit.setIcon(item.getType());
         instance.getKitManager().save(kit);
-        CC.sendMessage(player, "&fUpdated the icon for &b" + kit.getName());
+
+        player.sendMessage(CC.translate("&7[&b" + kit.getName() + "&7] &fIcon updated"));
     }
 
     @Subcommand("setType")
     public void setType(Player player, @Name("kit") @Single String kitName, @Name("type") @Single String type) {
-        Kit kit = instance.getKitManager().getKit(kitName);
+        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
 
         if (kit == null) {
-            CC.sendMessage(player, "&cInvalid kit name.");
+            player.sendMessage(CC.translate("&cKit not found!"));
             return;
         }
 
         try {
-            KitType typeEnum = KitType.valueOf(type.toUpperCase());
-            kit.setKitType(typeEnum);
-            CC.sendMessage(player, "&fNew type for &b" + kit.getName() + "&f: &b" + typeEnum.name());
+            KitType kitType = KitType.valueOf(type.toUpperCase());
+            kit.setKitType(kitType);
             instance.getKitManager().save(kit);
-        } catch (IllegalArgumentException ignored) {
-            CC.sendMessage(player, "&cInvalid kit type, Please use one of the following:");
-            CC.sendMessage(player, "&f• REGULAR");
-            CC.sendMessage(player, "&f• BUILD");
-            CC.sendMessage(player, "&f• BOXING");
-            CC.sendMessage(player, "&f• WATER_KILL");
+
+            player.sendMessage(CC.translate("&7[&b" + kit.getName() + "&7] &fType set to &b" + kitType.name()));
+        } catch (IllegalArgumentException e) {
+            player.sendMessage(CC.translate("&cInvalid kit type! &7(Use: REGULAR, BUILD, BOXING, WATER_KILL)"));
         }
     }
 
     @Subcommand("setRanked")
-    public void ranked(Player player, @Name("kit") @Single String kitName) {
+    public void setRanked(Player player, @Name("kit") @Single String kitName) {
         Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
 
         if (kit == null) {
-            CC.sendMessage(player, "&cInvalid kit name.");
+            player.sendMessage(CC.translate("&cKit not found!"));
             return;
         }
 
         kit.setRanked(!kit.isRanked());
-        CC.sendMessage(player, "&aYou have " + (kit.isRanked() ? "&aenabled" : "&cdisabled") + " &aranked for kit &b" + kit.getName());
         instance.getKitManager().save(kit);
-    }
 
-    @Subcommand("list")
-    public void list(CommandSender sender) {
-        sender.sendMessage(CC.translate("&b&lElectron &7| &fKits"));
-        sender.sendMessage(CC.translate(" "));
-
-        for (Kit kit : instance.getKitManager().getKits().values()) {
-            sender.sendMessage(CC.translate("&f • " + kit.getColor() + kit.getName() + "&7 - &f" + kit.getDescription()));
-        }
+        player.sendMessage(CC.translate("&7[&b" + kit.getName() + "&7] &fRanked mode " +
+                (kit.isRanked() ? "&aenabled" : "&cdisabled")));
     }
 
     @Subcommand("setDescription")
     public void setDescription(CommandSender sender, @Name("kit") @Single String kitName, String[] descriptionArgs) {
-        Kit kit = instance.getKitManager().getKit(kitName);
+        Kit kit = instance.getKitManager().getKit(kitName.toLowerCase());
 
         if (kit == null) {
-            CC.sendMessage(sender, "&cInvalid kit name.");
+            sender.sendMessage(CC.translate("&cKit not found!"));
             return;
         }
 
         String descriptionLine = String.join(" ", descriptionArgs);
         List<String> lore = new ArrayList<>();
         lore.add(descriptionLine);
-
         kit.setDescription(lore);
+
         instance.getKitManager().save(kit);
-        CC.sendMessage(sender, "&aUpdated description of kit &b" + kit.getName() + " &ato: &f" + descriptionLine);
+        sender.sendMessage(CC.translate("&7[&b" + kit.getName() + "&7] &fDescription updated"));
+        sender.sendMessage(CC.translate("&fDescription: &7" + descriptionLine));
+    }
+
+    @Subcommand("list")
+    public void list(CommandSender sender) {
+        sender.sendMessage(CC.translate("&bKit list"));
+        for (Kit kit : instance.getKitManager().getKits().values()) {
+            sender.sendMessage(CC.translate("&f • &b" + kit.getName()));
+        }
     }
 }

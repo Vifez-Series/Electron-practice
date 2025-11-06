@@ -16,14 +16,15 @@ import org.bukkit.entity.Player;
 import java.util.HashMap;
 import java.util.Map;
 
-/* 
+/*
  * Electron © Vifez
  * Developed by Vifez
  * Copyright (c) 2025 Vifez. All rights reserved.
-*/
+ */
 
 public class KitEditMenu extends Menu {
 
+    private static final Practice instance = Practice.getInstance();
     private final Kit kit;
 
     public KitEditMenu(Kit kit) {
@@ -37,53 +38,70 @@ public class KitEditMenu extends Menu {
 
     @Override
     public void onOpen(Player player) {
-        Practice plugin = Practice.getInstance();
-        Profile profile = plugin.getProfileManager().getProfile(player.getUniqueId());
+        Profile profile = instance.getProfileManager().getProfile(player.getUniqueId());
         profile.setEditMode(true);
+        CC.sendMessage(player, "&fStarted editing &b" + kit.getName() + " &flayout");
+    }
 
-        CC.sendMessage(player, "&aYou are now editing " + kit.getColor() + kit.getName() + " &alayout");
+    @Override
+    public void onClose(Player player) {
+        Profile profile = instance.getProfileManager().getProfile(player.getUniqueId());
+        if (profile.isEditMode()) {
+            profile.setEditMode(false);
+            CC.sendMessage(player, "&cExited kit edit mode.");
+            player.getInventory().setContents(Hotbar.getSpawnItems());
+        }
     }
 
     @Override
     public Map<Integer, Button> getButtons(Player player) {
-        Practice plugin = Practice.getInstance();
-        Map<Integer, Button> buttons = new HashMap<>();
-        Profile profile = plugin.getProfileManager().getProfile(player.getUniqueId());
+        Map<Integer, Button> map = new HashMap<>();
+        Profile profile = instance.getProfileManager().getProfile(player.getUniqueId());
 
-        buttons.put(11, new EasyButton(new ItemBuilder(Material.INK_SACK)
-                .name("&2&lConfirm")
-                .durability((short) 10)
-                .lore("&r", "", "&fKit: &b" + kit.getName(), "&fClick to save your kit changes")
-                .build(), true, false, () -> {
+        map.put(11, new EasyButton(
+                new ItemBuilder(Material.INK_SACK)
+                        .name("&2&lConfirm")
+                        .durability((short) 10)
+                        .lore("&r", "&fKit: &b" + kit.getName(), "&fClick to save your kit changes")
+                        .build(),
+                true, false, () -> {
             profile.getKitLoadout().put(kit.getName().toLowerCase(), player.getInventory().getContents());
             player.closeInventory();
-            profile.setEditMode(false);
-            player.getInventory().setContents(Hotbar.getSpawnItems());
-
             CC.sendMessage(player, "&aSuccessfully saved " + kit.getColor() + kit.getName() + " &alayout");
         }));
 
-        buttons.put(13, new EasyButton(new ItemBuilder(Material.REDSTONE_COMPARATOR)
-                .name("&e&lRestore default")
-                .lore("&r", "", "&fKit: &b" + kit.getName(), "&fClick to restore kit to default")
-                .build(), true, false, () -> {
+        map.put(13, new EasyButton(
+                new ItemBuilder(Material.REDSTONE_COMPARATOR)
+                        .name("&e&lRestore default")
+                        .lore("&r", "&fKit: &b" + kit.getName(), "&fClick to restore kit to default")
+                        .build(),
+                true, false, () -> {
             CC.sendMessage(player, "&eRestored kit to default");
             player.getInventory().setContents(kit.getContents());
         }));
 
-        buttons.put(15, new EasyButton(new ItemBuilder(Material.INK_SACK)
-                .name("&c&lCancel")
-                .durability((short) 1)
-                .lore("&r", "", "&fKit: &b" + kit.getName(), "&fClick to cancel your changes")
-                .build(), true, false, () -> {
-            profile.setEditMode(false);
+        map.put(15, new EasyButton(
+                new ItemBuilder(Material.INK_SACK)
+                        .name("&c&lCancel")
+                        .durability((short) 1)
+                        .lore("&r", "&fKit: &b" + kit.getName(), "&fClick to cancel your changes")
+                        .build(),
+                true, false, () -> {
             CC.sendMessage(player, "&cCancelled layout changes");
             player.closeInventory();
+        }));
+
+        map.put(22, new EasyButton(
+                new ItemBuilder(Material.ARROW)
+                        .name("&cGo back")
+                        .build(),
+                true, false, () -> {
+            new KitSelectMenu(instance).openMenu(player);
             player.getInventory().setContents(Hotbar.getSpawnItems());
         }));
 
         for (int i = 0; i < getSize(); i++) {
-            buttons.putIfAbsent(i, new DisplayButton(
+            map.putIfAbsent(i, new DisplayButton(
                     new ItemBuilder(Material.STAINED_GLASS_PANE)
                             .durability((short) 15)
                             .name("&7")
@@ -91,6 +109,6 @@ public class KitEditMenu extends Menu {
             ));
         }
 
-        return buttons;
+        return map;
     }
 }

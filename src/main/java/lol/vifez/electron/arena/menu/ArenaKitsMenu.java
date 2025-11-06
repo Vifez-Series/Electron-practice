@@ -76,7 +76,7 @@ public class ArenaKitsMenu extends Menu {
 
         map.put(49, new EasyButton(
                 new ItemBuilder(Material.ARROW)
-                        .name("&7← Back")
+                        .name("&cGo back")
                         .build(),
                 true,false,() -> new ArenaEditorMenu(arena, manager).openMenu(player)
         ));

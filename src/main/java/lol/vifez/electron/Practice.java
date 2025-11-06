@@ -129,7 +129,6 @@ public final class Practice extends JavaPlugin {
         if (!tabFile.getConfiguration().contains("enabled")) {
             sendMessage("&c[ERROR] tab.yml is missing essential data!");
         } else {
-            sendMessage("&aSuccessfully loaded tab.yml!");
         }
     }
 

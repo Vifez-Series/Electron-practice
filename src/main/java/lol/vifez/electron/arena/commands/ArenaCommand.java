@@ -57,7 +57,7 @@ public class ArenaCommand extends BaseCommand {
         arena.setBusy(false);
         arenaManager.save(arena);
 
-        sender.sendMessage(CC.translate("&aArena created successfully!"));
+        sender.sendMessage(CC.translate("&7[&b" + arenaName + "&7] &aArena created"));
     }
 
     @Subcommand("delete")
@@ -70,7 +70,7 @@ public class ArenaCommand extends BaseCommand {
         }
 
         arenaManager.delete(arena);
-        sender.sendMessage(CC.translate("&aArena deleted successfully!"));
+        sender.sendMessage(CC.translate("&7[&b" + arenaName + "&7] &cArena deleted"));
     }
 
     @Subcommand("status")
@@ -115,7 +115,7 @@ public class ArenaCommand extends BaseCommand {
         }
 
         arena.getKits().add(kitName.toLowerCase());
-        sender.sendMessage(CC.translate("&aKit added to arena!"));
+        sender.sendMessage(CC.translate("&7[&b" + arenaName + "&7] &b" + kitName + " &fkit was added"));
     }
 
     @Subcommand("removekit")
@@ -128,7 +128,7 @@ public class ArenaCommand extends BaseCommand {
         }
 
         arena.getKits().remove(kitName.toLowerCase());
-        sender.sendMessage(CC.translate("&aKit removed from arena!"));
+        sender.sendMessage(CC.translate("&7[&b" + arenaName + "&7] &b" + kitName + " &fwas removed"));
     }
 
     @Subcommand("setpos1|setfirstposition")
@@ -141,7 +141,7 @@ public class ArenaCommand extends BaseCommand {
         }
 
         arena.setSpawnA(sender.getLocation());
-        sender.sendMessage(CC.translate("&aFirst position set!"));
+        sender.sendMessage(CC.translate("&7[&b" + arenaName + "&7] &fPosition &b1 &fset"));
     }
 
     @Subcommand("setpos2|setsecondposition")
@@ -154,7 +154,7 @@ public class ArenaCommand extends BaseCommand {
         }
 
         arena.setSpawnB(sender.getLocation());
-        sender.sendMessage(CC.translate("&aSecond position set!"));
+        sender.sendMessage(CC.translate("&7[&b" + arenaName + "&7] &fPosition &b2 &fset"));
     }
 
     @Subcommand("setmin")
@@ -167,7 +167,7 @@ public class ArenaCommand extends BaseCommand {
         }
 
         arena.setPositionOne(sender.getLocation());
-        sender.sendMessage(CC.translate("&aMinimum point set!"));
+        sender.sendMessage(CC.translate("&7[&b" + arenaName + "&7] &fSet minimum point"));
     }
 
     @Subcommand("setmax")
@@ -180,7 +180,7 @@ public class ArenaCommand extends BaseCommand {
         }
 
         arena.setPositionTwo(sender.getLocation());
-        sender.sendMessage(CC.translate("&aMaximum point set!"));
+        sender.sendMessage(CC.translate("&7[&b" + arenaName + "&7] &fSet maximum point"));
     }
 
     @Subcommand("tp|teleport")
@@ -199,6 +199,6 @@ public class ArenaCommand extends BaseCommand {
     @CommandPermission("electron.admin")
     public void saveArenas(CommandSender sender) {
         arenaManager.close();
-        sender.sendMessage(CC.translate("&b&lElectron &7┃ &fSaved to &bArenas.yml."));
+        sender.sendMessage(CC.translate("&fSaved all &barenas"));
     }
 }
