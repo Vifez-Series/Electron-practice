@@ -8,6 +8,8 @@ import lol.vifez.electron.mongo.repository.MongoRepository;
 import lol.vifez.electron.profile.Profile;
 import org.bson.Document;
 
+import java.util.concurrent.CompletableFuture;
+
 public class ProfileRepository extends MongoRepository<Profile> {
 
     public ProfileRepository(MongoAPI mongoAPI, Gson gson) {
@@ -16,8 +18,8 @@ public class ProfileRepository extends MongoRepository<Profile> {
     }
 
     @Override
-    public java.util.concurrent.CompletableFuture<Void> saveData(String id, Profile profile) {
-        return java.util.concurrent.CompletableFuture.runAsync(() -> {
+    public CompletableFuture<Void> saveData(String id, Profile profile) {
+        return CompletableFuture.runAsync(() -> {
             try {
                 Document doc = Document.parse(getGson().toJson(profile));
 
